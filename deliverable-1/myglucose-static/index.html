@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com"> 
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> 
+    <link href="https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Home | MyGlucose by Diabetes@Home</title>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar-container">
+        <div class="navbar-brand">
+          <a href="index.html">
+            <img src="img/MyGlucose.png" alt="MyGlucose Logo" />
+          </a>
+        </div>
+
+
+
+        <ul class="navbar-nav-right">
+          <li>
+            <a href="index.html">Home</a>
+          </li>
+          <li>
+            <a href="aboutus.html">About Us</a>
+          </li>
+          <li>
+            <a href="aboutdiabetes.html">About Diabetes</a>
+          </li>
+          <li><button class="btn btn-dark-outline">Sign in</button></li>
+          <li><button class="btn btn-dark">Sign Up</button></li>
+        </ul>
+
+        <!-- Hamburger Menu -->
+        <button type="button" class="hamburger" id="menu-btn">
+          <span class="hamburger-top"></span>
+          <span class="hamburger-middle"></span>
+          <span class="hamburger-bottom"></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu hidden" id="menu">
+      <ul>
+        <li>
+          <a href="index.html">Home</a>
+        </li>
+        <li>
+          <a href="aboutus.html">About Us</a>
+        </li>
+        <li>
+          <a href="aboutdiabetes.html">About Diabetes</a>
+        </li>
+      </ul>
+
+      <div class="mobile-menu-bottom">
+        <button class="btn btn-dark-outline">Sign in</button>
+        <button class="btn btn-dark">Sign Up</button>
+      </div>
+    </div>
+    
+    <!-- Box D -->
+    <section class="box box-d bg-primary grid-col-2">
+      <img src="img/box-d.png" alt="" />
+      <div class="box-text">
+        <h2 class="text-xl">Welcome to MyGlucose</h2>
+        <p>By Diabetes@Home</p>
+        <br>
+        <p class="text-md">
+          Diabetes management starts with <br>what you track.
+        </p>
+        <a href="#" class="btn btn-light-outline">Get Started</a>
+      </div>
+    </section>
+
+    <!-- Box F -->
+    <section class="box box-f grid-col-2">
+      <div>
+        <a href="aboutus.html"><img src="img/box-f1.png" alt="About Diabetes@Home"></a>
+        <div class="bg-extra py-lg">
+          <div class="box-text">
+            <h2 class="text-md">Synchronise your health information</h2>
+            <p class="text-sm">
+              Regular checking and recording of your blood glucose level can help you make healthy lifestyle choices and can alert your clinician to a possible need for a change in how your diabetes is being managed.
+              Effective management of diabetes means aiming for a careful balance between the foods you eat, how active you are and what medication you take.<br><br>
+            </p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <a href="aboutdiabetes.html"><img src="img/box-f2.png" alt="What is Diabetes?"></a>
+        <div class="bg-secondary py-lg">
+          <div class="box-text">
+            <h2 class="text-md">Ready to get started?</h2>
+            <p class="text-sm">
+              Track your health information.<br>
+              Message a doctor.<br>
+              View historic data.<br>
+              MyGlucose.
+            </p>
+            <a href="#" class="btn btn-light-outline">Sign Up</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <footer class="footer">
+      <div class="footer-container">
+        <div class="social">
+          <a href="https://outlook.com">
+            <img src="./img/email.svg" alt="" />
+          </a>
+          <a href="https://voice.google.com">
+            <img src="./img/call.svg" alt="" />
+          </a>
+          <a href="https://maps.apple.com">
+            <img src="./img/map.svg" alt="" />
+          </a>
+        </div>
+        <p>© 2022 MyGlucose by Diabetes@Home. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
