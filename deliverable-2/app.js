@@ -28,10 +28,16 @@ const peopleRouter = require('./routes/peopleRouter')
 // the demo routes are added to the end of the '/people' path
 app.use('/people', peopleRouter)
 
+
 // Tells the app to send the string: "Our demo app is working!" when you hit the '/' endpoint.
 app.get('/', (req, res) => {
     res.render('index.hbs')
 })
+
+app.get('/auth', (req, res) => {
+    res.render('auth.hbs')
+})
+
 
 // Tells the app to listen on port 3000 and logs that information to the console.
 app.listen(3000, () => {
