@@ -42,7 +42,7 @@ section a {
 .navbar {
   width: 100%;
   height: auto;
-  background-color: #EEF5FC;
+  background-color: #0171BC;
   padding: 20px;
   box-shadow: 0 1px 3px rgb(0 0 0 / 10%), 0 2px 2px rgb(0 0 0 / 6%),
     0 0 2px rgb(0 0 0 / 7%);
@@ -67,12 +67,12 @@ section a {
 }
 
 .navbar a {
-  color: #000;
+  color: #FFFFFF;
   text-decoration: none;
 }
 
 .navbar a:hover {
-  color: var(--color-primary);
+  color: var(--color-extra);
 }
 
 .navbar-brand img {
@@ -214,6 +214,14 @@ section a {
 }
 .bg-secondary {
   background-color: var(--color-secondary);
+  color: #fff;
+}
+.bg-white {
+  background-color: #FFFFFF;
+  color: #fff;
+}
+.bg-complete {
+  background-color: #00e17c;
   color: #fff;
 }
 .bg-extra {
