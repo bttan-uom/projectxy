@@ -28,14 +28,20 @@ const peopleRouter = require('./routes/peopleRouter')
 // the demo routes are added to the end of the '/people' path
 app.use('/people', peopleRouter)
 
+var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+var today  = new Date();
 
 // Tells the app to send the string: "Our demo app is working!" when you hit the '/' endpoint.
 app.get('/', (req, res) => {
-    res.render('index.hbs')
+    res.render('index.hbs',{userName: 'Pat', currentTime: today.toLocaleDateString("en-NZ", options)})
 })
 
 app.get('/auth', (req, res) => {
     res.render('auth.hbs')
+})
+
+app.get('/newRecord', (req, res) => {
+    res.render('newRecord.hbs')
 })
 
 
