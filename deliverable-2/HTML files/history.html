@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Open Source Boxicons -->
+	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- CSS -->
+	<link rel="stylesheet" href="style.css">
+
+	<title>Historical Records | MyGlucose</title>
+</head>
+<body>
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<div class="logo">
+				<img src="img/MyglucoseWhite.png" alt="MyGlucose Logo">
+			</div>
+			<div class="hamburger">
+				<div class="bars1"></div>
+				<div class="bars2"></div>
+				<div class="bars3"></div>
+			</div>
+			<ul class="nav-links">
+				<li><a href="#">Dashboard</a></li>
+				<li><a class="active" href="#">History</a></li>
+				<li><a href="#">+Record</a></li>
+				<li><a href="#">Messages</a></li>
+				<li><a href="#">Leaderboard</a></li>
+				<li><button class="login-button" href="#">Log Out</button></li>
+			</ul>
+		</nav>
+
+		<!-- MAIN -->
+		<br><br><br><br><br>
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<ul class="breadcrumb">
+						<li>
+							<a class="active" href="#">History</a>
+						</li>
+						<li><i class='bx bx-chevron-right' ></i></li>
+					</ul>
+					<br>
+					<h1>Historical Records</h1>
+					
+				</div>
+				
+
+			</div>
+
+			<ul class="box-info">
+				<li>
+					<i class='bx bxs-calendar'></i>
+					<span class="text">
+						<h3>{{Date}}</h3>
+						<p>Today's Date</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx bxs-user-badge' ></i>
+					<span class="text">
+						<h3>{{name}}</h3>
+						<p>Your clinician</p>
+					</span>
+				</li>
+<!--			<li>-->
+<!--				<i class='bx bx-list-ul' ></i>-->
+<!--				<span class="text">-->
+<!--					<h3>NUM</h3>-->
+<!--					<p>Records to complete</p>-->
+<!--				</span>-->
+<!--			</li>-->
+<!--			<li>-->
+<!--				<i class='bx bx-trophy' ></i>-->
+<!--				<span class="text">-->
+<!--					<h3>NUM</h3>-->
+<!--					<p>On the leaderboard</p>-->
+<!--				</span>-->
+<!--			</li>-->
+			</ul>
+			
+
+
+		
+					
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+<!--					<i class='bx bx-check-square' ></i>-->
+						<h3>Showing {{num}} records.</h3>
+						<input class="searchbox" type="text" placeholder="Search.." name="search">
+						<button class="generic-button" type="submit"><i style="font-size:20px" class='bx bx-search' ></i></button>
+						<button class="generic-button"><i style="font-size:20px" class='bx bx-filter' ></i></button>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>Record Type</th>
+								<th>Value</th>
+								<th>View</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<p>Weight</p>
+								</td>
+								<td>65 kg</td>
+								<td><i style="color:var(--light-green); font-size:25px" class='bx bx-chevron-right-circle' ></i></td>
+							</tr>
+							<tr>
+								<td>
+									<p>Insulin</p>
+								</td>
+								<td>2 doses</td>
+								<td><i style="color:var(--light-green); font-size:25px" class='bx bx-chevron-right-circle' ></i></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+	<br>
+	
+
+	<script src="script.js"></script>
+	
+</body>
+</html>
