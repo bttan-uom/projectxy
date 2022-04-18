@@ -1,4 +1,6 @@
-# MyGlucose/Diabetes@Home by Group ProjectXY
+<img src="branding/myglucose.svg" width="300">
+
+# MyGlucose: Diabetes@Home by ProjectXY Group
 MyGlucose by Diabetes@Home for INFO30005 Semester 1 2022.
 
 
