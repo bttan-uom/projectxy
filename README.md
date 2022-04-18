@@ -1,6 +1,5 @@
-![Alt text](branding/MyGlucose.svg)
-<img src="branding/MyGlucose.svg">
-
+<img src="branding/myglucose.svg.svg">
+# MyGlucose - Diabetes@Home by ProjectXY Group
 MyGlucose by Diabetes@Home for INFO30005 Semester 1 2022.
 
 
