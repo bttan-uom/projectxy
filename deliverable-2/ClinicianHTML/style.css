@@ -76,14 +76,14 @@ nav{
 	display: flex;
 	position: fixed;
 	z-index: 10;
-	background-color: #0171BC;
+	background-color: #CFE8FF;
 	box-shadow: 0 3px 20px rgba(0,0,0,0.2);
 }
 
 /* Styling Logo*/
 
 .logo{
-	padding: 0px 22px;
+	padding: 0px 20px;
 	text-align: left;
 	width: 60vw;
 }
@@ -112,18 +112,18 @@ nav{
 	text-decoration: none;
 	transition: all ease-in-out 350ms;
 	padding: 10px;
-	color: #FFFFFF
+	color: #000000
 }
 .nav-links .active{
-	color:#000;
-	background-color: #fff;
+	color:#FFFFFF;
+	background-color: #0171BC;
 	padding: 10px;
 	border-radius: 50px;
 }
 
 .nav-links li a:hover{
-	color:#000;
-	background-color: #fff;
+	color:#FFFFFF;
+	background-color: #0171BC;
 	padding: 10px;
 	border-radius: 50px;
 }
@@ -145,15 +145,15 @@ nav{
 	font-size:12px;
 	cursor:pointer;
 	background-color: transparent;
-	border:1.5px solid #f2f5f7;
+	border:1.5px solid #000000;
 	border-radius: 2em;
-	color: #FFFFFF;
+	color: #000000;
 }
 
 .login-button:hover{
-	color:#fff;
+	color:#000000;
 	background-color: #FFA630;
-	border:1.5px solid #FFFFFF;
+	border:1.5px solid #000000;
 	transition: all ease-in-out 0.15s;
 }
 
@@ -162,7 +162,7 @@ nav{
 .hamburger div{
 	width: 30px;
 	height: 3px;
-	background: #FFFFFF;
+	background: #0171BC;
 	margin: 5px;
 	transition: all 0.3s ease;
 }
@@ -190,7 +190,7 @@ nav{
 		transition: all 0.5s ease;
 	}
 	.nav-links{
-		background: #0171BC;
+		background: #CFE8FF;
 		position: fixed;
 		opacity: 1;
 		height: 100vh;

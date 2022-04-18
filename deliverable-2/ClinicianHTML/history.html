@@ -9,7 +9,7 @@
 	<!-- CSS -->
 	<link rel="stylesheet" href="style.css">
 
-	<title>Dashboard | MyGlucose</title>
+	<title>Historical Records | MyGlucose</title>
 </head>
 <body>
 
@@ -18,7 +18,7 @@
 		<!-- NAVBAR -->
 		<nav>
 			<div class="logo">
-				<img src="img/MyglucoseWhite.svg" alt="MyGlucose Logo">
+				<img src="img/MyglucoseWhite.png" alt="MyGlucose Logo">
 			</div>
 			<div class="hamburger">
 				<div class="bars1"></div>
@@ -26,8 +26,8 @@
 				<div class="bars3"></div>
 			</div>
 			<ul class="nav-links">
-				<li><a class="active" href="#">Dashboard</a></li>
-				<li><a href="#">History</a></li>
+				<li><a href="#">Dashboard</a></li>
+				<li><a class="active" href="#">History</a></li>
 				<li><a href="#">+Record</a></li>
 				<li><a href="#">Messages</a></li>
 				<li><a href="#">Leaderboard</a></li>
@@ -42,21 +42,16 @@
 				<div class="left">
 					<ul class="breadcrumb">
 						<li>
-							<a class="active" href="#">Dashboard</a>
+							<a class="active" href="#">History</a>
 						</li>
 						<li><i class='bx bx-chevron-right' ></i></li>
 					</ul>
 					<br>
-					<h1>Dashboard</h1>
-					<h2>Welcome, {{User}}.</h2>
+					<h1>Historical Records</h1>
 					
 				</div>
 				
-				<a href="#" class="btn-download">
-					<i class='bx bx-calendar-edit' ></i>
-					<span style='font-size:13px' class="text">Viewing data for {{date}}<br>Click to change</span>
-				</a>
-				
+
 			</div>
 
 			<ul class="box-info">
@@ -74,59 +69,31 @@
 						<p>Your clinician</p>
 					</span>
 				</li>
-				<li>
-					<i class='bx bx-list-ul' ></i>
-					<span class="text">
-						<h3>NUM</h3>
-						<p>Records to complete</p>
-					</span>
-				</li>
-				<li>
-					<i class='bx bx-trophy' ></i>
-					<span class="text">
-						<h3>NUM</h3>
-						<p>On the leaderboard</p>
-					</span>
-				</li>
+<!--			<li>-->
+<!--				<i class='bx bx-list-ul' ></i>-->
+<!--				<span class="text">-->
+<!--					<h3>NUM</h3>-->
+<!--					<p>Records to complete</p>-->
+<!--				</span>-->
+<!--			</li>-->
+<!--			<li>-->
+<!--				<i class='bx bx-trophy' ></i>-->
+<!--				<span class="text">-->
+<!--					<h3>NUM</h3>-->
+<!--					<p>On the leaderboard</p>-->
+<!--				</span>-->
+<!--			</li>-->
 			</ul>
 			
-			<ul class="box-info">
-				<li>
-					<i class='bx bx-chat' ></i>
-					<span class="text">
-						<h3>Way to go! You've been consistent this week, keep up the good work.</h3>
-						<p>Your latest message of support from Dr {{physician_name}}.</p>
-					</span>
-				</li>
-			</ul>
+
 
 		
 					
 			<div class="table-data">
-				<div class="todo">
-					<div class="head">
-<!--					<i class='bx bx-edit-alt'></i>-->
-						<a style="color:var(--blue);" href="#"><h3>Complete your diary &emsp;&emsp;<i class='bx bx-chevron-right-circle' ></i></h3></a>
-					</div>
-					<ul class="todo-list">
-						<li class="not-completed">
-							<a href="#">Blood Sugar</a>
-							<i style="color:var(--orange); font-size:25px" class='bx bx-chevron-right-circle' ></i>
-						</li>
-						<li class="not-completed">
-							<a href="#">Step count</a>
-							<i style="color:var(--orange); font-size:25px" class='bx bx-chevron-right-circle' ></i>
-						</li>
-						<li class="not-completed">
-							<a href="#">Other thing</a>
-							<i style="color:var(--orange); font-size:25px" class='bx bx-chevron-right-circle' ></i>
-						</li>
-					</ul>
-				</div>
 				<div class="order">
 					<div class="head">
 <!--					<i class='bx bx-check-square' ></i>-->
-						<h3 style="color:var(--blue);">Completed records &emsp;&emsp;<i class='bx bx-chevron-right-circle' ></i></h3>
+						<h3>Showing {{num}} records.</h3>
 						<input class="searchbox" type="text" placeholder="Search.." name="search">
 						<button class="generic-button" type="submit"><i style="font-size:20px" class='bx bx-search' ></i></button>
 						<button class="generic-button"><i style="font-size:20px" class='bx bx-filter' ></i></button>
