@@ -4,8 +4,9 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- Open Source Boxicons -->
-	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- Google Icons -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		rel="stylesheet">
 	<!-- CSS -->
 	<link rel="stylesheet" href="style.css">
 
@@ -27,10 +28,9 @@
 			</div>
 			<ul class="nav-links">
 				<li><a class="active" href="#">Dashboard</a></li>
-				<li><a href="#">History</a></li>
-				<li><a href="#">+Record</a></li>
+				<li><a href="#">Patients</a></li>
 				<li><a href="#">Messages</a></li>
-				<li><a href="#">Leaderboard</a></li>
+				<li><a href="#">Comments</a></li>
 				<li><button class="login-button" href="#">Log Out</button></li>
 			</ul>
 		</nav>
@@ -61,7 +61,7 @@
 
 			<ul class="box-info">
 				<li>
-					<i class='bx bxs-calendar'></i>
+					<i class='bx material-icons'>error</i>
 					<span class="text">
 						<h3>{{Date}}</h3>
 						<p>Today's Date</p>
@@ -70,72 +70,84 @@
 				<li>
 					<i class='bx bxs-user-badge' ></i>
 					<span class="text">
-						<h3>{{name}}</h3>
-						<p>Your clinician</p>
+						<h3>{{Number}}</h3>
+						<p>Number of patients</p>
 					</span>
 				</li>
 				<li>
 					<i class='bx bx-list-ul' ></i>
 					<span class="text">
-						<h3>NUM</h3>
-						<p>Records to complete</p>
+						<h3>{{Num}}</h3>
+						<p>Incomplete entries</p>
 					</span>
 				</li>
 				<li>
 					<i class='bx bx-trophy' ></i>
 					<span class="text">
-						<h3>NUM</h3>
-						<p>On the leaderboard</p>
-					</span>
-				</li>
-			</ul>
-			
-			<ul class="box-info">
-				<li>
-					<i class='bx bx-chat' ></i>
-					<span class="text">
-						<h3>Way to go! You've been consistent this week, keep up the good work.</h3>
-						<p>Your latest message of support from Dr {{physician_name}}.</p>
+						<h3>{{Num}}</h3>
+						<p>Threshold warnings</p>
 					</span>
 				</li>
 			</ul>
 
-		
-					
+
+
 			<div class="table-data">
-				<div class="todo">
-					<div class="head">
-<!--					<i class='bx bx-edit-alt'></i>-->
-						<a style="color:var(--blue);" href="#"><h3>Complete your diary &emsp;&emsp;<i class='bx bx-chevron-right-circle' ></i></h3></a>
-					</div>
-					<ul class="todo-list">
-						<li class="not-completed">
-							<a href="#">Blood Sugar</a>
-							<i style="color:var(--orange); font-size:25px" class='bx bx-chevron-right-circle' ></i>
-						</li>
-						<li class="not-completed">
-							<a href="#">Step count</a>
-							<i style="color:var(--orange); font-size:25px" class='bx bx-chevron-right-circle' ></i>
-						</li>
-						<li class="not-completed">
-							<a href="#">Other thing</a>
-							<i style="color:var(--orange); font-size:25px" class='bx bx-chevron-right-circle' ></i>
-						</li>
-					</ul>
-				</div>
 				<div class="order">
 					<div class="head">
-<!--					<i class='bx bx-check-square' ></i>-->
-						<h3 style="color:var(--blue);">Completed records &emsp;&emsp;<i class='bx bx-chevron-right-circle' ></i></h3>
-						<input class="searchbox" type="text" placeholder="Search.." name="search">
-						<button class="generic-button" type="submit"><i style="font-size:20px" class='bx bx-search' ></i></button>
-						<button class="generic-button"><i style="font-size:20px" class='bx bx-filter' ></i></button>
+						<!--					<i class='bx bx-check-square' ></i>-->
+						<h3>Attention required</h3>
+						<input class="search" type="text" placeholder="Search.." name="search">
+						<a style="color:var(--blue);" href="#"><i class='bx material-icons'>search</i></a>
+						<a style="color:var(--blue);" href="#"><i class='bx material-icons'>filter_list</i></a>
 					</div>
 					<table>
 						<thead>
 							<tr>
 								<th>Record Type</th>
 								<th>Value</th>
+								<th>User</th>
+								<th>Reason</th>
+								<th>View</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<p>Weight</p>
+								</td>
+								<td>?</td>
+								<td>Username</td>
+								<td>Records not completed</td>
+								<td><i style="color:var(--light-green); font-size:25px" class='bx bx-chevron-right-circle' ></i></td>
+							</tr>
+							<tr>
+								<td>
+									<p>Insulin</p>
+								</td>
+								<td>200 doses</td>
+								<td>Username</td>
+								<td>Over threshold</td>
+								<td><i style="color:var(--light-green); font-size:25px" class='bx bx-chevron-right-circle' ></i></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="order">
+					<div class="head">
+						<!--					<i class='bx bx-check-square' ></i>-->
+						<h3>Today's patient records </h3>
+						<input class="search" type="text" placeholder="Search.." name="search">
+						<a style="color:var(--blue);" href="#"><i class='bx material-icons'>search</i></a>
+						<a style="color:var(--blue);" href="#"><i class='bx material-icons'>filter_list</i></a>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>Record Type</th>
+								<th>Value</th>
+								<th>User</th>
 								<th>View</th>
 							</tr>
 						</thead>
@@ -145,6 +157,7 @@
 									<p>Weight</p>
 								</td>
 								<td>65 kg</td>
+								<td>Username</td>
 								<td><i style="color:var(--light-green); font-size:25px" class='bx bx-chevron-right-circle' ></i></td>
 							</tr>
 							<tr>
@@ -152,6 +165,7 @@
 									<p>Insulin</p>
 								</td>
 								<td>2 doses</td>
+								<td>Username</td>
 								<td><i style="color:var(--light-green); font-size:25px" class='bx bx-chevron-right-circle' ></i></td>
 							</tr>
 						</tbody>
