@@ -31,7 +31,7 @@
 				<li><a href="#">Patients</a></li>
 				<li><a href="#">Messages</a></li>
 				<li><a href="#">Comments</a></li>
-				<li><button class="login-button" href="#">Log Out</button></li>
+				<li><button class="login-button" href="#"><i class='bx material-icons'>logout</i></button></li>
 			</ul>
 		</nav>
 
@@ -44,7 +44,7 @@
 						<li>
 							<a class="active" href="#">Dashboard</a>
 						</li>
-						<li><i class='bx bx-chevron-right' ></i></li>
+						<li><i class='bx material-icons'>chevron_right</i></li>
 					</ul>
 					<br>
 					<h1>Dashboard</h1>
@@ -97,13 +97,12 @@
 					<div class="head">
 						<!--					<i class='bx bx-check-square' ></i>-->
 						<h3>Attention required</h3>
-						<input class="search" type="text" placeholder="Search.." name="search">
-						<a style="color:var(--blue);" href="#"><i class='bx material-icons'>search</i></a>
+						<input class="searchbar" type="text" id="attentionRequiredInput" onkeyup="attentionRequiredSearch()" placeholder="Search..." title="Type in a name">
 						<a style="color:var(--blue);" href="#"><i class='bx material-icons'>filter_list</i></a>
 					</div>
-					<table>
+					<table id="attentionRequiredTable">
 						<thead>
-							<tr>
+							<tr class="header">
 								<th>Record Type</th>
 								<th>Value</th>
 								<th>User</th>
@@ -119,16 +118,16 @@
 								<td>?</td>
 								<td>Username</td>
 								<td>Records not completed</td>
-								<td><i style="color:var(--light-green); font-size:25px" class='bx bx-chevron-right-circle' ></i></td>
+								<td><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></td>
 							</tr>
 							<tr>
 								<td>
 									<p>Insulin</p>
 								</td>
 								<td>200 doses</td>
-								<td>Username</td>
+								<td>Username1</td>
 								<td>Over threshold</td>
-								<td><i style="color:var(--light-green); font-size:25px" class='bx bx-chevron-right-circle' ></i></td>
+								<td><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></td>
 							</tr>
 						</tbody>
 					</table>
@@ -138,13 +137,12 @@
 					<div class="head">
 						<!--					<i class='bx bx-check-square' ></i>-->
 						<h3>Today's patient records </h3>
-						<input class="search" type="text" placeholder="Search.." name="search">
-						<a style="color:var(--blue);" href="#"><i class='bx material-icons'>search</i></a>
+						<input class="searchbar" type="text" id="allPatientsInput" onkeyup="allPatientsSearch()" placeholder="Search..." title="Type in a name">
 						<a style="color:var(--blue);" href="#"><i class='bx material-icons'>filter_list</i></a>
 					</div>
-					<table>
+					<table id="allPatientsTable">
 						<thead>
-							<tr>
+							<tr class="header">
 								<th>Record Type</th>
 								<th>Value</th>
 								<th>User</th>
@@ -158,15 +156,15 @@
 								</td>
 								<td>65 kg</td>
 								<td>Username</td>
-								<td><i style="color:var(--light-green); font-size:25px" class='bx bx-chevron-right-circle' ></i></td>
+								<td><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></td>
 							</tr>
 							<tr>
 								<td>
 									<p>Insulin</p>
 								</td>
 								<td>2 doses</td>
-								<td>Username</td>
-								<td><i style="color:var(--light-green); font-size:25px" class='bx bx-chevron-right-circle' ></i></td>
+								<td>Username2</td>
+								<td><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></td>
 							</tr>
 						</tbody>
 					</table>
@@ -178,7 +176,6 @@
 	</section>
 	<!-- CONTENT -->
 	<br>
-	
 
 	<script src="script.js"></script>
 	

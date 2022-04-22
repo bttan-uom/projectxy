@@ -172,9 +172,22 @@ nav{
 }
 
 
+
+.searchbar {
+	background-image: url('img/search_black_24dp.svg');
+	background-position: 10px 12px;
+	background-repeat: no-repeat;
+	width: 30%;
+	font-size: 16px;
+	padding: 12px 20px 12px 40px;
+	border: 1px solid #ddd;
+	margin-bottom: 12px;
+}
+
+
 /*Responsive Adding Media Queries*/
 
-@media screen and (max-width: 855px){
+@media screen and (max-width: 720px){
 	nav{
 		position: fixed;
 		z-index: 3;
