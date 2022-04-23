@@ -44,3 +44,9 @@ const allPatientsSearch = () => {
     trs.forEach(setTrStyleDisplay)
 }
 
+function theDate() {
+    var today = new Date();
+    
+    var date = today.toLocaleDateString("en-US");
+    document.getElementById('theDate').innerHTML =  date;
+}
