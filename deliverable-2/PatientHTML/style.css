@@ -174,7 +174,7 @@ nav{
 
 /*Responsive Adding Media Queries*/
 
-@media screen and (max-width: 855px){
+@media screen and (max-width: 800px){
 	nav{
 		position: fixed;
 		z-index: 3;
@@ -479,12 +479,4 @@ nav{
 }
 /* MAIN */
 /* CONTENT */
-
-
-
-
-
-
-
-
 

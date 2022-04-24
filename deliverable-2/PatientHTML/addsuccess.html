@@ -4,14 +4,15 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<!-- Open Source Boxicons -->
-	<link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+	<!-- Google Icons -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		rel="stylesheet">
 	<!-- CSS -->
 	<link rel="stylesheet" href="style.css">
 
-	<title>Historical Records | MyGlucose</title>
+	<title>Record Added | MyGlucose</title>
 </head>
-<body>
+	<body style="background: #00e17b;">
 
 	<!-- CONTENT -->
 	<section id="content">
@@ -27,27 +28,30 @@
 			</div>
 			<ul class="nav-links">
 				<li><a href="#">Dashboard</a></li>
-				<li><a class="active" href="#">History</a></li>
-				<li><a href="#">+Record</a></li>
+				<li><a href="#">History</a></li>
+				<li><a class="active" href="#">+Record</a></li>
 				<li><a href="#">Messages</a></li>
 				<li><a href="#">Leaderboard</a></li>
-				<li><button class="login-button" href="#">Log Out</button></li>
+				<li><button class="login-button" href="#"><i class='bx material-icons'>logout</i></button></li>
 			</ul>
 		</nav>
 
 		<!-- MAIN -->
 		<br><br><br><br><br>
 		<main>
-			<div class="head-title">
+			<div class="head-title" >
 				<div class="left">
 					<ul class="breadcrumb">
 						<li>
-							<a class="active" href="#">History</a>
+							<a class="active" href="#">+Record</a>
 						</li>
-						<li><i class='bx bx-chevron-right' ></i></li>
+						<li><i class='bx material-icons'>chevron_right</i></li>
+						<li>
+							<a class="active" href="#">Record Added</a>
+						</li>
 					</ul>
 					<br>
-					<h1>Historical Records</h1>
+					<h1>Record Added <i style="font-size: 100%;" class='bx material-icons'>task_alt</i></h1>
 					
 				</div>
 				
@@ -56,14 +60,14 @@
 
 			<ul class="box-info">
 				<li>
-					<i class='bx bxs-calendar'></i>
+					<i class='bx material-icons'>today</i>
 					<span class="text">
 						<h3>{{Date}}</h3>
 						<p>Today's Date</p>
 					</span>
 				</li>
 				<li>
-					<i class='bx bxs-user-badge' ></i>
+					<i class='bx material-icons'>medication</i>
 					<span class="text">
 						<h3>{{name}}</h3>
 						<p>Your clinician</p>
@@ -93,36 +97,10 @@
 				<div class="order">
 					<div class="head">
 <!--					<i class='bx bx-check-square' ></i>-->
-						<h3>Showing {{num}} records.</h3>
-						<input class="searchbox" type="text" placeholder="Search.." name="search">
-						<button class="generic-button" type="submit"><i style="font-size:20px" class='bx bx-search' ></i></button>
-						<button class="generic-button"><i style="font-size:20px" class='bx bx-filter' ></i></button>
+						<h3>Here's what you added:</h3>
 					</div>
-					<table>
-						<thead>
-							<tr>
-								<th>Record Type</th>
-								<th>Value</th>
-								<th>View</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>
-									<p>Weight</p>
-								</td>
-								<td>65 kg</td>
-								<td><i style="color:var(--light-green); font-size:25px" class='bx bx-chevron-right-circle' ></i></td>
-							</tr>
-							<tr>
-								<td>
-									<p>Insulin</p>
-								</td>
-								<td>2 doses</td>
-								<td><i style="color:var(--light-green); font-size:25px" class='bx bx-chevron-right-circle' ></i></td>
-							</tr>
-						</tbody>
-					</table>
+					<p>Information goes here</p>
+					
 				</div>
 
 			</div>
