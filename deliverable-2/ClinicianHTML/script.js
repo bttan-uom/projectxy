@@ -50,3 +50,4 @@ function theDate() {
     var date = today.toLocaleDateString("en-US");
     document.getElementById('theDate').innerHTML =  date;
 }
+
