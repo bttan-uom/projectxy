@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Google Icons -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		rel="stylesheet">
+	<!-- CSS -->
+	<link rel="stylesheet" href="style.css">
+
+	<title>Dashboard | MyGlucose</title>
+</head>
+<body>
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<div class="logo">
+				<img src="img/MyglucoseWhite.svg" alt="MyGlucose Logo">
+			</div>
+			<div class="hamburger">
+				<div class="bars1"></div>
+				<div class="bars2"></div>
+				<div class="bars3"></div>
+			</div>
+			<ul class="nav-links">
+				<li><a class="active" href="#">Dashboard</a></li>
+				<li><a href="#">History</a></li>
+				<li><a href="#">+Record</a></li>
+				<li><a href="#">Messages</a></li>
+				<li><a href="#">Leaderboard</a></li>
+				<li><button class="login-button" href="#"><i class='bx material-icons'>logout</i></button></li>
+			</ul>
+		</nav>
+
+		<!-- MAIN -->
+		<br><br><br><br><br>
+		<main>
+			<div class="head-title">
+				<div class="left">
+					<ul class="breadcrumb">
+						<li>
+							<a class="active" href="#">Dashboard</a>
+						</li>
+						<li><i class='bx material-icons'>chevron_right</i></li>
+					</ul>
+					<br>
+					<h1>Dashboard</h1>
+					<h2>Welcome, {{User}}.</h2>
+					
+				</div>
+				
+				<a href="#" class="btn-download">
+					<i class='bx material-icons'>edit_calendar</i>
+					<span style='font-size:13px' class="text">Viewing data for {{date}}<br>Click to change</span>
+				</a>
+				
+			</div>
+
+			<ul class="box-info">
+				<li>
+					<i class='bx material-icons'>today</i>
+					<span class="text">
+						<h3>{{Date}}</h3>
+						<p>Today's Date</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx material-icons'>medication</i>
+					<span class="text">
+						<h3>{{name}}</h3>
+						<p>Your clinician</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx material-icons'>playlist_add</i>
+					<span class="text">
+						<h3>NUM</h3>
+						<p>Records to complete</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx material-icons'>leaderboard</i>
+					<span class="text">
+						<h3>NUM</h3>
+						<p>On the leaderboard</p>
+					</span>
+				</li>
+			</ul>
+			
+			<ul class="box-info">
+				<li>
+					<i class='bx material-icons'>recommend</i>
+					<span class="text">
+						<h3>Way to go! You've been consistent this week, keep up the good work.</h3>
+						<p>Your latest message of support from Dr {{physician_name}}.</p>
+					</span>
+				</li>
+			</ul>
+
+		
+					
+			<div class="table-data">
+				<div class="todo">
+					<div class="head">
+<!--					<i class='bx bx-edit-alt'></i>-->
+						<a style="color:var(--blue);" href="#"><h3>Complete your diary <i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></h3></a>
+					</div>
+					<ul class="todo-list">
+						<li class="not-completed">
+							<a href="#">Blood Sugar</a>
+							<i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i>
+						</li>
+						<li class="not-completed">
+							<a href="#">Step count</a>
+							<i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i>
+						</li>
+						<li class="not-completed">
+							<a href="#">Other thing</a>
+							<i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i>
+						</li>
+					</ul>
+				</div>
+				<div class="order">
+					<div class="head">
+<!--					<i class='bx bx-check-square' ></i>-->
+						<h3 style="color:var(--blue);">Completed records <i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></h3>
+						<input class="searchbar" type="text" id="allPatientsInput" onkeyup="allPatientsSearch()" placeholder="Search..." title="Type in a name">
+						<a style="color:var(--blue);" href="#"><i class='bx material-icons'>filter_list</i></a>
+					</div>
+					<table>
+						<thead>
+							<tr>
+								<th>Record Type</th>
+								<th>Value</th>
+								<th>View</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<p>Weight</p>
+								</td>
+								<td>65 kg</td>
+								<td><i style="color:var(--light-green);" class='bx material-icons'>arrow_forward_ios</i></td>
+							</tr>
+							<tr>
+								<td>
+									<p>Insulin</p>
+								</td>
+								<td>2 doses</td>
+								<td><i style="color:var(--light-green);" class='bx material-icons'>arrow_forward_ios</i></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+	<br>
+	
+
+	<script src="script.js"></script>
+	
+</body>
+</html>

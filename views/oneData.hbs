@@ -1,0 +1,69 @@
+{{#with oneItem}}
+<div class="head-title">
+    <div class="left">
+        <ul class="breadcrumb">
+            <li>
+                <a class="active" href="#">History</a>
+            </li>
+            <li><i class='bx material-icons'>chevron_right</i></li>
+            <li>
+                <a class="active" href="#">Viewing record {{this.id}}</a>
+            </li>
+        </ul>
+        <br>
+        <h1>Viewing Record {{this.id}}</h1>
+        
+    </div>
+    
+    
+</div>
+
+<ul class="box-info">
+    <li>
+        <i class='bx material-icons'>today</i>
+        <span class="text">
+            <h3 id="CurrentDate"></h3>
+            <p>Today's Date</p>
+        </span>
+    </li>
+    <li>
+        <i class='bx material-icons'>medication</i>
+        <span class="text">
+            <h3>{{name}}</h3>
+            <p>Your clinician</p>
+        </span>
+    </li>
+</ul>
+
+<ul class="box-info">
+    
+    <li>
+        <span class="text">
+            <h3>Record ID</h3>
+            <h2>{{this.id}}</h2>
+        </span>
+    </li>
+</ul>
+
+<ul class="box-info">
+    
+    <li>
+        <span class="text">
+            <h3>Value</h3>
+            <h2>{{this.first_name}}</h2>
+        </span>
+    </li>
+    
+    <li>
+        <span class="text">
+            <h3>Other Value</h3>
+            <h2>{{this.last_name}}</h2>
+        </span>
+    </li>
+</ul>
+
+
+
+
+
+{{/with}}

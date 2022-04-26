@@ -1,0 +1,135 @@
+<div class="head-title">
+	<div class="left">
+		<ul class="breadcrumb">
+			<li>
+				<a class="active" href="#">Dashboard</a>
+			</li>
+			<li><i class='bx material-icons'>chevron_right</i></li>
+		</ul>
+		<br>
+		<h1>Dashboard</h1>
+		<h2>Welcome, Pat.</h2>
+		
+	</div>
+	
+	<a href="#" class="btn-download">
+		<i class='bx material-icons'>edit_calendar</i>
+		<span style='font-size:13px' class="text">Viewing data for <span id="CurrentDateTop"></span><br>Click to change</span>
+	</a>
+	
+</div>
+
+<ul class="box-info">
+	<li>
+		<i class='bx material-icons'>today</i>
+		<span class="text">
+			<h3 id="CurrentDate"></h3>
+			<p>Today's Date</p>
+		</span>
+	</li>
+	<li>
+		<i class='bx material-icons'>medication</i>
+		<span class="text">
+			<h3>{{name}}</h3>
+			<p>Your clinician</p>
+		</span>
+	</li>
+	<li>
+		<i class='bx material-icons'>playlist_add</i>
+		<span class="text">
+			<h3>NUM</h3>
+			<p>Records to complete</p>
+		</span>
+	</li>
+	<li>
+		<i class='bx material-icons'>leaderboard</i>
+		<span class="text">
+			<h3>NUM</h3>
+			<p>On the leaderboard</p>
+		</span>
+	</li>
+</ul>
+
+<ul class="box-info">
+	<li>
+		<i class='bx material-icons'>recommend</i>
+		<span class="text">
+			<h3>Way to go! You've been consistent this week, keep up the good work.</h3>
+			<p>Your latest message of support from Dr {{physician_name}}.</p>
+		</span>
+	</li>
+</ul>
+
+
+		
+<div class="table-data">
+	<div class="todo">
+		<div class="head">
+<!--					<i class='bx bx-edit-alt'></i>-->
+			<a style="color:var(--blue);" href="/userAddRecord"><h3>Complete your diary <i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></h3></a>
+		</div>
+		<ul class="todo-list">
+			<li class="not-completed">
+				<a href="#">Blood Sugar</a>
+				<i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i>
+			</li>
+			<li class="not-completed">
+				<a href="#">Step count</a>
+				<i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i>
+			</li>
+			<li class="not-completed">
+				<a href="#">Other thing</a>
+				<i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i>
+			</li>
+		</ul>
+	</div>
+	<div class="order">
+		<div class="head">
+<!--					<i class='bx bx-check-square' ></i>-->
+			<h3 style="color:var(--blue);">Recently completed records <a href="/userHistory"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></h3>
+			<input style="width:40%" type="text" class="input-button-select" id="allPatientsInput" onkeyup="allPatientsSearch()" placeholder="Search..." title="Type in a name">
+			<a style="color:var(--blue);" href="#"><i class='bx material-icons'>filter_list</i></a>
+		</div>
+		<table id="allPatientsTable">
+			<thead>
+				<tr class="header">
+					<th>Record Type</th>
+					<th>Value</th>
+					<th>View</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{!-- loops over the data set --}}
+				{{#each data}}
+				<tr>
+					<td> 
+						<p>{{this.first_name}}</p>
+					</td>
+					<td><p>{{this.last_name}}</p></td>
+					<td><a href="/userHistory/{{this.id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
+				</tr>
+				<li><a href="/userHistory/{{this.id}}"></a></li>
+				{{/each}}
+			</tbody>
+		</table>
+	</div>
+
+</div>
+<script>
+	const allPatientsSearch = () => {
+		const trs = document.querySelectorAll('#allPatientsTable tr:not(.header)')
+		const filter = document.querySelector('#allPatientsInput').value
+		const regex = new RegExp(filter, 'i')
+		const isFoundInTds = td => regex.test(td.innerHTML)
+		const isFound = childrenArr => childrenArr.some(isFoundInTds)
+		const setTrStyleDisplay = ({ style, children }) => {
+			style.display = isFound([
+				...children // <-- All columns
+			]) ? '' : 'none' 
+		}
+		
+		trs.forEach(setTrStyleDisplay)
+	}
+	
+</script>
+
