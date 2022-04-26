@@ -43,7 +43,3 @@ require('./models')
 app.listen(process.env.PORT || 3000, () => {
     console.log('MyGlucose is running!')
 })
-
-//  http://localhost:3000/userDashboard
-
-
