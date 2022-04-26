@@ -34,6 +34,7 @@ app.use('/userAddRecord', userAddRecordRouter)
 app.use('/userHistory', peopleRouter)
 // the demo routes are added to the end of the '/people' path
 app.use('/userDashboard', userDashboardRouter)
+app.use('/', userDashboardRouter)
 
 require('./models')
 
