@@ -35,7 +35,7 @@ app.use('/userHistory', peopleRouter)
 // the demo routes are added to the end of the '/people' path
 app.use('/userDashboard', userDashboardRouter)
 
-
+require('./models')
 
 
 // Tells the app to listen on port 3000 and logs that information to the console.
@@ -44,3 +44,5 @@ app.listen(process.env.PORT || 3000, () => {
 })
 
 //  http://localhost:3000/userDashboard
+
+

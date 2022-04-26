@@ -1,36 +1,36 @@
 // import people model
-const peopleData = require('../models/peopleModel')
+// const res = require('express/lib/response')
+const Author = require('../models/patientRecords')
 
-// handle request to get all people data instances
-const getAllPeopleData = (req, res) => {
-    res.render('index', { data: peopleData })
-}
-
-
-// handle request to get one data instance
-const getDataById = (req, res) => {
-    // search the database by ID
-    const data = peopleData.find((data) => data.id === req.params.id)
-
-    // return data if this ID exists
-    if (data) {
-        res.render('oneData', { oneItem: data })
-    } else {
-        // You can decide what to do if the data is not found.
-        // Currently, an empty list will be returned.
-        res.sendStatus(404)
+// handle request to get all data instances
+const getAllPeopleData = async (req, res, next) => {
+    try {
+        const patientRecords = await Author.find().lean()
+        return res.render('index', {data: patientRecords})
+    } catch (err) {
+        return next(err)
     }
 }
 
-const insertData = (req, res) => {
-    const { id, first_name, last_name } = req.body
-    peopleData.push({ id, first_name, last_name })
-    return res.redirect('back')
+// handle request to get one data instance
+const getDataById = async (req, res, next) => {
+    // search the database by ID
+    try {
+        const author = await Author.findById(req.params.patientRecord_id).lean()
+        if (!author) {
+            // no author found in database
+            return res.sendStatus(404)
+        }
+        // found the author
+        return res.render('oneData', {oneItem: author})
+    } catch (err) {
+        return next(err)
+    }
+    
 }
 
 // exports an object, which contain functions imported by router
 module.exports = {
     getAllPeopleData,
     getDataById,
-    insertData,
 }

@@ -10,10 +10,10 @@ const userDashboardController = require('../controllers/userDashboardController'
 userDashboardRouter.get('/', userDashboardController.getAllPeopleData)
 
 // add a route to handle the GET request for one data instance
-userDashboardRouter.get('/:id', userDashboardController.getDataById)
+userDashboardRouter.get('/:patientRecord_id', userDashboardController.getDataById)
 
 // add a new JSON object to the database
-userDashboardRouter.post('/', userDashboardController.insertData)
+//userDashboardRouter.post('/', userDashboardController.insertData)
 
 // export the router
 module.exports = userDashboardRouter

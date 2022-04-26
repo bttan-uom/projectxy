@@ -10,10 +10,10 @@ const peopleController = require('../controllers/peopleController')
 peopleRouter.get('/', peopleController.getAllPeopleData)
 
 // add a route to handle the GET request for one data instance
-peopleRouter.get('/:id', peopleController.getDataById)
+peopleRouter.get('/:patientRecord_id', peopleController.getDataById)
 
 // add a new JSON object to the database
-peopleRouter.post('/', peopleController.insertData)
+//peopleRouter.post('/', peopleController.insertData)
 
 // export the router
 module.exports = peopleRouter
