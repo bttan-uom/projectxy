@@ -16,6 +16,9 @@ li {
 	list-style: none;
 }
 
+i {
+	vertical-align: -7px;
+}
 .searchbox{
 
 	padding: 6px;
@@ -318,9 +321,9 @@ nav{
 
 #content main .box-info {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-	grid-gap: 22px;
-	margin-top: 20px;
+	grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+	grid-gap: 12px;
+	margin-top: 15px;
 }
 #content main .box-info li {
 	padding: 22px;
@@ -338,20 +341,6 @@ nav{
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
-#content main .box-info li:nth-child(1) .bx {
-	background: var(--light-blue);
-	color: var(--blue);
-}
-#content main .box-info li:nth-child(2) .bx {
-	background: var(--light-blue);
-	color: var(--blue);
-}
-#content main .box-info li:nth-child(3) .bx {
-	background: var(--light-blue);
-	color: var(--blue);
-}
-#content main .box-info li:nth-child(4) .bx {
 	background: var(--light-blue);
 	color: var(--blue);
 }
@@ -429,22 +418,6 @@ nav{
 }
 #content main .table-data .order table tbody tr:hover {
 	background: var(--grey);
-}
-#content main .table-data .order table tr td .status {
-	font-size: 10px;
-	padding: 6px 16px;
-	color: var(--light);
-	border-radius: 20px;
-	font-weight: 700;
-}
-#content main .table-data .order table tr td .status.completed {
-	background: var(--light-green);
-}
-#content main .table-data .order table tr td .status.process {
-	background: var(--yellow);
-}
-#content main .table-data .order table tr td .status.pending {
-	background: var(--orange);
 }
 
 
