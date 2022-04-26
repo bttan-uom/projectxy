@@ -39,8 +39,8 @@ app.use('/userDashboard', userDashboardRouter)
 
 
 // Tells the app to listen on port 3000 and logs that information to the console.
-app.listen(3000, () => {
-    console.log('Demo app is listening on port 3000!')
+app.listen(process.env.PORT || 3000, () => {
+    console.log('MyGlucose is running!')
 })
 
 //  http://localhost:3000/userDashboard
