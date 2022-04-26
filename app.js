@@ -16,6 +16,8 @@ app.engine(
 // set Handlebars view engine
 app.set('view engine', 'hbs')
 
+var hbs = exphbs.create({});
+
 app.use(express.static('public'))
 
 // Set up to handle POST requests
@@ -37,6 +39,13 @@ app.use('/userDashboard', userDashboardRouter)
 app.use('/', userDashboardRouter)
 
 require('./models')
+
+
+// limit an array to a maximum of elements (from the start)
+hbs.handlebars.registerHelper('limit', function (arr, limit) {
+    if (!Array.isArray(arr)) { return []; }
+    return arr.slice(0, limit);
+});
 
 
 // Tells the app to listen on port 3000 and logs that information to the console.

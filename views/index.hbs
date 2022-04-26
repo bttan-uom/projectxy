@@ -100,7 +100,7 @@
 			</thead>
 			<tbody>
 				{{!-- loops over the data set --}}
-				{{#each data}}
+				{{#each (limit data 5)}}
 				<tr>
 					<td> 
 						<p>{{this.first_name}}</p>
