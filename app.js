@@ -31,11 +31,12 @@ const userDashboardRouter = require('./routes/userDashboardRouter')
 
 const userAddRecordRouter = require('./routes/userAddRecordRouter')
 
+const clinicanDashboardRouter = require('./routes/clinicianDashboardRouter')
+
 app.use('/userAddRecord', userAddRecordRouter)
-// the demo routes are added to the end of the '/people' path
 app.use('/userHistory', peopleRouter)
-// the demo routes are added to the end of the '/people' path
 app.use('/userDashboard', userDashboardRouter)
+app.use('/clinicianDashboard', clinicanDashboardRouter)
 app.use('/', userDashboardRouter)
 
 require('./models')
