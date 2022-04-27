@@ -10,11 +10,13 @@ const addNewUserRecord = async (req, res, next) => {
     try {
         newPatientRecord = new PatientRecord( req.body )
         await newPatientRecord.save()
-        res.render('userAddRecordSuccess', {oneItem: PatientRecord})
+        res.render('userAddRecordSuccess', {oneItem: newPatientRecord})
     } catch (err) {
         return next(err)
     }
 }
+
+
 
 // exports an object, which contain functions imported by router
 module.exports = {

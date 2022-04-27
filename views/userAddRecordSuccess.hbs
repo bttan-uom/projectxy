@@ -1,3 +1,4 @@
+{{#with oneItem}}
 <body style="background-color:#00e17b;">
 	<div class="head-title" >
 		<div class="left">
@@ -36,18 +37,18 @@
 	
 	
 	
-	<div class="table-data">
+	{{!-- {{!-- <div class="table-data">
 		<div class="order">
 			<div class="head">
 				<!--					<i class='bx bx-check-square' ></i>-->
 				<h3>Here's what you added:</h3>
 			</div>
-			<p>Information goes here</p>
+			<p>{{this.value}}</p>
 			
 		</div>
 		
-	</div>
-	<br>
+	</div> --}}
+	{{!-- <br> --}}
 
 	<br><br>
 	<a href="/userHistory">
@@ -55,3 +56,5 @@
 	</a> 
 	
 </body>
+
+{{/with}}
