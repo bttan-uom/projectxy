@@ -15,6 +15,9 @@ li {
 	list-style: none;
 }
 
+i {
+	vertical-align: -7px;
+}
 .searchbox{
 
 	padding: 6px;
@@ -70,7 +73,7 @@ body {
 
 /* Navbar */
 nav{
-	height: 5.5rem;
+	height: 4.8rem;
 	width: 100vw;
 	display: flex;
 	position: fixed;
@@ -82,14 +85,14 @@ nav{
 /* Styling Logo*/
 
 .logo{
-	padding: 0px 20px;
+	padding: 0px 22px;
 	text-align: left;
 	width: 60vw;
 }
 
 .logo img{
 	height: auto;
-	width: 10rem;
+	width: 8.8rem;
 }
 
 /* Styling Navigation Links*/
@@ -111,17 +114,17 @@ nav{
 	text-decoration: none;
 	transition: all ease-in-out 350ms;
 	padding: 10px;
-	color: #000000
+	color: #000
 }
 .nav-links .active{
-	color:#FFFFFF;
+	color:#FFF;
 	background-color: #0171BC;
 	padding: 10px;
 	border-radius: 50px;
 }
 
 .nav-links li a:hover{
-	color:#FFFFFF;
+	color:#FFF;
 	background-color: #0171BC;
 	padding: 10px;
 	border-radius: 50px;
@@ -144,15 +147,15 @@ nav{
 	font-size:12px;
 	cursor:pointer;
 	background-color: transparent;
-	border:1.5px solid #000000;
+	border:1.5px solid #000;
 	border-radius: 2em;
-	color: #000000;
+	color: #000;
 }
 
 .login-button:hover{
-	color:#000000;
+	color:#000;
 	background-color: #FFA630;
-	border:1.5px solid #000000;
+	border:1.5px solid #000;
 	transition: all ease-in-out 0.15s;
 }
 
@@ -171,22 +174,9 @@ nav{
 }
 
 
-
-.searchbar {
-	background-image: url('img/search_black_24dp.svg');
-	background-position: 10px 12px;
-	background-repeat: no-repeat;
-	width: 30%;
-	font-size: 16px;
-	padding: 12px 20px 12px 40px;
-	border: 1px solid #ddd;
-	margin-bottom: 12px;
-}
-
-
 /*Responsive Adding Media Queries*/
 
-@media screen and (max-width: 720px){
+@media screen and (max-width: 800px){
 	nav{
 		position: fixed;
 		z-index: 3;
@@ -202,7 +192,7 @@ nav{
 		transition: all 0.5s ease;
 	}
 	.nav-links{
-		background: #CFE8FF;
+		background: #0171BC;
 		position: fixed;
 		opacity: 1;
 		height: 100vh;
@@ -330,51 +320,37 @@ nav{
 
 #content main .box-info {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-	grid-gap: 24px;
-	margin-top: 36px;
+	grid-template-columns: repeat(auto-fit, minmax(154px, 1fr));
+	grid-gap: 12px;
+	margin-top: 15px;
 }
 #content main .box-info li {
-	padding: 24px;
+	padding: 22px;
 	background: var(--light);
 	border-radius: 20px;
 	display: flex;
 	align-items: center;
-	grid-gap: 24px;
+	grid-gap: 22px;
 }
 #content main .box-info li .bx {
-	width: 50px;
-	height: 50px;
+	width: 40px;
+	height: 40px;
 	border-radius: 10px;
-	font-size: 25px;
+	font-size: 20px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
-#content main .box-info li:nth-child(1) .bx {
-	background: var(--light-blue);
-	color: var(--blue);
-}
-#content main .box-info li:nth-child(2) .bx {
-	background: var(--light-blue);
-	color: var(--blue);
-}
-#content main .box-info li:nth-child(3) .bx {
-	background: var(--light-blue);
-	color: var(--blue);
-}
-#content main .box-info li:nth-child(4) .bx {
 	background: var(--light-blue);
 	color: var(--blue);
 }
 #content main .box-info li .text h3 {
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: 600;
 	color: var(--dark);
 }
 #content main .box-info li .text p {
 	color: var(--dark);	
-	font-size: 14px;
+	font-size: 13px;
 }
 
 
@@ -442,22 +418,6 @@ nav{
 #content main .table-data .order table tbody tr:hover {
 	background: var(--grey);
 }
-#content main .table-data .order table tr td .status {
-	font-size: 10px;
-	padding: 6px 16px;
-	color: var(--light);
-	border-radius: 20px;
-	font-weight: 700;
-}
-#content main .table-data .order table tr td .status.completed {
-	background: var(--light-green);
-}
-#content main .table-data .order table tr td .status.process {
-	background: var(--yellow);
-}
-#content main .table-data .order table tr td .status.pending {
-	background: var(--orange);
-}
 
 
 #content main .table-data .todo {
@@ -493,19 +453,43 @@ nav{
 /* CONTENT */
 
 
-
-
-
-
-
-.search input[type="text"]
-{
-	border: 0px;
+form {
 	width: 100%;
-	padding: 10px 10px;
+	max-width: 28rem;
 }
 
-.search input[type="text"]:focus
-{
-	outline: 0;
+.input-button-select {
+	color: inherit;
+	border: 2px solid #666;
+	padding: .5rem;
+	font-size: 1rem;
+	background: inherit;
+	border-radius: .25rem;
+	width: 100%;
 }
+
+.input-button-submit {
+	background: #0171BC;
+	color: #FFFFFF;
+	border-color: --blue;
+	width: max-content;
+	padding: 0.5em 1em;
+	font-weight: bold;
+	margin-top: 2em;
+	font-size: 1.2rem;
+	
+	+ a {
+		margin-left: 1rem;
+		color: #555;
+	}
+}
+
+.form-group {
+	margin-bottom: 1rem;
+	
+	label {
+		display: block;
+		width: max-content;
+	}
+}
+
