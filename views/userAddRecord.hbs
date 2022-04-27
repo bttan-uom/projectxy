@@ -59,7 +59,7 @@
 			
 			<form class="form-group" action="/userAddRecord" method="POST">
 				<label>Record Type</label>
-				<select class="input-button-select" name="first_name">
+				<select class="input-button-select" name="record_type">
 					<option selected="true" disabled="disabled">Select from the list</option>
 					<option value="Blood Glucose">Blood Glucose</option>
 					<option value="Insulin Dose(s)">Insulin Dose(s)</option>
@@ -68,7 +68,7 @@
 				</select>
 				<br><br>
 				<label>Value</label>
-				<input class="input-button-select" type="text" placeholder="Number" name="last_name" />
+				<input class="input-button-select" type="text" placeholder="Number" name="value" />
 				<br><br>
 				<a href="/userHistory/{{this._id}}"><input style="font-size: 110%;" class="generic-button" type="submit" /></a>
 			</form>

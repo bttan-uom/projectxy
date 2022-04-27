@@ -1,4 +1,6 @@
 const exphbs = require('express-handlebars')
+const moment = require('moment');
+
 
 // Import express
 const express = require('express')
@@ -46,6 +48,12 @@ require('./models')
 hbs.handlebars.registerHelper('limit', function (arr, limit) {
     if (!Array.isArray(arr)) { return []; }
     return arr.slice(0, limit);
+});
+
+hbs.handlebars.registerHelper('formatDate', function(dateString) {
+    return new hbs.handlebars.SafeString(
+        moment(dateString).format("DD/MM/YYYY").toUpperCase()
+    );
 });
 
 

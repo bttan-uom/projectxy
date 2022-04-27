@@ -1,4 +1,4 @@
-const Author = require('../models/patientRecords')
+const PatientRecord = require('../models/patientRecords')
 
 // handle request to get all data instances
 const getAddUserRecordsPage = (req, res) => {
@@ -8,9 +8,9 @@ const getAddUserRecordsPage = (req, res) => {
 // handle request to get one data instance
 const addNewUserRecord = async (req, res, next) => {
     try {
-        newAuthor = new Author( req.body )
-        await newAuthor.save()
-        res.render('userAddRecordSuccess', {oneItem: author})
+        newPatientRecord = new PatientRecord( req.body )
+        await newPatientRecord.save()
+        res.render('userAddRecordSuccess', {oneItem: PatientRecord})
     } catch (err) {
         return next(err)
     }

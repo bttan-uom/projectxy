@@ -62,6 +62,7 @@
 				<tr>
 					<th>Record Type</th>
 					<th>Value</th>
+					<th>Date Added</th>
 					<th>View</th>
 				</tr>
 			</thead>
@@ -70,9 +71,10 @@
 				{{#each data}}
 				<tr>
 					<td> 
-						<p>{{this.first_name}}</p>
+						<p>{{this.record_type}}</p>
 					</td>
-					<td><p>{{this.last_name}}</p></td>
+					<td><p>{{this.value}}</p></td>
+					<td><p>{{formatDate this.created_at}}</p></td>
 					<td><a href="/userHistory/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
 				</tr>
 				<li><a href="/userHistory/{{this._id}}"></a></li>

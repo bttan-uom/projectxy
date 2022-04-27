@@ -16,3 +16,4 @@ const schema = new mongoose.Schema({
 
 const Author = mongoose.model('patients', schema)
 module.exports = Author
+
