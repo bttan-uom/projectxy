@@ -3,7 +3,7 @@
 const Author = require('../models/patientRecords')
 
 // handle request to get all data instances
-const getAllPeopleData = async (req, res, next) => {
+const getAllHistory = async (req, res, next) => {
     try {
         const patientRecords = await Author.find().lean()
         return res.render('history', {data: patientRecords})
@@ -31,6 +31,6 @@ const getDataById = async (req, res, next) => {
 
 // exports an object, which contain functions imported by router
 module.exports = {
-    getAllPeopleData,
+    getAllHistory,
     getDataById,
 }
