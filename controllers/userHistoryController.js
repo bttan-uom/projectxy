@@ -1,5 +1,3 @@
-// import people model
-// const res = require('express/lib/response')
 const Author = require('../models/patientRecords')
 
 // handle request to get all data instances

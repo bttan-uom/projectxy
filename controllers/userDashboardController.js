@@ -1,9 +1,7 @@
-// import people model
-// const res = require('express/lib/response')
 const Author = require('../models/patientRecords')
 
 // handle request to get all data instances
-const getAllPeopleData = async (req, res, next) => {
+const getAllRecords = async (req, res, next) => {
     try {
         const patientRecords = await Author.find().lean()
         return res.render('index', {data: patientRecords})
@@ -31,6 +29,6 @@ const getDataById = async (req, res, next) => {
 
 // exports an object, which contain functions imported by router
 module.exports = {
-    getAllPeopleData,
+    getAllRecords,
     getDataById,
 }

@@ -7,13 +7,10 @@ const userDashboardRouter = express.Router()
 const userDashboardController = require('../controllers/userDashboardController')
 
 // add a route to handle the GET request for all people data
-userDashboardRouter.get('/', userDashboardController.getAllPeopleData)
+userDashboardRouter.get('/', userDashboardController.getAllRecords)
 
 // add a route to handle the GET request for one data instance
 userDashboardRouter.get('/:patientRecord_id', userDashboardController.getDataById)
-
-// add a new JSON object to the database
-//userDashboardRouter.post('/', userDashboardController.insertData)
 
 // export the router
 module.exports = userDashboardRouter

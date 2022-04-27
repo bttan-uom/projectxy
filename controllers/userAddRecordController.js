@@ -1,14 +1,11 @@
-// import people model
-// const res = require('express/lib/response')
 const Author = require('../models/patientRecords')
-//const peopleData = require('../models/peopleModel')
 
-
+// handle request to get all data instances
 const getAddUserRecordsPage = (req, res) => {
     res.render('userAddRecord')
 }
 
-
+// handle request to get one data instance
 const addNewUserRecord = async (req, res, next) => {
     try {
         newAuthor = new Author( req.body )
@@ -18,22 +15,6 @@ const addNewUserRecord = async (req, res, next) => {
         return next(err)
     }
 }
-
-//const getDataById = async (req, res, next) => {
-//  // search the database by ID
-//  try {
-//      const author = await Author.findById(req.params.patientRecord_id).lean()
-//      if (!author) {
-//          // no author found in database
-//          return res.sendStatus(404)
-//      }
-//      // found the author
-//      return res.render('oneData', {oneItem: author})
-//  } catch (err) {
-//      return next(err)
-//  }
-//  
-//}
 
 // exports an object, which contain functions imported by router
 module.exports = {

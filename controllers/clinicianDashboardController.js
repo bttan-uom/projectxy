@@ -1,5 +1,6 @@
 // import people model
 const Author = require('../models/patientRecords')
+const ClinicianDetails = require('../models/clinicianDetails')
 
 // handle request to get all people data instances
 const renderClinicianDashboard = async (req, res, next) => {

@@ -479,18 +479,18 @@ form {
 	margin-top: 2em;
 	font-size: 1.2rem;
 	
-	+ a {
+	/* + a {
 		margin-left: 1rem;
 		color: #555;
-	}
+	} */
 }
 
 .form-group {
 	margin-bottom: 1rem;
 	
-	label {
+	/* label {
 		display: block;
 		width: max-content;
-	}
+	} */
 }
 
