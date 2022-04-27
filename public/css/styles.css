@@ -321,7 +321,7 @@ nav{
 
 #content main .box-info {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(154px, 1fr));
 	grid-gap: 12px;
 	margin-top: 15px;
 }
@@ -337,7 +337,7 @@ nav{
 	width: 40px;
 	height: 40px;
 	border-radius: 10px;
-	font-size: 25px;
+	font-size: 20px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -345,13 +345,13 @@ nav{
 	color: var(--blue);
 }
 #content main .box-info li .text h3 {
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: 600;
 	color: var(--dark);
 }
 #content main .box-info li .text p {
 	color: var(--dark);	
-	font-size: 14px;
+	font-size: 13px;
 }
 
 
