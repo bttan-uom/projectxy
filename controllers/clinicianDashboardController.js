@@ -2,8 +2,13 @@
 const Author = require('../models/patientRecords')
 
 // handle request to get all people data instances
-const renderClinicianDashboard = (req, res) => {
-    res.render('clinicianDashboard', {layout: 'main2'})  
+const renderClinicianDashboard = async (req, res, next) => {
+    try {
+        const patientRecords = await Author.find().lean()
+    res.render('clinicianDashboard', {data: patientRecords, layout: 'main2'})
+    } catch (err) {
+        return next(err)
+    }  
 }
 
 // handle request to get one data instance

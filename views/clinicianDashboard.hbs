@@ -1,4 +1,4 @@
-			<link rel="stylesheet" href="/css/clinicianStyle.css">
+			
             <div class="head-title">
 				<div class="left">
 					<ul class="breadcrumb">
@@ -12,11 +12,6 @@
 					<h2>Welcome, {{ClinicianName}}.</h2>
 					
 				</div>
-				
-<!--			<a href="#" class="btn-download">-->
-<!--				<i class='bx bx-calendar-edit' ></i>-->
-<!--				<span style='font-size:13px' class="text">Viewing data for {{date}}<br>Click to change</span>-->
-<!--			</a>-->
 				
 			</div>
 
@@ -72,24 +67,17 @@
 							</tr>
 						</thead>
 						<tbody>
+							{{!-- loops over the data set --}}
+							{{#each (limit data 5)}}
 							<tr>
-								<td>
-									<p>Weight</p>
+								<td> 
+									<p>{{this.first_name}}</p>
 								</td>
-								<td>?</td>
-								<td>Username</td>
-								<td>Records not completed</td>
-								<td><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></td>
+								<td><p>{{this.last_name}}</p></td>
+								<td><a href="/onePatientRecordClinician/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
 							</tr>
-							<tr>
-								<td>
-									<p>Insulin</p>
-								</td>
-								<td>200 doses</td>
-								<td>Username1</td>
-								<td>Over threshold</td>
-								<td><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></td>
-							</tr>
+							<li><a href="/onePatientRecordClinician/{{this._id}}"></a></li>
+							{{/each}}
 						</tbody>
 					</table>
 				</div>
@@ -111,25 +99,20 @@
 							</tr>
 						</thead>
 						<tbody>
+							{{!-- loops over the data set --}}
+							{{#each (limit data 5)}}
 							<tr>
-								<td>
-									<p>Weight</p>
+								<td> 
+									<p>{{this.first_name}}</p>
 								</td>
-								<td>65 kg</td>
-								<td>Username</td>
-								<td><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></td>
+								<td><p>{{this.last_name}}</p></td>
+								<td><a href="/onePatientRecordClinician/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
 							</tr>
-							<tr>
-								<td>
-									<p>Insulin</p>
-								</td>
-								<td>2 doses</td>
-								<td>Username2</td>
-								<td><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></td>
-							</tr>
+							<li><a href="/onePatientRecordClinician/{{this._id}}"></a></li>
+							{{/each}}
 						</tbody>
 					</table>
 				</div>
 
 			</div>
-            <script src="/js/clinicianScript.js"></script>
+            
