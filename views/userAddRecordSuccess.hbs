@@ -37,24 +37,48 @@
 	
 	
 	
-	{{!-- {{!-- <div class="table-data">
+	<div class="table-data">
 		<div class="order">
 			<div class="head">
-				<!--					<i class='bx bx-check-square' ></i>-->
-				<h3>Here's what you added:</h3>
+				<h2>Your record has succesfully been added</h2>
 			</div>
-			<p>{{this.value}}</p>
-			
-		</div>
+				<h2>You should be automatically redirected to the history page in <span id="seconds">5</span> seconds.</h2>
+			</div>
 		
-	</div> --}}
-	{{!-- <br> --}}
+	</div>
+	<br>
 
 	<br><br>
 	<a href="/userHistory">
 		<button class="generic-button" ><i class='bx material-icons'>check</i>&nbsp;Done</button>
 	</a> 
-	
-</body>
+	<script>
+		// Countdown timer for redirecting to another URL after several seconds
+
+		var seconds = 5; // seconds for HTML
+		var foo; // variable for clearInterval() function
+
+		function redirect() {
+			document.location.href = '/userHistory';
+		}
+
+		function updateSecs() {
+			document.getElementById("seconds").innerHTML = seconds;
+			seconds--;
+			if (seconds == -1) {
+				clearInterval(foo);
+				redirect();
+			}
+		}
+
+		function countdownTimer() {
+			foo = setInterval(function () {
+				updateSecs()
+			}, 1000);
+		}
+
+		countdownTimer();
+	</script>
+		</body>
 
 {{/with}}
