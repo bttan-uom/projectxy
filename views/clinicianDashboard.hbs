@@ -72,9 +72,9 @@
 							{{#each (limit data 5)}}
 							<tr>
 								<td> 
-									<p>{{this.first_name}}</p>
+									<p>{{this.record_type}}</p>
 								</td>
-								<td><p>{{this.last_name}}</p></td>
+								<td><p>{{this.value}}</p></td>
 								<td><a href="/onePatientRecordClinician/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
 							</tr>
 							<li><a href="/onePatientRecordClinician/{{this._id}}"></a></li>
@@ -104,9 +104,9 @@
 							{{#each (limit data 5)}}
 							<tr>
 								<td> 
-									<p>{{this.first_name}}</p>
+									<p>{{this.record_type}}</p>
 								</td>
-								<td><p>{{this.last_name}}</p></td>
+								<td><p>{{this.value}}</p></td>
 								<td><a href="/clinicianDashboard/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
 							</tr>
 							<li><a href="/clinicianDashboard/{{this._id}}"></a></li>
