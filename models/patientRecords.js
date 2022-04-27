@@ -4,6 +4,7 @@ const schema = new mongoose.Schema({
     record_type: String,
     value: String,
     username: String,
+    comment: String
 }, { timestamps: { createdAt: 'created_at' } })
 
 const PatientRecord = mongoose.model('patientRecord', schema)

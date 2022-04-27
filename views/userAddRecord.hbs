@@ -57,7 +57,7 @@
 				<h3>Enter record details</h3>
 			</div>
 			
-			<form class="form-group" action="/userAddRecord" method="POST">
+			<form class="form-group" id="addRecordForm" action="/userAddRecord" method="POST">
 				<label>Record Type</label>
 				<select class="input-button-select" name="record_type">
 					<option selected="true" disabled="disabled">Select from the list</option>
@@ -69,6 +69,9 @@
 				<br><br>
 				<label>Value</label>
 				<input class="input-button-select" type="text" placeholder="Number" name="value" />
+				<br><br>
+				<textarea id="addRecordForm" placeholder="Add comment here" name="comment"
+          		rows="5" cols="33"></textarea>
 				<br><br>
 				<a href="/userHistory/{{this._id}}"><input style="font-size: 110%;" class="generic-button" type="submit" /></a>
 			</form>
