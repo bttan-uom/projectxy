@@ -402,9 +402,14 @@ nav{
 	border-bottom: 1px solid var(--grey);
 }
 #content main .table-data .order table td {
+	text-overflow: ellipsis;
+	font-size: 0.9rem;
 	padding: 16px 0;
 }
 #content main .table-data .order table tr td:first-child {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
 	display: flex;
 	align-items: center;
 	grid-gap: 12px;
