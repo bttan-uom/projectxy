@@ -8,5 +8,6 @@ const clinicianDashboardController = require('../controllers/clinicianDashboardC
 
 clinicanDashboardRouter.get('/', clinicianDashboardController.renderClinicianDashboard)
 
+clinicanDashboardRouter.get('/:patientRecord_id', clinicianDashboardController.getDataById)
 
 module.exports = clinicanDashboardRouter

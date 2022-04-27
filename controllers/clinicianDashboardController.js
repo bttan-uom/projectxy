@@ -21,7 +21,7 @@ const getDataById = async (req, res, next) => {
             return res.sendStatus(404)
         }
         // found the author
-        return res.render('onePatientRecordClinician', {oneItem: author})
+        return res.render('onePatientRecordClinician', {oneItem: author, layout: 'main2'})
     } catch (err) {
         return next(err)
     }
@@ -29,6 +29,7 @@ const getDataById = async (req, res, next) => {
 }
 
 module.exports = {
-    renderClinicianDashboard
+    renderClinicianDashboard,
+    getDataById
 }
 
