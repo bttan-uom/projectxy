@@ -1,19 +1,19 @@
 const mongoose = require('mongoose')
 
-const schema = new mongoose.Schema({
-    username: String,
-    first_name: String,
-    last_name: String,
-    email: String,
-    phone: String,
-    height: Decimal128,
+var patientSchema = mongoose.Schema({
+    username: {type: String, required: true, unique: true},
+    first_name: {type: String, required: true},
+    last_name: {type: String, required: true},
+    email: {type: String, required: true},
+    phone: {type: String, required: true},
+    height: mongoose.Schema.Types.Decimal128,
     address: String,
     gender: String,
     dob: Date,
-    signupdate: Date,
-    clinician_username: String
+    signupdate: {type: Date, required: true},
+    clinician_username: {type: String, required: true}
 })
 
-const Author = mongoose.model('patients', schema)
-module.exports = Author
+const Patient = mongoose.model('patient', patientSchema)
 
+module.exports = Patient
