@@ -18,6 +18,8 @@ li {
 i {
 	vertical-align: -7px;
 }
+
+
 .searchbox{
 
 	padding: 6px;
@@ -402,6 +404,7 @@ nav{
 }
 #content main .table-data .order table td {
 	padding: 16px 0;
+	font-size: 0.9rem;
 }
 #content main .table-data .order table tr td:first-child {
 	display: flex;

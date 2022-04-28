@@ -69,15 +69,15 @@
 						</thead>
 						<tbody>
 							{{!-- loops over the data set --}}
-							{{#each (limit data 5)}}
+							{{#each data}}
 							<tr>
 								<td><p>{{this.record_type}}</p></td>
-								<td><p>{{this.value}}</p></td>
+								<td><p>{{truncate this.value 6}}</p></td>
 								<td><p>{{this.username}}</p></td>
-								<td><p>Value not within threshold</p></td>
-								<td><a href="/onePatientRecordClinician/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
+								<td><p>{{truncate "Threshold Warning" 6}}</p></td>
+								<td><a href="/clinicianDashboard/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
 							</tr>
-							<li><a href="/onePatientRecordClinician/{{this._id}}"></a></li>
+							<li><a href="/clinicianDashboard/{{this._id}}"></a></li>
 							{{/each}}
 						</tbody>
 					</table>
@@ -101,10 +101,10 @@
 						</thead>
 						<tbody>
 							{{!-- loops over the data set --}}
-							{{#each (limit data 5)}}
+							{{#each data}}
 							<tr {{#if_eq this.value}} {{/if_eq}}>
 								<td><p>{{this.record_type}}</p></td>
-								<td><p>{{this.value}}</p></td>
+								<td><p>{{truncate this.value 6}}</p></td>
 								<td><p>{{this.username}}</p></td>
 								<td><a href="/clinicianDashboard/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
 							</tr>

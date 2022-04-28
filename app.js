@@ -64,7 +64,7 @@ hbs.handlebars.registerHelper('formatDate', function(dateString) {
 
 hbs.handlebars.registerHelper('formatLongDate', function(dateString) {
     return new hbs.handlebars.SafeString(
-        moment(dateString).tz('Australia/Melbourne').format("MMMM Do YYYY, h:mm:ss a zz")
+        moment(dateString).tz('Australia/Melbourne').format("MMMM Do YYYY<br> h:mm a zz")
     );
 });
 
