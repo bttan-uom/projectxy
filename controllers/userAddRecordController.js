@@ -29,9 +29,15 @@ const addNewUserRecord = async (req, res, next) => {
             return res.sendStatus(404)
         }
 
-        newPatientRecord = new Records( req.body )
-        await newPatientRecord.save()
-        res.render('userAddRecordSuccess', {oneItem: newPatientRecord, clinician: clinician})
+        if (req.body.record_type === undefined) {
+            res.render('userAddRecordFail', {error: 'No record type selected.', clinician: clinician})
+        } else if (req.body.value === '') {
+            res.render('userAddRecordFail', {error: 'Cannot input empty value.', clinician: clinician})
+        } else {
+            newPatientRecord = new Records(req.body)
+            await newPatientRecord.save()
+            res.render('userAddRecordSuccess', {oneItem: newPatientRecord, clinician: clinician})
+        }
     } catch (err) {
         return next(err)
     }

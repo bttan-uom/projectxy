@@ -44,7 +44,9 @@
 				<!--					<i class='bx bx-check-square' ></i>-->
 				<h3>An error has occured while entering data</h3>
 			</div>
-			<p>Information goes here</p>
+			{{#with error}}
+			<p>Error: {{this}}</p>
+			{{/with}}
 			
 		</div>
 		
