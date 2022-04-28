@@ -1,9 +1,12 @@
-const Author = require('../models/patientRecords')
+const Records = require('../models/patientRecords')
+
+const joins = require('./joins')
 
 // handle request to get all data instances
 const getAllRecords = async (req, res, next) => {
     try {
-        const patientRecords = await Author.find().lean()
+        const clinician = joins.getClinician('pat.fakename@example.com')
+        const patientRecords = await Records.find().lean()
         return res.render('index', {data: patientRecords})
     } catch (err) {
         return next(err)
@@ -14,7 +17,7 @@ const getAllRecords = async (req, res, next) => {
 const getDataById = async (req, res, next) => {
     // search the database by ID
     try {
-        const author = await Author.findById(req.params.patientRecord_id).lean()
+        const author = await Records.findById(req.params.patientRecord_id).lean()
         if (!author) {
             // no author found in database
             return res.sendStatus(404)
