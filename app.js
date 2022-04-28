@@ -1,6 +1,6 @@
 const exphbs = require('express-handlebars')
 const moment = require('moment');
-
+var tz = require('moment-timezone');
 
 // Import express
 const express = require('express')
@@ -50,9 +50,21 @@ hbs.handlebars.registerHelper('limit', function (arr, limit) {
     return arr.slice(0, limit);
 });
 
+hbs.handlebars.registerHelper('getCurrentDate', function() {
+    return new hbs.handlebars.SafeString(
+        moment().tz('Australia/Melbourne').format("DD/MM/YY")
+    );
+});
+
 hbs.handlebars.registerHelper('formatDate', function(dateString) {
     return new hbs.handlebars.SafeString(
-        moment(dateString).format("DD/MM/YY").toUpperCase()
+        moment(dateString).tz('Australia/Melbourne').format("DD/MM/YY")
+    );
+});
+
+hbs.handlebars.registerHelper('formatLongDate', function(dateString) {
+    return new hbs.handlebars.SafeString(
+        moment(dateString).tz('Australia/Melbourne').format("MMMM Do YYYY, h:mm:ss a zz")
     );
 });
 

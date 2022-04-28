@@ -12,8 +12,3 @@ hamburger.addEventListener('click', ()=>{
     //Animation
     hamburger.classList.toggle("toggle");
 });
-
-var today = new Date();
-document.getElementById('time').innerHTML = today;
-
-
