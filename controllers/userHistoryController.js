@@ -1,10 +1,19 @@
-const Author = require('../models/patientRecords')
+const Records = require('../models/patientRecords')
+
+const joins = require('./joins')
 
 // handle request to get all data instances
 const getAllHistory = async (req, res, next) => {
     try {
-        const patientRecords = await Author.find().lean()
-        return res.render('history', {data: patientRecords})
+        // Hard-coded email for example in deliverable 2.
+        // Not to be used in deliverable 3.
+        const clinician = await joins.getClinician('pat.fakename@example.com')
+        if (!clinician) {
+            // Patient does not have a clinician
+            return res.sendStatus(404)
+        }
+        const patientRecords = await Records.find().lean()
+        return res.render('history', {data: patientRecords, clinician: clinician})
     } catch (err) {
         return next(err)
     }
@@ -14,7 +23,7 @@ const getAllHistory = async (req, res, next) => {
 const getDataById = async (req, res, next) => {
     // search the database by ID
     try {
-        const author = await Author.findById(req.params.patientRecord_id).lean()
+        const author = await Records.findById(req.params.patientRecord_id).lean()
         if (!author) {
             // no author found in database
             return res.sendStatus(404)
