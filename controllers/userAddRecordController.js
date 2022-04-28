@@ -21,14 +21,6 @@ const getAddUserRecordsPage = async (req, res) => {
 // handle request to get one data instance
 const addNewUserRecord = async (req, res, next) => {
     try {
-        // Hard-coded email for example in deliverable 2.
-        // Not to be used in deliverable 3.
-        const clinician = await joins.getClinician('pat.fakename@example.com')
-        if (!clinician) {
-            // Patient does not have a clinician
-            return res.sendStatus(404)
-        }
-
         if (req.body.record_type === undefined) {
             res.render('userAddRecordFail', {error: 'No record type selected.', clinician: clinician})
         } else if (req.body.value === '') {
@@ -36,7 +28,16 @@ const addNewUserRecord = async (req, res, next) => {
         } else {
             newPatientRecord = new Records(req.body)
             await newPatientRecord.save()
-            res.render('userAddRecordSuccess', {oneItem: newPatientRecord, clinician: clinician})
+            
+            // Hard-coded email for example in deliverable 2.
+            // Not to be used in deliverable 3.
+            const clinician = await joins.getClinician('pat.fakename@example.com')
+            if (!clinician) {
+                // Patient does not have a clinician
+                return res.sendStatus(404)
+            }
+
+            res.render('userAddRecordSuccess', {clinician: clinician})
         }
     } catch (err) {
         return next(err)
