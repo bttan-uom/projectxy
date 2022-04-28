@@ -387,51 +387,13 @@ nav{
 	cursor: pointer;
 }
 
-#content main .table-data .order {
-	flex-grow: 1;
-	flex-basis: 500px;
-}
-#content main .table-data .order table {
-	width: 100%;
-	border-collapse: collapse;
-}
-#content main .table-data .order table th {
-	padding-bottom: 12px;
-	font-size: 13px;
-	text-align: left;
-	border-bottom: 1px solid var(--grey);
-}
-#content main .table-data .order table td {
-	text-overflow: ellipsis;
-	font-size: 0.9rem;
-	padding: 16px 0;
-}
-#content main .table-data .order table tr td:first-child {
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	display: flex;
-	align-items: center;
-	grid-gap: 12px;
-	padding-left: 6px;
-}
-#content main .table-data .order table td img {
-	width: 36px;
-	height: 36px;
-	border-radius: 50%;
-	object-fit: cover;
-}
-#content main .table-data .order table tbody tr:hover {
-	background: var(--grey);
-}
-
-
 #content main .table-data .todo {
 	flex-grow: 1;
-	flex-basis: 300px;
+	flex-basis: 250px;
 }
-#content main .table-data .todo .todo-list {
-	width: 100%;
+#content main .table-data .order {
+	flex-grow: 1;
+	flex-basis: 550px;
 }
 #content main .table-data .todo .todo-list li {
 	width: 100%;
@@ -455,6 +417,92 @@ nav{
 #content main .table-data .todo .todo-list li:last-child {
 	margin-bottom: 0;
 }
+
+table {
+	border-collapse: collapse;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	table-layout: fixed;
+}
+
+table caption {
+	font-size: 1.5em;
+	margin: .5em 0 .75em;
+}
+
+table tr {
+	background-color: #f8f8f8;
+	border-bottom: 1px solid #ccc;
+	padding: .35em;
+}
+
+table th,
+table td {
+	padding: .625em;
+	text-align: center;
+}
+
+table th {
+	font-size: .85em;
+	letter-spacing: .1em;
+	text-transform: uppercase;
+}
+
+@media screen and (max-width: 600px) {
+	table {
+		border: 0;
+	}
+	
+	table caption {
+		font-size: 1.3em;
+	}
+	
+	table thead {
+		border: none;
+		clip: rect(0 0 0 0);
+		height: 1px;
+		margin: -1px;
+		overflow: hidden;
+		padding: 0;
+		position: absolute;
+		width: 1px;
+	}
+	
+	table tr {
+		border-bottom: 3px solid #ddd;
+		display: block;
+		margin-bottom: .625em;
+	}
+	
+	table td {
+		border-bottom: 1px solid #ddd;
+		display: block;
+		font-size: .8em;
+		text-align: right;
+	}
+	
+	table td::before {
+		/*
+		* aria-label has no advantage, it won't be read inside a table
+		content: attr(aria-label);
+		*/
+		content: attr(data-label);
+		float: left;
+		font-weight: bold;
+		text-transform: uppercase;
+	}
+	
+	table td:last-child {
+		border-bottom: 0;
+	}
+}
+
+
+
+
+
+
 /* MAIN */
 /* CONTENT */
 
@@ -467,8 +515,8 @@ form {
 .input-button-select {
 	color: inherit;
 	border: 2px solid #666;
-	padding: .5rem;
-	font-size: 1rem;
+	padding: .3rem;
+	font-size: 0.8rem;
 	background: inherit;
 	border-radius: .25rem;
 	width: 100%;
