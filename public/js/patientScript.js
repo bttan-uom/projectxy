@@ -12,3 +12,4 @@ hamburger.addEventListener('click', ()=>{
     //Animation
     hamburger.classList.toggle("toggle");
 });
+

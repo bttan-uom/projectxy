@@ -358,6 +358,9 @@ nav{
 
 
 
+
+
+
 #content main .table-data {
 	display: flex;
 	flex-wrap: wrap;
@@ -393,7 +396,7 @@ nav{
 }
 #content main .table-data .order {
 	flex-grow: 1;
-	flex-basis: 550px;
+	flex-basis: 500px;
 }
 #content main .table-data .todo .todo-list li {
 	width: 100%;
@@ -441,6 +444,7 @@ table th,
 table td {
 	padding: .625em;
 	text-align: center;
+	word-wrap: break-word;
 }
 
 table th {
@@ -449,7 +453,7 @@ table th {
 	text-transform: uppercase;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
 	table {
 		border: 0;
 	}
