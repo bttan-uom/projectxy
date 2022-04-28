@@ -12,11 +12,9 @@
         </ul>
         <br>
         <h1>Record {{this._id}}</h1>
-        
-    </div>
-    
-    
+    </div>    
 </div>
+{{/with}}
 
 <ul class="box-info">
     <li>
@@ -29,11 +27,15 @@
     <li>
         <i class='bx material-icons'>medication</i>
         <span class="text">
-            <h3>{{name}}</h3>
+            {{#with clinician}}
+                <h3>Dr. {{this.first_name}} {{this.last_name}}</h3>
+            {{/with}}
             <p>Your clinician</p>
         </span>
     </li>
 </ul>
+
+{{#with oneItem}}
 <br>
 <ul class="box-info">
     
@@ -86,9 +88,4 @@
 
 
 </ul>
-
-
-
-
-
 {{/with}}
