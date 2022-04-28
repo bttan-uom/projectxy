@@ -5,9 +5,9 @@ const joins = require('./joins')
 // handle request to get all data instances
 const getAllRecords = async (req, res, next) => {
     try {
-        const clinician = joins.getClinician('pat.fakename@example.com')
+        const clinician = await joins.getClinician('pat.fakename@example.com')
         const patientRecords = await Records.find().lean()
-        return res.render('index', {data: patientRecords})
+        return res.render('index', {data: patientRecords, clinician: clinician})
     } catch (err) {
         return next(err)
     }
@@ -33,5 +33,5 @@ const getDataById = async (req, res, next) => {
 // exports an object, which contain functions imported by router
 module.exports = {
     getAllRecords,
-    getDataById,
+    getDataById
 }

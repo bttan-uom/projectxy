@@ -5,7 +5,7 @@ const Patient = require('../models/patients')
 const getClinician = async (patient_username) => {
     try {
         const patient = await Patient.findOne({'email': patient_username}).lean()
-        const clinician = await Clinician.findOne({'email': patient.clinician})
+        const clinician = await Clinician.findOne({'email': patient.clinician}).lean()
         return clinician
     } catch(err) {
         console.log(err)

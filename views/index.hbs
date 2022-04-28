@@ -30,7 +30,9 @@
 	<li>
 		<i class='bx material-icons'>medication</i>
 		<span class="text">
-			<h3>{{name}}</h3>
+			{{#with clinician}}
+				<h3>Dr. {{this.first_name}} {{this.last_name}}</h3>
+			{{/with}}
 			<p>Your clinician</p>
 		</span>
 	</li>
@@ -55,7 +57,9 @@
 		<i class='bx material-icons'>recommend</i>
 		<span class="text">
 			<h3>Way to go! You've been consistent this week, keep up the good work.</h3>
-			<p>Your latest message of support from Dr {{physician_name}}.</p>
+			{{#with clinician}}
+				<p>Your latest message of support from Dr {{this.first_name}} {{this.last_name}}.</p>
+			{{/with}}
 		</span>
 	</li>
 </ul>
