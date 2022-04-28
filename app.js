@@ -84,7 +84,7 @@ hbs.handlebars.registerHelper ('truncate', function (str, len) {
 hbs.handlebars.registerHelper('if_eq', function(patientData) {
     const upperGlucoseThreshold = 3.9;
     const lowerGlucoseThreshold = 5.6;
-    var outOfStyle = 'style="background: black;"';
+    var outOfStyle = 'style="background: #FFA630;"';
     if ((patientData > upperGlucoseThreshold) || (patientData < lowerGlucoseThreshold)) {
         // outOfRange = true;
         return outOfStyle;

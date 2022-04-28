@@ -26,6 +26,8 @@ const addNewUserRecord = async (req, res, next) => {
         } else if (req.body.value === '') {
             res.render('userAddRecordFail', {error: 'Cannot input empty value.', clinician: clinician})
         } else {
+            /* Hard-coded for deliverable 2. Remove for deliverable 3. */
+            req.body.username = 'pat.fakename@example.com'
             newPatientRecord = new Records(req.body)
             await newPatientRecord.save()
             

@@ -13,7 +13,7 @@ const getAllHistory = async (req, res, next) => {
             return res.sendStatus(404)
         }
         const patientRecords = await Records.find().lean()
-        return res.render('history', {data: patientRecords, clinician: clinician})
+        return res.render('history', {data: patientRecords.reverse(), clinician: clinician})
     } catch (err) {
         return next(err)
     }

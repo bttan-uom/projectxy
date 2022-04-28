@@ -7,7 +7,7 @@ const joins = require('./joins')
 const renderClinicianDashboard = async (req, res, next) => {
     try {
         const patientRecords = await Records.find().lean()
-    res.render('clinicianDashboard', {data: patientRecords, layout: 'main2'})
+        res.render('clinicianDashboard', {data: patientRecords.reverse(), layout: 'main2'})
     } catch (err) {
         return next(err)
     }  
