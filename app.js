@@ -84,11 +84,11 @@ hbs.handlebars.registerHelper ('truncate', function (str, len) {
 hbs.handlebars.registerHelper('if_eq', function(patientData) {
     const upperGlucoseThreshold = 3.9;
     const lowerGlucoseThreshold = 5.6;
-    var outOfRange = false;
+    var outOfRangestyle = 'style="background: black";';
     if ((patientData > upperGlucoseThreshold) || (patientData < lowerGlucoseThreshold)) {
-        outOfRange = true;
+        return outOfRangestyle;
     }
-    return outOfRange;
+    return '';
 });
 
 

@@ -102,12 +102,7 @@
 						<tbody>
 							{{!-- loops over the data set --}}
 							{{#each (limit data 5)}}
-								{{#if_eq this.value}}
-									true
-								{{else}}
-									false
-								{{/if_eq}}
-							<tr>
+							<tr {{#if if_eq}}>
 								<td> 
 									<p>{{this.record_type}}</p>
 								</td>
