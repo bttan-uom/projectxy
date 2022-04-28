@@ -1,10 +1,10 @@
 {{#with oneItem}}
-<body style="background-color:#00e17b;">
+<body>
 	<div class="head-title" >
 		<div class="left">
 			<ul class="breadcrumb">
 				<li>
-					<a class="active generic-button" href="#">+Record</a>
+					<a class="active generic-button" href="/userAddRecord">+Record</a>
 				</li>
 				<li><i class='bx material-icons'>chevron_right</i></li>
 				<li>
@@ -12,7 +12,7 @@
 				</li>
 			</ul>
 			<br>
-			<h1>Record Added <i style="font-size: 100%;" class='bx material-icons'>task_alt</i></h1>
+			<h1>Record Added</h1>
 			
 		</div>
 	</div>	
@@ -38,10 +38,12 @@
 	
 	
 	<div class="table-data">
-		<div class="order">
+		<div class="order" style="background-color:#00e17b;">
 			<div class="head">
-				<h2>Your record has succesfully been added</h2>
+				<i style="font-size: 500%;" class='bx material-icons'>task_alt</i>
 			</div>
+			<h2>Your record has successfully been added</h2>
+			<br>
 				<h2>You should be automatically redirected to the history page in <span id="seconds">5</span> seconds.</h2>
 			</div>
 		
@@ -51,7 +53,7 @@
 	<br><br>
 	<a href="/userHistory">
 		{{!-- buttton needs to be centered --}}
-		<button class="generic-button" style="font-size: 30px; border: 3.5px solid; border-radius: 5em;" ><i class='bx material-icons' style="font-size: 40px;">check</i>&nbsp;Done</button>
+		<button class="generic-button" style="font-size: 25px; border: 3.5px solid; border-radius: 5em;" ><i class='bx material-icons' style="font-size: 30px;">check</i>&nbsp;Done</button>
 	</a> 
 	<script>
 		// Countdown timer for redirecting to another URL after several seconds
