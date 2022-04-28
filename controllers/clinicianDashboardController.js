@@ -1,11 +1,12 @@
 // import people model
-const Author = require('../models/patientRecords')
-const Clinician = require('../models/clinicians')
+const Records = require('../models/patientRecords')
+
+const joins = require('./joins')
 
 // handle request to get all people data instances
 const renderClinicianDashboard = async (req, res, next) => {
     try {
-        const patientRecords = await Author.find().lean()
+        const patientRecords = await Records.find().lean()
     res.render('clinicianDashboard', {data: patientRecords, layout: 'main2'})
     } catch (err) {
         return next(err)
@@ -16,13 +17,20 @@ const renderClinicianDashboard = async (req, res, next) => {
 const getDataById = async (req, res, next) => {
     // search the database by ID
     try {
-        const author = await Author.findById(req.params.patientRecord_id).lean()
-        if (!author) {
-            // no author found in database
+        const record = await Records.findById(req.params.patientRecord_id).lean()
+        if (!record) {
+            // no record found in database
             return res.sendStatus(404)
         }
-        // found the author
-        return res.render('onePatientRecordClinician', {oneItem: author, layout: 'main2'})
+        // found the record
+
+        const patient = await joins.getAPatient('pat.fakename@example.com')
+        if (!patient) {
+            /* Record not associated with a patient. Should be impossible, but
+            just in case */
+            return res.sendStatus(404)
+        }
+        return res.render('onePatientRecordClinician', {oneItem: record, layout: 'main2', patient: patient})
     } catch (err) {
         return next(err)
     }
