@@ -367,6 +367,17 @@ nav{
 	color: var(--dark);
 
 }
+.usernametext {
+	font-size: 110%;
+	color: var(--dark);
+	
+		/* Non standard for WebKit */
+		word-break: break-word;
+	
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+		hyphens: none;
+}
 #content main .box-info li .text p {
 	color: var(--dark);	
 	font-size: 13px;
