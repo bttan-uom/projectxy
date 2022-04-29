@@ -81,24 +81,42 @@ hbs.handlebars.registerHelper ('truncate', function (str, len) {
 });
 
 
-hbs.handlebars.registerHelper('if_eq', function(patientData) {
-    const upperGlucoseThreshold = 3.9;
-    const lowerGlucoseThreshold = 5.6;
-    var outOfStyle = 'style="background: #FFA630;"';
-    if ((patientData > upperGlucoseThreshold) || (patientData < lowerGlucoseThreshold)) {
-        // outOfRange = true;
-        return outOfStyle;
+hbs.handlebars.registerHelper('if_eq', function(record_type, patientData) {
+    if (record_type == "Blood Glucose"){
+        const upperGlucoseThreshold = 5.6;
+        const lowerGlucoseThreshold = 3.9;
+        
+        var outOfStyle = 'style="background: #FFA630;"';
+        if ((patientData > upperGlucoseThreshold) || (patientData < lowerGlucoseThreshold)) {
+            // outOfRange = true;
+            return outOfStyle;
+        }
     }
-    return '';//outOfRange;
+    return 'style="background-color:var(--grey);"';//outOfRange;
 });
 
-hbs.handlebars.registerHelper('if_threshold_text', function(patientData) {
-    const upperGlucoseThreshold = 3.9;
-    const lowerGlucoseThreshold = 5.6;
-    var thresholdWarning = 'Threshold Warning';
-    if ((patientData > upperGlucoseThreshold) || (patientData < lowerGlucoseThreshold)) {
-        // outOfRange = true;
-        return thresholdWarning;
+hbs.handlebars.registerHelper('if_eq_clinician_dashboard', function(record_type, patientData) {
+    if (record_type == "Blood Glucose"){
+        const upperGlucoseThreshold = 5.6;
+        const lowerGlucoseThreshold = 3.9;
+        var outOfStyle = 'style="background: #FFA630;"';
+        if ((patientData > upperGlucoseThreshold) || (patientData < lowerGlucoseThreshold)) {
+            // outOfRange = true;
+            return outOfStyle;
+        }
+    }
+    return 'style="background-color:var(#FFFFFF);"';//outOfRange;
+});
+
+hbs.handlebars.registerHelper('if_threshold_text', function(record_type, patientData) {
+    if (record_type == "Blood Glucose"){
+        const upperGlucoseThreshold = 5.6;
+        const lowerGlucoseThreshold = 3.9;
+        if ((patientData > upperGlucoseThreshold) || (patientData < lowerGlucoseThreshold)) {
+            // outOfRange = true;
+            var thresholdWarning = 'Threshold Warning';
+            return thresholdWarning;
+        }
     }
     return 'None';//outOfRange;
 });

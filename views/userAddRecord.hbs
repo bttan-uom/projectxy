@@ -50,8 +50,7 @@
 	
 	
 	
-	
-	
+		
 	<div class="table-data">
 		<div class="order">
 			<div class="head">
@@ -63,19 +62,40 @@
 				<label>Record Type</label>
 				<select class="input-button-select" name="record_type">
 					<option selected="true" disabled="disabled">Select from the list</option>
-					<option value="Blood Glucose">Blood Glucose</option>
-					<option value="Insulin Dose(s)">Insulin Dose(s)</option>
-					<option value="Weight">Weight</option>
-					<option value="Exercise">Exercise</option>
+					<option value="Blood Glucose">Blood Glucose (nmol/L)</option>
+					<option value="Insulin Dose(s)">Insulin Dose(s) (doses)</option>
+					<option value="Weight">Weight (kg)</option>
+					<option value="Exercise">Exercise (steps)</option>
 				</select>
 				<br><br>
 				<label>Value</label>
 				<input class="input-button-select" type="text" placeholder="Number" name="value" />
 				<br><br>
-				<textarea id="addRecordForm" placeholder="Add comment here" name="comment" rows="5" cols="33"></textarea>
+				<textarea class="input-button-select" id="addRecordForm" placeholder="Add comment here" name="comment" rows="5" cols="33"></textarea>
 				<br><br>
 				<input style="font-size: 110%;" class="generic-button" type="submit" />
 			</form>
+
+		</div>
+		<div class="todo">
+			<div class="head">
+				<!--					<i class='bx bx-edit-alt'></i>-->
+				<h3>Your thresholds</h3>
+			</div>
+			<ul class="todo-list">
+				<li class="blueone">
+					<p>Blood Glucose: 3.9 - 5.6 nMol/L</p>
+				</li>
+				<li class="blueone">
+					<p>Insulin Doses: 2 Doses</p>
+				</li>
+				<li class="blueone">
+					<p>Weight: 65 - 75 kg</p>
+				</li>
+				<li class="blueone">
+					<p>Exercise: At least 5000 steps</p>
+				</li>
+			</ul>
 		</div>
 	</div>
 </body>

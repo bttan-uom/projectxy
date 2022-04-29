@@ -413,11 +413,11 @@ nav{
 
 #content main .table-data .todo {
 	flex-grow: 1;
-	flex-basis: 250px;
+	flex-basis: 15rem;
 }
 #content main .table-data .order {
 	flex-grow: 1;
-	flex-basis: 550px;
+	flex-basis: 25rem;
 }
 #content main .table-data .todo .todo-list li {
 	width: 100%;
@@ -432,8 +432,11 @@ nav{
 #content main .table-data .todo .todo-list li .bx {
 	cursor: pointer;
 }
-#content main .table-data .todo .todo-list li.completed {
+#content main .table-data .todo .todo-list li.blueone {
 	border-left: 10px solid var(--blue);
+}
+#content main .table-data .todo .todo-list li.completed {
+	border-left: 10px solid var(--light-green);
 }
 #content main .table-data .todo .todo-list li.not-completed {
 	border-left: 10px solid var(--orange);
@@ -564,6 +567,8 @@ form {
 	border-radius: .25rem;
 	width: 100%;
 }
+
+
 
 .input-button-submit {
 	background: #0171BC;

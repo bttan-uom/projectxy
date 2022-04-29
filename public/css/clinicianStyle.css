@@ -324,8 +324,6 @@ nav{
 }
 
 
-
-
 #content main .box-info {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(154px, 1fr));
@@ -423,11 +421,11 @@ nav{
 
 #content main .table-data .todo {
 	flex-grow: 1;
-	flex-basis: 250px;
+	flex-basis: 15rem;
 }
 #content main .table-data .order {
 	flex-grow: 1;
-	flex-basis: 500px;
+	flex-basis: 25rem;
 }
 #content main .table-data .todo .todo-list li {
 	width: 100%;
@@ -441,6 +439,9 @@ nav{
 }
 #content main .table-data .todo .todo-list li .bx {
 	cursor: pointer;
+}
+#content main .table-data .todo .todo-list li.blueone {
+	border-left: 10px solid var(--blue);
 }
 #content main .table-data .todo .todo-list li.completed {
 	border-left: 10px solid var(--blue);

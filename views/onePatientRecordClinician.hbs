@@ -43,40 +43,73 @@
         </span>
     </li>
 </ul>
-<br>
+
 {{#with oneItem}}
 
-<ul class="box-info">
-    <li>
-        <span class="text">
-            <h3>Date Added</h3>
-            <h2>{{formatLongDate this.created_at}}</h2>
-        </span>
-    </li>
-</ul>
-<ul class="box-info">
-    <li>
-        <span class="text">
-            <h3>Record Type</h3>
-            <h2>{{this.record_type}}</h2>
-        </span>
-    </li>
-    
-    <li>
-        <span class="text">
-            <h3>Value</h3>
-            <h2>{{this.value}}</h2>
-        </span>
-    </li>
-</ul>
 
 
-<ul class="box-info">
-    <li>
-        <span class="text">
-            <h3>Comments</h3>
-            <h3>{{this.comment}}</h3>
-        </span>
-    </li>
-</ul>
+<div class="table-data">
+    <div class="order">
+        <div class="head">
+            <!--					<i class='bx bx-check-square' ></i>-->
+            <h3>Record Details</h3>
+        </div>
+        <ul class="box-info">
+            <li style="background-color:var(--grey);">
+                <span class="text">
+                    <h3>Date Added</h3>
+                    <h2>{{formatLongDate this.created_at}}</h2>
+                </span>
+            </li>
+        </ul>
+        <ul class="box-info">
+            <li style="background-color:var(--grey);">
+                <span class="text">
+                    <h3>Record Type</h3>
+                    <h2>{{this.record_type}}</h2>
+                </span>
+            </li>
+            
+            <li {{#if_eq this.record_type this.value}} {{/if_eq}}>
+                <span class="text">
+                    <h3>Value</h3>
+                    <h2>{{this.value}}</h2>
+                </span>
+            </li>
+        </ul>
+        
+        
+        <ul class="box-info">
+            <li style="background-color:var(--grey);">
+                <span class="text">
+                    <h3>Comments</h3>
+                    <h3>{{this.comment}}</h3>
+                </span>
+            </li>
+        </ul>
+        
+
+        
+    </div>
+    <div class="todo">
+        <div class="head">
+            <!--					<i class='bx bx-edit-alt'></i>-->
+            <h3>Patient thresholds</h3>
+        </div>
+        <ul class="todo-list">
+            <li class="blueone">
+                <p>Blood Glucose: 3.9 - 5.6 nMol/L</p>
+            </li>
+            <li class="blueone">
+                <p>Insulin Doses: 2 Doses</p>
+            </li>
+            <li class="blueone">
+                <p>Weight: 65 - 75 kg</p>
+            </li>
+            <li class="blueone">
+                <p>Exercise: At least 5000 steps</p>
+            </li>
+        </ul>
+    </div>
+</div>
 {{/with}}
