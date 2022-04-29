@@ -11,7 +11,7 @@ Deliverable-1
   - [File] patient ui.xd
 
 Deliverable-2
-  - Empty
+  - Heroku App with one working component: patient can add a record, clinician can view that record. Record is highlighted in clinicians UI if it is over the threshold.
 
 Deliverable-3
   - Empty
