@@ -325,9 +325,21 @@ nav{
 	grid-template-columns: repeat(auto-fit, minmax(154px, 1fr));
 	grid-gap: 12px;
 	margin-top: 15px;
+	min-width: 0;
+	min-height: 0;
+	word-wrap: break-word;
+	word-break: break-all;
+	max-width: 100%;
+	
+		/* Non standard for WebKit */
+		word-break: break-word;
+	
+	-webkit-hyphens: auto;
+	-moz-hyphens: auto;
+		hyphens: auto;
 }
 #content main .box-info li {
-	padding: 22px;
+	padding: 12px;
 	background: var(--light);
 	border-radius: 20px;
 	display: flex;
@@ -349,6 +361,11 @@ nav{
 	font-size: 16px;
 	font-weight: 600;
 	color: var(--dark);
+}
+#content main .box-info li .text h2 {
+	font-size: 110%;
+	color: var(--dark);
+
 }
 #content main .box-info li .text p {
 	color: var(--dark);	

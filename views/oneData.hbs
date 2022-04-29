@@ -11,7 +11,7 @@
             </li>
         </ul>
         <br>
-        <h1>Record {{this._id}}</h1>
+        <h1>{{this.record_type}} record <br>{{formatDate this.created_at}}</h1>
     </div>    
 </div>
 {{/with}}
@@ -41,22 +41,12 @@
     
     <li>
         <span class="text">
-            <h3>Record ID</h3>
-            <h2>{{this._id}}</h2>
-        </span>
-    </li>
-</ul>
-<ul class="box-info">
-    
-    <li>
-        <span class="text">
             <h3>Date Added</h3>
             <h2>{{formatDate this.created_at}}</h2>
         </span>
     </li>
 
 </ul>
-<br>
 <ul class="box-info">
     
     <li>
