@@ -1,0 +1,109 @@
+<body>
+	<div class="head-title">
+		<div class="left">
+			<ul class="breadcrumb">
+				<li>
+					<a class="active generic-button" href="#">+Record</a>
+				</li>
+				<li><i class='bx material-icons'>chevron_right</i></li>
+			</ul>
+			<br>
+			<h1>Add Record</h1>
+			
+		</div>
+		
+		
+	</div>
+	
+	<ul class="box-info">
+		<li>
+			<i class='bx material-icons'>today</i>
+			<span class="text">
+				<h3>{{getCurrentDate}}</h3>
+				<p>Today's Date</p>
+			</span>
+		</li>
+		<li>
+			<i class='bx material-icons'>medication</i>
+			<span class="text">
+				{{#with clinician}}
+					<h3>Dr. {{this.first_name}} {{this.last_name}}</h3>
+				{{/with}}
+				<p>Your clinician</p>
+			</span>
+		</li>
+		<li>
+			<i class='bx material-icons'>playlist_add</i>
+			<span class="text">
+				<h3>NUM</h3>
+				<p>Records to complete</p>
+			</span>
+		</li>
+		<li>
+			<i class='bx material-icons'>leaderboard</i>
+			<span class="text">
+				<h3>NUM</h3>
+				<p>On the leaderboard</p>
+			</span>
+		</li>
+	</ul>
+	
+	
+	
+		
+	<div class="table-data">
+		<div class="order">
+			<div class="head">
+				<!--					<i class='bx bx-check-square' ></i>-->
+				<h3>Enter record details</h3>
+			</div>
+			
+			<form class="form-group" id="addRecordForm" action="/userAddRecord" method="POST">
+				<label>Record Type</label>
+				<select class="input-button-select" name="record_type">
+					<option selected="true" disabled="disabled">Select from the list</option>
+					<option value="Blood Glucose">Blood Glucose (nmol/L)</option>
+					<option value="Insulin Dose(s)">Insulin Dose(s) (doses)</option>
+					<option value="Weight">Weight (kg)</option>
+					<option value="Exercise">Exercise (steps)</option>
+				</select>
+				<br><br>
+				<label>Value</label>
+				<input class="input-button-select" type="text" placeholder="Number" name="value" />
+				<br><br>
+				<textarea class="input-button-select" id="addRecordForm" placeholder="Add comment here" name="comment" rows="5" cols="33"></textarea>
+				<br><br>
+				<input style="font-size: 110%;" class="generic-button" type="submit" />
+			</form>
+
+		</div>
+		<div class="todo">
+			<div class="head">
+				<!--					<i class='bx bx-edit-alt'></i>-->
+				<h3>Your thresholds</h3>
+			</div>
+			<ul class="todo-list">
+				<li class="blueone">
+					<p>Blood Glucose: 3.9 - 5.6 nMol/L</p>
+				</li>
+				<li class="blueone">
+					<p>Insulin Doses: 2 Doses</p>
+				</li>
+				<li class="blueone">
+					<p>Weight: 65 - 75 kg</p>
+				</li>
+				<li class="blueone">
+					<p>Exercise: At least 5000 steps</p>
+				</li>
+			</ul>
+		</div>
+	</div>
+</body>
+<script>
+	function GetRandom() {
+		var myElement = document.getElementById("pwbx")
+		myElement.value = Math.random()
+	}
+	
+</script>
+

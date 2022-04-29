@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Google Icons -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		rel="stylesheet">
+	<!-- CSS -->
+	<link rel="stylesheet" href="/css/clinicianStyle.css">
+
+	<title>MyGlucose MyClinician</title>
+</head>
+<body>
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<div class="logo">
+				<a href="/clinicianDashboard"><img src="/img/MyClinician.svg" alt="MyGlucose Logo"></a>
+			</div>
+			<div class="hamburger">
+				<div class="bars1"></div>
+				<div class="bars2"></div>
+				<div class="bars3"></div>
+			</div>
+			<ul class="nav-links">
+				<li><a class="active" href="/clinicianDashboard">Dashboard</a></li>
+				<li><a href="#">Patients</a></li>
+				<li><a href="#">Messages</a></li>
+				<li><a href="#">Comments</a></li>
+				<li><button class="login-button" href="#"><i class='bx material-icons'>logout</i></button></li>
+			</ul>
+		</nav>
+
+		<!-- MAIN -->
+		<br><br><br><br>
+		<main>
+			{{{body}}}
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+	<br>
+
+	<script src="/js/clinicianScript.js"></script>
+</body>
+</html>
