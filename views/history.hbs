@@ -44,27 +44,26 @@
 			<input class="searchbar" type="text" id="allPatientsInput" onkeyup="allPatientsSearch()" placeholder="Search..." title="Type in a name">
 			<a style="color:var(--blue);" href="#"><i class='bx material-icons'>filter_list</i></a>
 		</div>
-		<table>
+		<table class="scrollTable">
 			<thead>
 				<tr>
-					<th>Record Type</th>
-					<th>Value</th>
-					<th>Date Added</th>
-					<th>View</th>
+					<th scope="col">Record Type</th>
+					<th scope="col">Value</th>
+					<th scope="col">Date Added</th>
+					<th scope="col">View</th>
 				</tr>
 			</thead>
 			<tbody>
 				{{!-- loops over the data set --}}
 				{{#each data}}
 				<tr>
-					<td> 
+					<td data-label="Record Type"> 
 						<p>{{this.record_type}}</p>
 					</td>
-					<td><p>{{this.value}}</p></td>
-					<td><p>{{formatDate this.created_at}}</p></td>
-					<td><a href="/userHistory/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
+					<td data-label="Value"><p>{{this.value}}</p></td>
+					<td data-label="Date Added"><p>{{formatDate this.created_at}}</p></td>
+					<td data-label="View"><a href="/userHistory/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
 				</tr>
-				<li><a href="/userHistory/{{this._id}}"></a></li>
 				{{/each}}
 			</tbody>
 		</table>
