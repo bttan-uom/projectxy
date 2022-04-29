@@ -494,10 +494,12 @@ table th {
 		float: left;
 		font-weight: bold;
 		text-transform: uppercase;
+		word-wrap: break-word;
 	}
 	
 	table td:last-child {
 		border-bottom: 0;
+		word-wrap: break-word;
 	}
 }
 
@@ -508,6 +510,7 @@ thead, tbody tr {
 	display: table;
 	width: 100%;
 	table-layout: fixed;
+	word-wrap: break-word;
 }
 tbody {
 	display: block;
