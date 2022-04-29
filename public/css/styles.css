@@ -282,6 +282,7 @@ nav{
 	color: var(--dark);
 	word-wrap: break-word;
 	word-break: break-all;
+	
 }
 #content main .head-title .left h2 {
 	font-weight: 600;

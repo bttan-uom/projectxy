@@ -281,6 +281,12 @@ nav{
 	font-weight: 600;
 	margin-bottom: 10px;
 	color: var(--dark);
+	/* Non standard for WebKit */
+	word-break: break-word;
+	
+-webkit-hyphens: none;
+-moz-hyphens: none;
+	hyphens: none;
 }
 #content main .head-title .left h2 {
 	font-weight: 600;
