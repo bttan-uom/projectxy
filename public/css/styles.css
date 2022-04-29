@@ -358,9 +358,6 @@ nav{
 
 
 
-
-
-
 #content main .table-data {
 	display: flex;
 	flex-wrap: wrap;
@@ -396,7 +393,7 @@ nav{
 }
 #content main .table-data .order {
 	flex-grow: 1;
-	flex-basis: 500px;
+	flex-basis: 550px;
 }
 #content main .table-data .todo .todo-list li {
 	width: 100%;
@@ -444,7 +441,6 @@ table th,
 table td {
 	padding: .625em;
 	text-align: center;
-	word-wrap: break-word;
 }
 
 table th {
@@ -453,7 +449,7 @@ table th {
 	text-transform: uppercase;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 600px) {
 	table {
 		border: 0;
 	}
@@ -471,12 +467,14 @@ table th {
 		padding: 0;
 		position: absolute;
 		width: 1px;
+		word-wrap: break-word;
 	}
 	
 	table tr {
 		border-bottom: 3px solid #ddd;
 		display: block;
 		margin-bottom: .625em;
+		word-wrap: break-word;
 	}
 	
 	table td {
@@ -484,6 +482,7 @@ table th {
 		display: block;
 		font-size: .8em;
 		text-align: right;
+		word-wrap: break-word;
 	}
 	
 	table td::before {
@@ -502,7 +501,20 @@ table th {
 	}
 }
 
-
+table {
+	width: 100%;
+}
+thead, tbody tr {
+	display: table;
+	width: 100%;
+	table-layout: fixed;
+}
+tbody {
+	display: block;
+	overflow-y: auto;
+	table-layout: fixed;
+	max-height: 200px;
+}
 
 
 
