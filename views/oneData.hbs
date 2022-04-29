@@ -7,7 +7,7 @@
             </li>
             <li><i class='bx material-icons'>chevron_right</i></li>
             <li>
-                <a class="active generic-button" href="#">View record {{this._id}}</a>
+                <a class="active generic-button" href="#">{{this.record_type}} on {{formatDate this.created_at}}</a>
             </li>
         </ul>
         <br>
@@ -80,10 +80,12 @@
         <span class="text">
             <h3>Comment</h3>
             <br>
-            <h3>{{this.comment}}</h3>
+            <h2>{{this.comment}}</h2>
         </span>
     </li>
 
 
 </ul>
 {{/with}}
+
+<script></script>

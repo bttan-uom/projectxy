@@ -72,9 +72,9 @@
 							{{#each data}}
 							<tr>
 								<td><p>{{this.record_type}}</p></td>
-								<td><p>{{truncate this.value 6}}</p></td>
+								<td><p>{{this.value}}</p></td>
 								<td><p>{{this.username}}</p></td>
-								<td><p>{{truncate "Threshold Warning" 6}}</p></td>
+								<td><p>Threshold Warning</p></td>
 								<td><a href="/clinicianDashboard/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
 							</tr>
 							<li><a href="/clinicianDashboard/{{this._id}}"></a></li>
@@ -96,6 +96,7 @@
 								<th>Record Type</th>
 								<th>Value</th>
 								<th>User</th>
+								<th>Warning</th>
 								<th>View</th>
 							</tr>
 						</thead>
@@ -104,8 +105,9 @@
 							{{#each data}}
 							<tr {{#if_eq this.value}} {{/if_eq}}>
 								<td><p>{{this.record_type}}</p></td>
-								<td><p>{{truncate this.value 6}}</p></td>
+								<td><p>{{this.value}}</p></td>
 								<td><p>{{this.username}}</p></td>
+								<td><p>{{#if_threshold_text this.value}} {{/if_threshold_text}}</p></td>
 								<td><a href="/clinicianDashboard/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
 							</tr>
 							<li><a href="/clinicianDashboard/{{this._id}}"></a></li>

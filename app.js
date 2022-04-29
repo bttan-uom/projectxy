@@ -92,6 +92,17 @@ hbs.handlebars.registerHelper('if_eq', function(patientData) {
     return '';//outOfRange;
 });
 
+hbs.handlebars.registerHelper('if_threshold_text', function(patientData) {
+    const upperGlucoseThreshold = 3.9;
+    const lowerGlucoseThreshold = 5.6;
+    var thresholdWarning = 'Threshold Warning';
+    if ((patientData > upperGlucoseThreshold) || (patientData < lowerGlucoseThreshold)) {
+        // outOfRange = true;
+        return thresholdWarning;
+    }
+    return 'None';//outOfRange;
+});
+
 
 // Tells the app to listen on port 3000 and logs that information to the console.
 app.listen(process.env.PORT || 3000, () => {

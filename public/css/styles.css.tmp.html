@@ -1,3 +1,4 @@
+<style>
 
 @import url('https://fonts.googleapis.com/css2?family=Signika+Negative:wght@300;400;500;600;700&display=swap');
 
@@ -6,6 +7,7 @@
 	padding: 0;
 	box-sizing: border-box;
 	font-family: 'Signika Negative', sans-serif;
+	
 }
 
 a {
@@ -274,22 +276,25 @@ nav{
 	justify-content: space-between;
 	grid-gap: 16px;
 	flex-wrap: wrap;
+	word-wrap: break-word;
+	display: -webkit-box;
+	max-width: 100%;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
 }
 #content main .head-title .left h1 {
 	font-size: 40px;
 	font-weight: 600;
 	margin-bottom: 10px;
 	color: var(--dark);
-	word-wrap: break-word;
-	word-break: break-all;
+	
 }
 #content main .head-title .left h2 {
 	font-weight: 600;
 	font-size: 25px;
 	margin-bottom: 10px;
 	color: var(--dark);
-	word-wrap: break-word;
-	word-break: break-all;
 }
 #content main .head-title .left .breadcrumb {
 	display: flex;
@@ -325,10 +330,9 @@ nav{
 
 #content main .box-info {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(154px, 1fr));
+	grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
 	grid-gap: 12px;
 	margin-top: 15px;
-	
 }
 #content main .box-info li {
 	padding: 22px;
@@ -339,8 +343,8 @@ nav{
 	grid-gap: 22px;
 }
 #content main .box-info li .bx {
-	width: 40px;
-	height: 40px;
+	width: 2rem;
+	height: 2rem;
 	border-radius: 10px;
 	font-size: 20px;
 	display: flex;
@@ -350,27 +354,28 @@ nav{
 	color: var(--blue);
 }
 #content main .box-info li .text h3 {
-	font-size: 16px;
+	font-size: 1rem;
 	font-weight: 600;
 	color: var(--dark);
+	
+	
 }
-
 #content main .box-info li .text h2 {
-	font-size: 110%;
+	font-size: 1rem;
 	color: var(--dark);
-	grid-gap: 12px;
-	margin-top: 15px;
-	min-width: 0;
-	min-height: 0;
 	word-wrap: break-word;
-	word-break: break-all;
-	max-width: 100%;
+	display: -webkit-box;
+	max-width: 10rem;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	
 }
-
-
 #content main .box-info li .text p {
 	color: var(--dark);	
-	font-size: 13px;
+	font-size: 0.8rem;
+	word-wrap: break-word;
+
 }
 
 
@@ -585,3 +590,4 @@ form {
 	} */
 }
 
+</style>
