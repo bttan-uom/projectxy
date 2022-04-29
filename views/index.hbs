@@ -76,15 +76,15 @@
 		</div>
 		<ul class="todo-list">
 			<li class="not-completed">
-				<p>Blood Sugar</p>
+				<p>Exercise</p>
 				<a href="/userAddRecord"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a>
 			</li>
 			<li class="not-completed">
-				<p>Step count</p>
+				<p>Weight</p>
 				<a href="/userAddRecord"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a>
 			</li>
 			<li class="not-completed">
-				<p>Other thing</p>
+				<p>Insulin Doses</p>
 				<a href="/userAddRecord"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a>
 			</li>
 		</ul>
@@ -107,6 +107,7 @@
 			<tbody>
 				{{!-- loops over the data set --}}
 				{{#each data}}
+				{{#if (isFromToday this.created_at)}}
 				<tr>
 					<td data-label="Record Type">
 						<p>{{this.record_type}}</p>
@@ -114,6 +115,8 @@
 					<td data-label="Value"><p>{{this.value}}</p></td>
 					<td data-label="View"><a href="/userHistory/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
 				</tr>
+				{{else}}
+				{{/if}}
 				{{/each}}
 			</tbody>
 		</table>

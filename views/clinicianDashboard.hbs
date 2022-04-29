@@ -70,13 +70,19 @@
 						<tbody>
 							{{!-- loops over the data set --}}
 							{{#each data}}
-							<tr>
-								<td data-label="Record Type"><p>{{this.record_type}}</p></td>
-								<td data-label="Value"><p>{{this.value}}</p></td>
-								<td data-label="Username"><p>{{this.username}}</p></td>
-								<td data-label="Warning"><p>Threshold Warning</p></td>
-								<td data-label="View"><a href="/clinicianDashboard/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
-							</tr>
+							{{#if (isFromToday this.created_at)}}
+								{{#if (isOverThreshold this.record_type this.value)}}
+									<tr {{#if_eq_clinician_dashboard this.record_type this.value}} {{/if_eq_clinician_dashboard}}>
+										<td data-label="Record Type"><p>{{this.record_type}}</p></td>
+										<td data-label="Value"><p>{{this.value}}</p></td>
+										<td data-label="Username"><p>{{this.username}}</p></td>
+										<td data-label="Warning"><p>{{#if_threshold_text this.record_type this.value}} {{/if_threshold_text}}</p></td>
+										<td data-label="View"><a href="/clinicianDashboard/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
+									</tr>
+								{{else}}
+								{{/if}}
+							{{else}}
+							{{/if}}
 							{{/each}}
 						</tbody>
 					</table>
@@ -102,13 +108,16 @@
 						<tbody>
 							{{!-- loops over the data set --}}
 							{{#each data}}
-							<tr {{#if_eq_clinician_dashboard this.record_type this.value}} {{/if_eq_clinician_dashboard}}>
-								<td data-label="Record Type"><p>{{this.record_type}}</p></td>
-								<td data-label="Value"><p>{{this.value}}</p></td>
-								<td data-label="Username"><p>{{this.username}}</p></td>
-								<td data-label="Warning"><p>{{#if_threshold_text this.record_type this.value}} {{/if_threshold_text}}</p></td>
-								<td data-label="View"><a href="/clinicianDashboard/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
-							</tr>
+							{{#if (isFromToday this.created_at)}}
+								<tr {{#if_eq_clinician_dashboard this.record_type this.value}} {{/if_eq_clinician_dashboard}}>
+									<td data-label="Record Type"><p>{{this.record_type}}</p></td>
+									<td data-label="Value"><p>{{this.value}}</p></td>
+									<td data-label="Username"><p>{{this.username}}</p></td>
+									<td data-label="Warning"><p>{{#if_threshold_text this.record_type this.value}} {{/if_threshold_text}}</p></td>
+									<td data-label="View"><a href="/clinicianDashboard/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
+								</tr>
+							{{else}}
+							{{/if}}
 							{{/each}}
 						</tbody>
 					</table>

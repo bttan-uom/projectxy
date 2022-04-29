@@ -118,7 +118,24 @@ hbs.handlebars.registerHelper('if_threshold_text', function(record_type, patient
             return thresholdWarning;
         }
     }
-    return 'None';//outOfRange;
+    return 'None';
+});
+
+hbs.handlebars.registerHelper('isOverThreshold', function(record_type, patientData) {
+    if (record_type == "Blood Glucose"){
+        const upperGlucoseThreshold = 5.6;
+        const lowerGlucoseThreshold = 3.9;
+        return ((patientData > upperGlucoseThreshold) || (patientData < lowerGlucoseThreshold))
+
+    }
+    return false;
+});
+
+hbs.handlebars.registerHelper('isFromToday', function (givenDate) {
+    const currentDate = new Date();
+    const convertCurrentDate = moment(currentDate).tz('Australia/Melbourne').format("DD/MM/YY");
+    const convertGivenDate = moment(givenDate).tz('Australia/Melbourne').format("DD/MM/YY");
+    return convertGivenDate == convertCurrentDate;
 });
 
 
