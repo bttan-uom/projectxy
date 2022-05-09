@@ -1,0 +1,61 @@
+<body style="background-color:#FFE0D3;">
+	<div class="head-title" >
+		<div class="left">
+			<ul class="breadcrumb">
+				<li>
+					<a class="active" href="#">+Record</a>
+				</li>
+				<li><i class='bx material-icons'>chevron_right</i></li>
+				<li>
+					<a class="active" href="#">Record Not Added</a>
+				</li>
+			</ul>
+			<br>
+			<h1>Record Not Added <i style="font-size: 100%;" class='bx material-icons'>block</i></h1>
+			
+		</div>
+	</div>	
+	<ul class="box-info">
+		<li>
+			<i class='bx material-icons'>today</i>
+			<span class="text">
+				<h3 id="CurrentDate"></h3>
+				<p>Today's Date</p>
+			</span>
+		</li>
+		<li>
+			<i class='bx material-icons'>medication</i>
+			<span class="text">
+				{{#with clinician}}
+					<h3>Dr. {{this.first_name}} {{this.last_name}}</h3>
+				{{/with}}
+				<p>Your clinician</p>
+			</span>
+		</li>
+	</ul>
+	
+	
+	
+	
+	
+	<div class="table-data">
+		<div class="order">
+			<div class="head">
+				<!--					<i class='bx bx-check-square' ></i>-->
+				<h3>An error has occured while entering data</h3>
+			</div>
+			{{#with error}}
+			<p>Error: {{this}}</p>
+			{{/with}}
+			
+		</div>
+		
+	</div>
+	<br>
+
+	<br><br><br>
+	<a href="/userHistory">
+		<button style="padding: 0.8rem 22%;" class="generic-button" ><i style="font-size: 250%;" class='bx material-icons'>check</i><p style="font-size:180%">Done</p></button>
+	</a> 
+	
+</body>
