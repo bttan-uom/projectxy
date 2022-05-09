@@ -51,6 +51,14 @@ app.get('/clinicianNotes', (req, res) => {
     res.render('clinicianNotes', {layout : 'main2'});
 });
 
+// THESE ARE JUST FOR TESTING, NOT CONNECTED TO ANY ROUTERS
+app.get('/addClinicalNote', (req, res) => {
+    res.render('addClinicalNote', {layout : 'main2'});
+});
+
+
+
+
 
 
 app.use('/userAddRecord', userAddRecordRouter)
