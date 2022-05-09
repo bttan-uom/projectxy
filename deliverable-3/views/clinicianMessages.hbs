@@ -3,15 +3,14 @@
 				<div class="left">
 					<ul class="breadcrumb">
 						<li>
-							<a class="active generic-button" href="#">Patients</a>
+							<a class="active generic-button" href="#">Messages</a>
 						</li>
 						<li><i class='bx material-icons'>chevron_right</i></li>
 					</ul>
 					<br>
-					<h1>Patients</h1>
+					<h1>Messages</h1>
 					
 				</div>
-				
 			</div>
 
 			<ul class="box-info">
@@ -51,7 +50,7 @@
 				<div class="order">
 					<div class="head">
 						<!--					<i class='bx bx-check-square' ></i>-->
-						<h3>You have {{num}} patients</h3>
+						<h3>You have {{num}} messages</h3>
 						<input style="width:40%" type="text" class="input-button-select" id="attentionRequiredInput" onkeyup="attentionRequiredSearch()" placeholder="Search..." title="Type in a name">
 						<a style="color:var(--blue);" href="#"><i class='bx material-icons'>filter_list</i></a>
 					</div>
@@ -59,8 +58,7 @@
 						<thead>
 							<tr class="header">
 								<th>Username</th>
-								<th>Full Name</th>
-								<th>Last Login</th>
+								<th>Message Preview</th>
 								<th>View</th>
 							</tr>
 						</thead>
@@ -71,8 +69,7 @@
 								{{#if (isOverThreshold this.record_type this.value)}}
 									<tr {{#if_eq_clinician_dashboard this.record_type this.value}} {{/if_eq_clinician_dashboard}}>
 										<td data-label="Username"><p>{{this.record_type}}</p></td>
-										<td data-label="Full Name"><p>{{this.value}}</p></td>
-										<td data-label="Last Login"><p>{{this.username}}</p></td>
+										<td data-label="Message Preview"><p>{{this.username}}</p></td>
 										<td data-label="View"><a href="/clinicianDashboard/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
 									</tr>
 								{{else}}

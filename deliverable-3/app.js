@@ -35,8 +35,20 @@ const userAddRecordRouter = require('./routes/userAddRecordRouter')
 
 const clinicanDashboardRouter = require('./routes/clinicianDashboardRouter')
 
+
+// THESE ARE JUST FOR TESTING, NOT CONNECTED TO ANY ROUTERS
+app.get('/clinicianMessages', (req, res) => {
+    res.render('clinicianMessages', {layout : 'main2'});
+});
+
+// THESE ARE JUST FOR TESTING, NOT CONNECTED TO ANY ROUTERS
 app.get('/clinicianViewAllPatients', (req, res) => {
     res.render('clinicianViewAllPatients', {layout : 'main2'});
+});
+
+// THESE ARE JUST FOR TESTING, NOT CONNECTED TO ANY ROUTERS
+app.get('/clinicianNotes', (req, res) => {
+    res.render('clinicianNotes', {layout : 'main2'});
 });
 
 
