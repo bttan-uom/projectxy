@@ -35,9 +35,9 @@ const userAddRecordRouter = require('./routes/userAddRecordRouter')
 
 const clinicanDashboardRouter = require('./routes/clinicianDashboardRouter')
 
-//app.get('/userInformation', (req, res) => {
-//  res.render('userInformation', {layout : 'main'});
-//});
+app.get('/clinicianViewAllPatients', (req, res) => {
+    res.render('clinicianViewAllPatients', {layout : 'main2'});
+});
 
 
 
