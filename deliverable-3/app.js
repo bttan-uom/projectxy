@@ -66,6 +66,12 @@ app.get('/clinicianSendMessage', (req, res) => {
     res.render('clinicianSendMessage', {layout : 'main2'});
 });
 
+// THESE ARE JUST FOR TESTING, NOT CONNECTED TO ANY ROUTERS
+app.get('/oneClinicalNote', (req, res) => {
+    res.render('oneClinicalNote', {layout : 'main2'});
+});
+
+
 
 
 
