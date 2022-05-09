@@ -1,0 +1,123 @@
+
+<div class="head-title">
+    <div class="left">
+        <ul class="breadcrumb">
+            <li>
+                <a class="active generic-button" href="/clinicianMessages">Messages</a>
+            </li>
+            <li><i class='bx material-icons'>chevron_right</i></li>
+            <li>
+                <pre><a class="active generic-button" href="#">New Message</a></pre>
+            </li>
+        </ul>
+        <br>
+        <h1>Send a Message</h1>
+    </div>
+</div>
+
+
+<ul class="box-info">
+    <li>
+        <i class='bx material-icons'>today</i>
+        <span class="text">
+            <h3>{{getCurrentDate}}</h3>
+            <p>Today's Date</p>
+        </span>
+    </li>
+    <li>
+        <i class='bx material-icons'>medication</i>
+        <span class="text">
+            {{#with patient}}
+                <h3>{{this.first_name}} {{this.last_name}}</h3>
+            {{/with}}
+            <p>Receiving Patient</p>
+        </span>
+    </li>
+    <li>
+        <i class='bx material-icons'>medication</i>
+        <span class="text usernametext">
+            {{#with patient}}
+            <h3>{{this.email}}</h3>
+            {{/with}}
+            <p>Reciever Username</p>
+        </span>
+    </li>
+</ul>
+
+
+
+
+
+<div class="table-data">
+    <div class="order">
+        <div class="head">
+            <!--					<i class='bx bx-check-square' ></i>-->
+            <h3>Compose message</h3>
+        </div>
+        
+        <form class="form-group" id="addRecordForm" action="/userAddRecord" method="POST">
+            <label>Message Timestamp</label>
+            <input class="input-button-select" type="text" id="timestamp" name="timestamp" value="{{getCurrentDate}}" readonly><br><br>
+            <label>Username</label>
+            <br>
+            <input class="input-button-select" list="username-list" id="username-choice" name="username-choice" />
+            <datalist id="username-list">
+                <option value="UserOne">
+                    <option value="UserTwo">
+                        <option value="UserThree">
+                            <option value="UserFour">
+                                <option value="UserFive">
+                                    </datalist>
+                                    <br><br>
+                                    <textarea class="input-button-select" id="addRecordForm" placeholder="Compose message here" name="comment" rows="5" cols="33"></textarea>
+                                    <br><br>
+                                    <input style="font-size: 110%;" class="generic-button" type="submit" />
+                                    </form>
+                                    
+                                    </div>
+
+    <div class="todo">
+        <div class="head">
+            <!--					<i class='bx bx-edit-alt'></i>-->
+            <h3>Patient details</h3>
+        </div>
+        <ul class="todo-list">
+            <li class="blueone">
+                <p>THIS SECTION WILL BE AN IFRAME FOR DYNAMIC CHANGES</p>
+                <p></p>
+            </li>
+            <li class="blueone">
+                <p>Height:</p>
+                <p>Another thing</p>
+            </li>
+            <li class="blueone">
+                <p>Gender:</p>
+                <p>Third thing</p>
+            </li>
+            <li class="blueone">
+                <p>Records being recorded:</p>
+                <p>One, two, three, four</p>
+            </li>
+        </ul>
+        <br>
+        <div class="head">
+            <!--					<i class='bx bx-edit-alt'></i>-->
+            <h3>Patient thresholds</h3>
+        </div>
+        <ul class="todo-list">
+            <li class="blueone">
+                <p>Blood Glucose: 3.9 - 5.6 nMol/L</p>
+            </li>
+            <li class="blueone">
+                <p>Insulin Doses: 2 Doses</p>
+            </li>
+            <li class="blueone">
+                <p>Weight: 65 - 75 kg</p>
+            </li>
+            <li class="blueone">
+                <p>Exercise: At least 5000 steps</p>
+            </li>
+        </ul>
+
+    </div>
+</div>

@@ -56,6 +56,15 @@ app.get('/addClinicalNote', (req, res) => {
     res.render('addClinicalNote', {layout : 'main2'});
 });
 
+// THESE ARE JUST FOR TESTING, NOT CONNECTED TO ANY ROUTERS
+app.get('/oneMessageClinician', (req, res) => {
+    res.render('oneMessageClinician', {layout : 'main2'});
+});
+
+// THESE ARE JUST FOR TESTING, NOT CONNECTED TO ANY ROUTERS
+app.get('/clinicianSendMessage', (req, res) => {
+    res.render('clinicianSendMessage', {layout : 'main2'});
+});
 
 
 
