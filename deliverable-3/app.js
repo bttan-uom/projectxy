@@ -36,9 +36,7 @@ const userAddRecordRouter = require('./routes/userAddRecordRouter')
 const clinicanDashboardRouter = require('./routes/clinicianDashboardRouter')
 
 
-app.get('/userLeaderboard', (req, res) => {
-    res.render('userLeaderboard', {layout : 'main'});
-});
+
 
 
 app.use('/userAddRecord', userAddRecordRouter)
