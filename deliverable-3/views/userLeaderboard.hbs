@@ -45,6 +45,7 @@
 		<table class="scrollTable" id="allPatientsTable">
 			<thead>
 				<tr>
+					<th scope="col">Ranking</th>
 					<th scope="col">User</th>
 					<th scope="col">Engagement Rate</th>
 				</tr>
@@ -53,10 +54,13 @@
 				{{!-- loops over the data set --}}
 				{{#each data}}
 				<tr>
-					<td data-label="Record Type"> 
+					<td data-label="Ranking"> 
 						<p>{{this.record_type}}</p>
 					</td>
-					<td data-label="Value"><p>{{this.value}}</p></td>
+					<td data-label="User"> 
+						<p>{{this.record_type}}</p>
+					</td>
+					<td data-label="Engagement Rate"><p>{{this.value}}</p></td>
 				</tr>
 				{{/each}}
 			</tbody>
@@ -88,7 +92,7 @@
 			<h3>This Week</h3>
 			
 		</div>
-		<i class='bx material-icons'>today</i>
+		<img style="width:13rem" src="img/daysofweek.svg">
 	</div>
 
 	
