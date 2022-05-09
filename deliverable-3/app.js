@@ -76,6 +76,11 @@ app.get('/clinicianViewPatient', (req, res) => {
     res.render('clinicianViewPatient', {layout : 'main2'});
 });
 
+// THESE ARE JUST FOR TESTING, NOT CONNECTED TO ANY ROUTERS
+app.get('/login', (req, res) => {
+    res.render('login', {layout : 'loggedout'});
+});
+
 
 
 
