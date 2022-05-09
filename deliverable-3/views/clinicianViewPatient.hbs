@@ -157,4 +157,48 @@
         </ul>
 
     </div>
+    
+    
 </div>
+
+<div class="table-data">
+    <div class="order">
+        <div class="head">
+            <!--					<i class='bx bx-check-square' ></i>-->
+            <h3>Patient's Records</h3>
+            <input style="width:40%" type="text" class="input-button-select" id="attentionRequiredInput" onkeyup="attentionRequiredSearch()" placeholder="Search..." title="Type in a name">
+            <a style="color:var(--blue);" href="#"><i class='bx material-icons'>filter_list</i></a>
+        </div>
+        <table id="attentionRequiredTable">
+            <thead>
+                <tr class="header">
+                    <th>Record Type</th>
+                    <th>Value</th>
+                    <th>Warning</th>
+                    <th>View</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{!-- loops over the data set --}}
+                {{#each data}}
+                {{#if (isFromToday this.created_at)}}
+                {{#if (isOverThreshold this.record_type this.value)}}
+                <tr {{#if_eq_clinician_dashboard this.record_type this.value}} {{/if_eq_clinician_dashboard}}>
+                    <td data-label="Record Type"><p>{{this.record_type}}</p></td>
+                    <td data-label="Value"><p>{{this.value}}</p></td>
+                    <td data-label="Warning"><p>{{#if_threshold_text this.record_type this.value}} {{/if_threshold_text}}</p></td>
+                    <td data-label="View"><a href="/clinicianDashboard/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
+                </tr>
+                {{else}}
+                {{/if}}
+                {{else}}
+                {{/if}}
+                {{/each}}
+            </tbody>
+        </table>
+        <br>
+        <p>Records may be hidden, scroll if required</p>
+        <img src="/img/bounce-arrow.gif" alt="scroll-down-animation" width="50vw">
+    </div>
+</div>
+    
