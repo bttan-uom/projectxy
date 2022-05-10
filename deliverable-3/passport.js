@@ -1,40 +1,38 @@
-// set up Passport
-
 const passport = require('passport')
-const LocalStrategy = require('passport-local')
-const User = require('./models/user')
-
-// Updated serialize/deserialize functions
+const LocalStrategy = require('passport-local').Strategy
+// Hardcode user for now
+const USER = { id: 123, username: 'user', password: 'password', secret: 'info30005' }
+// Serialize information to be stored in session/cookie
 passport.serializeUser((user, done) => {
-    done(undefined, user._id)
+// Use id to serialize user
+done(undefined, user.id)
 })
-
+// When a request comes in, deserialize/expand the serialized information
+// back to what it was (expand from id to full user)
 passport.deserializeUser((userId, done) => {
-    User.findById(userId, { password: 0 }, (err, user) => {
-        if (err) {
-            return done(err, undefined)
-    }
-        return done(undefined, user)
-    })
+// Run database query here to retrieve user information
+// For now, just return the hardcoded user
+if (userId === USER.id) {
+done(undefined, USER)
+} else {
+done(new Error('Bad User'), undefined)
+}
 })
-
-// Set up "local" strategy, i.e. authentication based on username/password. There are other types of strategy too.
-
-var strategy = new LocalStrategy( (username, password, cb) => {
-    // first, check if there is a user in the db with this username
-    User.findOne({username: username}, {}, {}, (err, user) => {
-        if (err) { return cb(null, false, { message: 'Unknown error.' }) }
-        if (!user) { return cb(null, false, { message: 'Incorrect username.' }) }
-    // if there is a user with this username, check if the password matches
-    user.verifyPassword(password, (err, valid) => {
-      if (err) {  return cb(null, false, { message: 'Unknown error.' }) }
-      if (!valid) { return cb(null, false, { message: 'Incorrect password.' }) }
-      return cb(null, user)
-    })
-  })
+// Define local authentication strategy for Passport
+// http://www.passportjs.org/docs/downloads/html/#strategies
+passport.use(
+new LocalStrategy((username, password, done) => {
+// Check if user exists and password matches the hash in the database
+// For now, just match the hardcoded user
+if (username !== USER.username || password !== USER.password) {
+return done(undefined, false, {
+message: 'Incorrect username/password',
 })
-
-
-passport.use(strategy)
+}
+// If credentials match, return user in callback
+return done(undefined, USER)
+})
+)
 
 module.exports = passport
+

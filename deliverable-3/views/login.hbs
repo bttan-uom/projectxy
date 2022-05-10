@@ -20,21 +20,17 @@
 <!--					<i class='bx bx-check-square' ></i>-->
 			<h3>Login</h3>
 		</div>
-		<form class="form-group" action="/login" method="POST">
-			<label>Who are you logging in as?</label>
-			<select class="input-button-select" name="first_name">
-				<option selected="true" disabled="disabled">Select from the list</option>
-				<option value="Patient">Patient</option>
-				<option value="Clinician">Clinician</option>
-			</select>
-			<br><br>
+		{{#each flash}}
+			<p class="alert">{{this}}</p>
+		{{/each}}
+		<form class="form-group" action="login" method="POST">
 			<label>Username</label>
 			<input class="input-button-select" type="text" placeholder="Username" name="username" />
 			<br><br>
 			<label>Password</label>
 			<input class="input-button-select" type="password" placeholder="Password" name="password" />
 			<br><br>
-			<input style="font-size: 110%;" class="generic-button" type="submit" />
+			<input style="font-size: 110%;" class="generic-button" type="submit" value="submit" />
 		</form>
 
 		<br>

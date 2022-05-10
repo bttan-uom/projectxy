@@ -17,6 +17,7 @@ const getAllHistory = async (req, res, next) => {
     } catch (err) {
         return next(err)
     }
+    res.render('history')
 }
 
 // handle request to get one data instance
