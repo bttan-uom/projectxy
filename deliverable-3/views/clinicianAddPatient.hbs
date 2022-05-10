@@ -46,7 +46,7 @@
         
         <form class="form-group" id="addRecordForm" action="/userAddRecord" method="POST">
         <ul class="box-info">
-            <li style="background-color:var(--grey);">
+            <li style="background-color:var(--grey);" class="bluehighlightedbox">
                 <span class="text">
                     <label>Full Name</label>
                     <input class="input-button-select" type="text" placeholder="" name="value" />
@@ -60,7 +60,6 @@
                 </span>
             </li>
         </ul>
-        <br>
         <ul class="box-info">
             
             <li style="background-color:var(--grey);">
@@ -122,10 +121,17 @@
             <!--					<i class='bx bx-edit-alt'></i>-->
             <h3>Health details</h3>
         </div>
-        <ul class="todo-list">
+        <ul class="todo-list-wide">
             <li class="blueone">
-                <p>Records being recorded:</p>
-                <p>One, two, three, four</p>
+                <p>Records to record:</p>
+                <input type="checkbox" id="horns" name="horns">
+                <label for="horns">Blood Glucose</label>
+                <input type="checkbox" id="horns" name="horns">
+                <label for="horns">Insulin Dose(s)</label>
+                <input type="checkbox" id="horns" name="horns">
+                <label for="horns">Weight</label>
+                <input type="checkbox" id="horns" name="horns">
+                <label for="horns">Exercise</label>
             </li>
         </ul>
         <br>
@@ -133,25 +139,25 @@
             <!--					<i class='bx bx-edit-alt'></i>-->
             <h3>Patient thresholds</h3>
         </div>
-        <ul class="todo-list">
+        <ul class="todo-list-wide">
             <li class="blueone">
-                <p>Blood Glucose</p><pre>  </pre>
+                <p>Blood Glucose</p>
 
-                <input class="input-button-select" type="number" placeholder="From" name="value" /><input class="input-button-select" type="number" placeholder="To" name="value" />
+                <input class="small-input-button-select" type="number" placeholder="From" name="value" /><input class="small-input-button-select" type="number" placeholder="To" name="value" />
             </li>
             <li class="blueone">
                 <p>Insulin Doses</p>
-                <input class="input-button-select" type="number" placeholder="" name="value" />
+                <input class="small-input-button-select" type="number" placeholder="" name="value" />
             </li>
             <li class="blueone">
-                <p>Weight</p><pre>  </pre>
-                <input class="input-button-select" type="number" placeholder="From" name="value" />
-                <input class="input-button-select" type="number" placeholder="To" name="value" />
+                <p>Weight</p>
+                <input class="small-input-button-select" type="number" placeholder="From" name="value" />
+                <input class="small-input-button-select" type="number" placeholder="To" name="value" />
             </li>
             <li class="blueone">
-                <p>Exercise</p><pre>  </pre>
-                <input class="input-button-select" type="number" placeholder="From" name="value" />
-                <input class="input-button-select" type="number" placeholder="To" name="value" />
+                <p>Exercise</p>
+                <input class="small-input-button-select" type="number" placeholder="From" name="value" />
+                <input class="small-input-button-select" type="number" placeholder="To" name="value" />
             </li>
         </ul>
 

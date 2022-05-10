@@ -324,6 +324,7 @@ nav{
 }
 
 
+
 #content main .box-info {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(154px, 1fr));
@@ -342,6 +343,8 @@ nav{
 	-moz-hyphens: auto;
 		hyphens: auto;
 }
+
+
 #content main .box-info li {
 	padding: 12px;
 	background: var(--light);
@@ -428,15 +431,22 @@ nav{
 	flex-basis: 25rem;
 }
 #content main .table-data .todo .todo-list li {
-	width: 100%;
+
 	margin-bottom: 16px;
 	background: var(--grey);
 	border-radius: 10px;
 	padding: 14px 20px;
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
 }
+#content main .table-data .todo .todo-list-wide li {
+	
+	margin-bottom: 16px;
+	background: var(--grey);
+	border-radius: 10px;
+	padding: 14px 20px;
+}
+
 #content main .table-data .todo .todo-list li .bx {
 	cursor: pointer;
 }
@@ -452,6 +462,25 @@ nav{
 #content main .table-data .todo .todo-list li:last-child {
 	margin-bottom: 0;
 }
+
+#content main .table-data .todo .todo-list-wide li .bx {
+	cursor: pointer;
+}
+#content main .table-data .todo .todo-list-wide li.blueone {
+	border-left: 10px solid var(--blue);
+}
+#content main .table-data .todo .todo-list-wide li.completed {
+	border-left: 10px solid var(--blue);
+}
+#content main .table-data .todo .todo-list-wide li.not-completed {
+	border-left: 10px solid var(--orange);
+}
+#content main .table-data .todo .todo-list-wide li:last-child {
+	margin-bottom: 0;
+}
+
+
+
 table {
 	border-collapse: collapse;
 	margin: 0;
@@ -584,6 +613,16 @@ form {
 	background: inherit;
 	border-radius: .25rem;
 	width: 100%;
+}
+
+.small-input-button-select {
+	color: inherit;
+	border: 2px solid #666;
+	padding: .5rem;
+	font-size: 1rem;
+	background: inherit;
+	border-radius: .25rem;
+	width: 10rem;
 }
 
 .input-button-submit {
