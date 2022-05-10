@@ -2,10 +2,38 @@ const exphbs = require('express-handlebars')
 const moment = require('moment');
 var tz = require('moment-timezone');
 
+
 // Import express
 const express = require('express')
 // Set your app up as an express app
 const app = express()
+
+
+const flash = require('express-flash')  // for showing login error messages
+const session = require('express-session')  // for managing user sessions
+app.use(express.static('public'))   // define where static assets like CSS live
+app.use(express.urlencoded({ extended: true })) // needed so that POST form works
+app.use(flash())
+
+
+app.use(
+    session({
+        // The secret used to sign session cookies (ADD ENV VAR)
+        secret: process.env.SESSION_SECRET || 'keyboard cat',
+        name: 'myglucose-app', // The cookie name (CHANGE THIS)
+        saveUninitialized: false,
+        resave: false,
+        proxy: process.env.NODE_ENV === 'production', //  to work on Heroku
+        cookie: {
+            sameSite: 'strict',
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 1800000 // sessions expire after 30 minutes
+        },
+    })
+)
+
+
 
 // configure Handlebars
 app.engine(
@@ -25,6 +53,76 @@ app.use(express.static('public'))
 // Set up to handle POST requests
 app.use(express.json()) // needed if POST data is in JSON format
 app.use(express.urlencoded({ extended: false })) // only needed for URL-encoded input
+
+
+
+// use PASSPORT
+const passport = require('./passport.js')
+app.use(passport.authenticate('session'))
+
+// Passport Authentication middleware
+const isAuthenticated = (req, res, next) => {
+    // If user is not authenticated via Passport, redirect to login page
+    if (!req.isAuthenticated()) {
+        return res.redirect('/login')
+    }
+    // Otherwise, proceed to next middleware function
+    return next()
+}
+
+// set up role-based authentication
+const hasRole = (thisRole) => {
+    return (req, res, next) => {
+        if (req.user.role == thisRole) 
+            return next()
+        else {
+            res.redirect('/')
+        }
+    }
+}
+
+
+// use EXPRESS-VALIDATOR (not actually used at this stage)
+const { body, validationResult } = require('express-validator')
+const { redirect } = require('express/lib/response')
+
+// process login attempt
+app.post('/login',
+    passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),  // if bad login, send user back to login page
+    (req, res) => { 
+        console.log('user ' + req.user.username + ' logged in with role ' + req.user.role)     // for debugging
+        res.redirect('/')   // login was successful, send user to home page
+    }
+)
+
+// user requests Home page - requires authentication
+app.get('/', isAuthenticated, (req, res) => {
+    if (req.user.role === 'clinician') {
+        res.redirect('/clinicianDashboard')    // redirect users with 'teacher' role to teachers' home page
+    }
+    else {
+        res.render('userDashboard.hbs', {student: req.user.toJSON()})    // users without 'teacher' role (students) go to this page
+    }
+})
+
+// user requests Teachers page - requires authentication AND user must have 'teacher' role
+app.get('/clinicianDashboard', isAuthenticated, hasRole('clinician'), async (req, res) => {
+//  allStudents = await User.find({role:'patient'}, {username:true, address:true, _id:false}).lean() // get list of all students, to render for teacher
+
+})
+
+
+
+// user logs out
+app.post('/logout', (req, res) => {
+    req.logout()          // kill the session
+    res.redirect('/')     // redirect user to Home page, which will bounce them to Login page
+})
+
+
+
+
+
 
 // link to our routers
 const userHistoryRouter = require('./routes/userHistoryRouter')
@@ -81,6 +179,10 @@ app.get('/login', (req, res) => {
     res.render('login', {layout : 'loggedout'});
 });
 
+// THESE ARE JUST FOR TESTING, NOT CONNECTED TO ANY ROUTERS
+app.get('/clinicianAddPatient', (req, res) => {
+    res.render('clinicianAddPatient', {layout : 'main2'});
+});
 
 
 
@@ -94,7 +196,10 @@ app.use('/', userDashboardRouter)
 
 require('./models')
 
-
+// if user attempts to access any other route, send a 404 error with a customized page
+app.get('*', (req, res) => {
+    res.render('404.hbs')
+})
 
 
 
