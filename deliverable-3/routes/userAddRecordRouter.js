@@ -13,7 +13,7 @@ const isAuthenticated = (req, res, next) => {
     if (!req.isAuthenticated()) {
         return res.redirect('/login')
     }
-    // Otherwise, proceed to next middleware function
+    // Otherwise proceed to next middleware function
     return next()
 }
 

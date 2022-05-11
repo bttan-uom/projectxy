@@ -66,15 +66,15 @@ app.use(express.urlencoded({ extended: false })) // only needed for URL-encoded 
 
 
 // link to our routers
-const userHistoryRouter = require('./routes/userHistoryRouter')
+// const userHistoryRouter = require('./routes/userHistoryRouter')
 
-const userDashboardRouter = require('./routes/userDashboardRouter')
+// const userDashboardRouter = require('./routes/userDashboardRouter')
 
-const userAddRecordRouter = require('./routes/userAddRecordRouter')
+// const userAddRecordRouter = require('./routes/userAddRecordRouter')
 
 const clinicanDashboardRouter = require('./routes/clinicianDashboardRouter')
 
-//const userRouter = require('./routes/userRouter')
+const userRouter = require('./routes/userRouter')
 
 
 // THESE ARE JUST FOR TESTING, NOT CONNECTED TO ANY ROUTERS
@@ -130,11 +130,11 @@ const clinicanDashboardRouter = require('./routes/clinicianDashboardRouter')
 
 
 
-//app.use('/user', userRouter);
-app.use('/userAddRecord', userAddRecordRouter)
-app.use('/userHistory', userHistoryRouter)
-app.use('/userDashboard', userDashboardRouter)
-app.use('/', userDashboardRouter)
+app.use('/user', userRouter);
+// app.use('/userAddRecord', userAddRecordRouter)
+// app.use('/userHistory', userHistoryRouter)
+// app.use('/userDashboard', userDashboardRouter)
+// app.use('/', userDashboardRouter)
 app.use('/clinicianDashboard',clinicanDashboardRouter)
 
 

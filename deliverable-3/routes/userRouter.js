@@ -15,15 +15,15 @@ userRouter.get('/', userDashboardController.getAllRecords)
 userRouter.get('/:patientRecord_id', userDashboardController.getDataById)
 
 // add a route to handle the GET request for add records page
-userRouter.get('/addRecord', userAddRecordController.getAddUserRecordsPage)
+userRouter.get('/userAddRecord', userAddRecordController.getAddUserRecordsPage)
 
 // add a new JSON object to the database
-userRouter.post('/addRecord', userAddRecordController.addNewUserRecord)
+userRouter.post('/userAddRecord', userAddRecordController.addNewUserRecord)
 
 // add a route to handle the GET request for all people data
 userRouter.get('/history', userHistoryController.getAllHistory)
 
-// add a route to handle the GET request for one data instance
+// // add a route to handle the GET request for one data instance
 userRouter.get('/history/:patientRecord_id', userHistoryController.getDataById)
 
 // export the router
