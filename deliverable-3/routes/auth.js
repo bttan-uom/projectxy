@@ -30,14 +30,14 @@ router.get('/login', (req, res) => {
 // Handle login
 router.post('/login',
     passport.authenticate('local', {
-        successRedirect: '/', failureRedirect: '/login', failureFlash: true
+        successRedirect: '/user', failureRedirect: '/login', failureFlash: true
     })
 )
 
 // Handle logout
 router.post('/logout', (req, res) => {
     req.logout()
-    res.redirect('/')
+    res.redirect('/login')
 })
 
 module.exports = router
