@@ -4,6 +4,7 @@ const joins = require('./joins')
 
 // handle request to get all data instances
 const getAllRecords = async (req, res, next) => {
+    console.log(res.userInfo)
     try {
         // Hard-coded email for example in deliverable 2.
         // Not to be used in deliverable 3.
@@ -13,7 +14,7 @@ const getAllRecords = async (req, res, next) => {
             return res.sendStatus(404)
         }
         const patientRecords = await Records.find().lean()
-        return res.render('index', {data: patientRecords.reverse(), clinician: clinician})
+        return res.render('index', {data: patientRecords.reverse(), clinician: clinician, currentUser: res.userInfo})
     } catch (err) {
         return next(err)
     }

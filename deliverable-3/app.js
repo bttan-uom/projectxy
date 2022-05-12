@@ -42,8 +42,6 @@ const passport = require('./passport')
 app.use(passport.authenticate('session'))
 
 // Load authentication router
-const authRouter = require('./routes/auth')
-app.use(authRouter)
 
 // configure Handlebars
 app.engine(
@@ -64,12 +62,15 @@ app.use(express.static('public'))
 app.use(express.json()) // needed if POST data is in JSON format
 app.use(express.urlencoded({ extended: false })) // only needed for URL-encoded input
 
+app.get('/', (req, res) => {
+    res.redirect("/user")
+})
 
 // link to our routers
 const clinicanRouter = require('./routes/clinicianRouter')
-
 const userRouter = require('./routes/userRouter')
-
+app.use('/user', userRouter);
+app.use('/clinician',clinicanRouter);
 
 // THESE ARE JUST FOR TESTING, NOT CONNECTED TO ANY ROUTERS
 // app.get('/clinicianMessages', (req, res) => {
@@ -119,8 +120,7 @@ const userRouter = require('./routes/userRouter')
 
 
 
-app.use('/user', userRouter);
-app.use('/clinician',clinicanRouter);
+
 
 
 require('./models')

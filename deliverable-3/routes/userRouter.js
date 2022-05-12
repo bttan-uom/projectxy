@@ -13,14 +13,43 @@ const userAddRecordController = require('../controllers/userAddRecordController'
 const isAuthenticated = (req, res, next) => {
     // If user is not authenticated via passport, redirect to login page
     if (!req.isAuthenticated()) {
-        return res.redirect('/login')
+        return res.redirect('/user/login')
     }
     // Otherwise, proceed to next middleware function
     return next()
 }
 
+
+userRouter.get('/login', (req, res) => {
+    res.render('login', { flash: req.flash('error'), title: 'Login', layout: 'loggedout'})
+})
+
+userRouter.post('/login',
+    passport.authenticate('local', {
+        successRedirect: '/user', failureRedirect: '/user/login', failureFlash: true
+    }, 
+    )
+)
+
+// Handle logout
+userRouter.post('/logout', (req, res) => {
+    req.logout()
+    res.redirect('/user/login')
+})
+
+userRouter.get('/', isAuthenticated,
+    function(req, res, next){ 
+       res.userInfo = req.user.toJSON()
+       next()
+    },
+    userDashboardController.getAllRecords
+);
+
 // add a route to handle the GET request for all people data
-userRouter.get('/', isAuthenticated, userDashboardController.getAllRecords)
+// userRouter.get('/', isAuthenticated, userDashboardController.getAllRecords)
+
+
+
 
 // add a route to handle the GET request for one data instance
 // userRouter.get('/:patientRecord_id', userDashboardController.getDataById)
