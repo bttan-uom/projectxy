@@ -5,6 +5,10 @@ const joins = require('./joins')
 // handle request to get all data instances
 const getAllRecords = async (req, res, next) => {
     console.log(res.userInfo)
+    // if (req.session.customerID == undefined){
+    //     // for the weird URL's
+    //     res.redirect("/user/login")
+    // }
     try {
         // Hard-coded email for example in deliverable 2.
         // Not to be used in deliverable 3.

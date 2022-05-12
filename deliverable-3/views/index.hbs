@@ -8,13 +8,9 @@
 		</ul>
 		<br>
 		<h1>Dashboard</h1>
-		<h2>Welcome, Pat.</h2>
-
-		<h1>Hello World</h1>
-		<p>User ID is{{currentUser._id}}. User role is {{currentUser.role}}. Username is {{currentUser.username}}</p>
-		<form method="POST" action="/logout">
-			<button>Logout</button>
-		</form>
+		<h2>Welcome, {{currentUser.username}}.</h2>
+		<p>User ID is{{currentUser._id}}. User role is {{currentUser.role}}.</p>
+		
 		
 	</div>
 
