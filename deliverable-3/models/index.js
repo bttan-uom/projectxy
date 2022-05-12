@@ -26,3 +26,4 @@ db.once('open', async () => {
 })
 
 require('./patientRecords')
+require('./user')

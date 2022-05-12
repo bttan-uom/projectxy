@@ -17,14 +17,14 @@ const isAuthenticated = (req, res, next) => {
 // Main page which requires login to access
 // Note use of authentication middleware here
 // router.get('/', isAuthenticated, (req, res) => {
-//     res.render('index', { title: 'Express', user: req.user })
+//     res.redirect('index', { title: 'Express', user: req.user })
     
 // })
 
 
 // Login page (with failure message displayed upon login failure)
 router.get('/login', (req, res) => {
-    res.render('login', { flash: req.flash('error'), title: 'Login' })
+    res.render('login', { flash: req.flash('error'), title: 'Login', layout: 'loggedout'})
 })
 
 // Handle login
