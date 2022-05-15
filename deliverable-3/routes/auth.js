@@ -3,6 +3,7 @@ const express = require('express')
 const router = express.Router()
 const userDashboardRouter = express.Router()
 const userDashboardController = require('../controllers/userDashboardController')
+const User = require('../models/user.js')
 
 // Authentication middleware
 const isAuthenticated = (req, res, next) => {
@@ -22,25 +23,23 @@ const isAuthenticated = (req, res, next) => {
 // })
 
 
-// Login page (with failure message displayed upon login failure)
-router.get('/login', (req, res) => {
+router.get('/', (req, res) => {
     res.render('login', { flash: req.flash('error'), title: 'Login', layout: 'loggedout'})
 })
 
-
-// console.log("Username is: " + req.user.toJSON())
-
-// Handle login
-router.post('/login',
-    passport.authenticate('local', {
-        successRedirect: '/user', failureRedirect: '/login', failureFlash: true
-    }, 
-    )
+router.post('/',
+    passport.authenticate('local', {failureRedirect: '/login', failureFlash: true}), 
+    (req, res) => { 
+        console.log(req.user.username + ' logged in with role ' + req.user.role)     // for debugging
+        res.redirect('/user')   // login was successful, send user to home page
+    }   
+    
 )
 
 // Handle logout
 router.post('/logout', (req, res) => {
     req.logout()
+
     res.redirect('/login')
 })
 

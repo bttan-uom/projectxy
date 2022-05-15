@@ -2,7 +2,7 @@ const express = require('express')
 const passport = require('passport')
 
 // create our Router object
-const clinicanRouter = express.Router()
+const clinicianRouter = express.Router()
 
 const clinicianDashboardController = require('../controllers/clinicianDashboardController')
 
@@ -16,8 +16,10 @@ const isAuthenticated = (req, res, next) => {
     return next()
 }
 
-clinicanRouter.get('/', isAuthenticated, clinicianDashboardController.renderClinicianDashboard)
+clinicianRouter.get('/', isAuthenticated, clinicianDashboardController.renderClinicianDashboard)
 
-clinicanRouter.get('/:patientRecord_id', isAuthenticated, clinicianDashboardController.getDataById)
+clinicianRouter.get('/:patientRecord_id', isAuthenticated, clinicianDashboardController.getDataById)
 
-module.exports = clinicanRouter
+
+module.exports = clinicianRouter
+

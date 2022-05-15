@@ -62,13 +62,15 @@ app.use(express.static('public'))
 app.use(express.json()) // needed if POST data is in JSON format
 app.use(express.urlencoded({ extended: false })) // only needed for URL-encoded input
 
-app.get('/', (req, res) => {
-    res.redirect("/user")
-})
+// app.get('/', (req, res) => {
+//     res.redirect("/user")
+// })
 
 // link to our routers
 const clinicanRouter = require('./routes/clinicianRouter')
 const userRouter = require('./routes/userRouter')
+const auth = require('./routes/auth')
+app.use('/login', auth);
 app.use('/user', userRouter);
 app.use('/clinician',clinicanRouter);
 
