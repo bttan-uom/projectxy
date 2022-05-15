@@ -10,7 +10,7 @@ const clinicianDashboardController = require('../controllers/clinicianDashboardC
 const isAuthenticated = (req, res, next) => {
     // If user is not authenticated via passport, redirect to login page
     if (!req.isAuthenticated()) {
-        return res.redirect('/login')
+        return res.redirect('/auth')
     }
     // Otherwise, proceed to next middleware function
     return next()
@@ -18,8 +18,23 @@ const isAuthenticated = (req, res, next) => {
 
 clinicianRouter.get('/', isAuthenticated, clinicianDashboardController.renderClinicianDashboard)
 
+clinicianRouter.get('/messages', isAuthenticated, clinicianDashboardController.renderClinicianMessages)
+
 clinicianRouter.get('/:patientRecord_id', isAuthenticated, clinicianDashboardController.getDataById)
+
+
+
+
+
+
 
 
 module.exports = clinicianRouter
 
+
+/*
+ROUTERS THAT NEED TO BE COMPLETE:
+- clinician viewing all patients
+- messages
+- clinicial note
+*/

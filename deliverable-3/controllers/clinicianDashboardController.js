@@ -1,5 +1,6 @@
 // import people model
 const Records = require('../models/patientRecords')
+const Patients = require('../models/patients')
 
 const joins = require('./joins')
 
@@ -12,6 +13,18 @@ const renderClinicianDashboard = async (req, res, next) => {
         return next(err)
     }  
 }
+
+
+// handle request to get all people data instances
+const renderClinicianMessages = async (req, res, next) => {
+    try {
+        const patientRecords = await Records.find().lean()
+        res.render('clinicianMessages', {data: Patients.reverse(), layout: 'main2'})
+    } catch (err) {
+        return next(err)
+    }  
+}
+
 
 // handle request to get one data instance
 const getDataById = async (req, res, next) => {
@@ -39,6 +52,7 @@ const getDataById = async (req, res, next) => {
 
 module.exports = {
     renderClinicianDashboard,
-    getDataById
+    getDataById,
+    renderClinicianMessages
 }
 

@@ -70,7 +70,7 @@ app.use(express.urlencoded({ extended: false })) // only needed for URL-encoded 
 const clinicanRouter = require('./routes/clinicianRouter')
 const userRouter = require('./routes/userRouter')
 const auth = require('./routes/auth')
-app.use('/login', auth);
+app.use('/auth', auth);
 app.use('/user', userRouter);
 app.use('/clinician',clinicanRouter);
 
