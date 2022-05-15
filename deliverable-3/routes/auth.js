@@ -30,8 +30,16 @@ router.get('/', (req, res) => {
 router.post('/',
     passport.authenticate('local', {failureRedirect: '/login', failureFlash: true}), 
     (req, res) => { 
-        console.log(req.user.username + ' logged in with role ' + req.user.role)     // for debugging
-        res.redirect('/user')   // login was successful, send user to home page
+        console.log(req.user.username + ' logged in with role ' + req.user.role)  // for debugging
+
+        if (req.user.role == "patient"){
+            res.redirect('/user')   // login was successful, send user to home page
+        }
+        else if (req.user.role == "clinician"){
+            res.redirect('/clinician')
+        }
+
+        
     }   
     
 )
