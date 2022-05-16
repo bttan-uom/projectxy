@@ -18,7 +18,7 @@ const renderClinicianDashboard = async (req, res, next) => {
 // handle request to get all people data instances
 const renderClinicianPatientList = async (req, res, next) => {
     try {
-        const PatientsList = await Patients.find().lean()
+        const PatientsList = await Patients.Patient.find().lean()
         res.render('clinicianViewAllPatients', {data: PatientsList.reverse(), layout: 'main2'})
     } catch (err) {
         return next(err)
@@ -30,7 +30,7 @@ const renderClinicianPatientList = async (req, res, next) => {
 const getSinglePatient = async (req, res, next) => {
     // search the database by ID
     try {
-        const patientData = await Patients.findById(req.params.patient_id).lean()
+        const patientData = await Patients.Patient.findById(req.params.patient_id).lean()
         if (!patientData) {
             // no record found in database
             return res.sendStatus(404)

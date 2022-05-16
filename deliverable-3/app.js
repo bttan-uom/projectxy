@@ -92,6 +92,9 @@ hbs.handlebars.registerHelper('limit', function (arr, limit) {
     return arr.slice(0, limit);
 });
 
+
+
+
 hbs.handlebars.registerHelper('getCurrentDate', function() {
     return new hbs.handlebars.SafeString(
         moment().tz('Australia/Melbourne').format("DD/MM/YY")

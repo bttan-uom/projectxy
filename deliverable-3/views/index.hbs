@@ -65,7 +65,6 @@
 			{{#with clinician}}
 				<p>Your latest message of support from Dr {{this.first_name}} {{this.last_name}}.</p>
 			{{/with}}
-		
 		</span>
 	</li>
 </ul>
@@ -77,21 +76,17 @@
 	<div class="todo">
 		<div class="head">
 <!--					<i class='bx bx-edit-alt'></i>-->
-			<a style="color:var(--blue);" href="/userAddRecord"><h3>Complete your diary <i style="vertical-align: -3px; color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></h3></a>
+			<a style="color:var(--blue);" href="/userAddRecord"><h3>You are required to complete <i style="vertical-align: -3px; color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></h3></a>
 		</div>
 		<ul class="todo-list">
-			<li class="not-completed">
-				<p>Exercise</p>
-				<a href="/userAddRecord"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a>
+		{{#with data}}
+			{{#each assigned_records}}
+            <li class="not-completed">
+				<p>{{this}}</p>
+				<a href="/user/addrecord"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a>
 			</li>
-			<li class="not-completed">
-				<p>Weight</p>
-				<a href="/userAddRecord"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a>
-			</li>
-			<li class="not-completed">
-				<p>Insulin Doses</p>
-				<a href="/userAddRecord"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a>
-			</li>
+        	{{/each}}
+		{{/with}}
 		</ul>
 	</div>
 	
