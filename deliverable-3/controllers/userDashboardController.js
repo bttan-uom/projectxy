@@ -1,4 +1,4 @@
-const Records = require('../models/patientRecords')
+const Patients = require('../models/patients')
 
 const joins = require('./joins')
 
@@ -12,13 +12,18 @@ const getAllRecords = async (req, res, next) => {
     try {
         // Hard-coded email for example in deliverable 2.
         // Not to be used in deliverable 3.
-        const clinician = await joins.getClinician('pat.fakename@example.com')
+        const clinician = await joins.getClinician(res.userInfo.username)
         if (!clinician) {
             // Patient does not have a clinician
             return res.sendStatus(404)
         }
-        const patientRecords = await Records.find().lean()
-        return res.render('index', {data: patientRecords.reverse(), clinician: clinician, currentUser: res.userInfo})
+
+        const patient = await joins.getAPatient(res.userInfo.username)
+        if (!patient) {
+            // Patient does not have a clinician
+            return res.sendStatus(404)
+        }
+        return res.render('index', {data: patient, clinician: clinician, currentUser: res.userInfo})
     } catch (err) {
         return next(err)
     }
