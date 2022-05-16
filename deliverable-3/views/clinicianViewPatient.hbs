@@ -144,14 +144,7 @@
             
             {{#each thresholds}}
             <li class="blueone">
-            {{#each this}}
-                <p>{{this.[0]}}</p>
-                {{#each this.[1]}}
-                
-                    <p>{{this.[0]}}</p>
-                
-                {{/each}}
-            {{/each}}
+                <p>{{this.[0]}}: {{this.[1].[0]}} - {{this.[1].[1]}}</p>
             </li>
             {{/each}}
                 
