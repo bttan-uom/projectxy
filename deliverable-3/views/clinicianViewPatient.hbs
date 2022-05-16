@@ -168,6 +168,7 @@
         <table id="attentionRequiredTable">
             <thead>
                 <tr class="header">
+                    <th>Date Added</th>
                     <th>Record Type</th>
                     <th>Value</th>
                     <th>Warning</th>
@@ -179,6 +180,7 @@
                 {{#each records}}
 
                 <tr>
+                    <td data-label="Date Added"><p>{{formatDate created_at}}</p></td>
                     <td data-label="Record Type"><p>{{record_type}}</p></td>
                     <td data-label="Value"><p>{{this.value}}</p></td>
                     <td data-label="Warning"><p>{{#if_threshold_text this.record_type this.value}} {{/if_threshold_text}}</p></td>
