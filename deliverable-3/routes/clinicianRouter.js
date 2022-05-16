@@ -20,7 +20,7 @@ clinicianRouter.get('/', isAuthenticated, clinicianDashboardController.renderCli
 
 clinicianRouter.get('/patients', isAuthenticated, clinicianDashboardController.renderClinicianPatientList)
 
-clinicianRouter.get('/:patientRecord_id', isAuthenticated, clinicianDashboardController.getDataById)
+clinicianRouter.get('/:patient_id', isAuthenticated, clinicianDashboardController.getDataById)
 
 clinicianRouter.get('/patients/:patient_id', isAuthenticated, clinicianDashboardController.getSinglePatient)
 

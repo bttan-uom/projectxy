@@ -41,7 +41,7 @@ userRouter.get('/', isAuthenticated, (req, res) => {
 
 
 // add a route to handle the GET request for one data instance
-userRouter.get('/:patientRecord_id', userDashboardController.getDataById)
+userRouter.get('/:patient_id', userDashboardController.getDataById)
 
 // add a route to handle the GET request for add records page
 userRouter.get('/userAddRecord', isAuthenticated, userAddRecordController.getAddUserRecordsPage)
@@ -53,7 +53,7 @@ userRouter.post('/userAddRecord', isAuthenticated, userAddRecordController.addNe
 userRouter.get('/history', isAuthenticated, userHistoryController.getAllHistory)
 
 // // add a route to handle the GET request for one data instance
-userRouter.get('/history/:patientRecord_id', isAuthenticated, userHistoryController.getDataById)
+userRouter.get('/history/:patient_id', isAuthenticated, userHistoryController.getDataById)
 
 // export the router
 module.exports = userRouter

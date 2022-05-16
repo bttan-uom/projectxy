@@ -33,13 +33,13 @@ const getAllRecords = async (req, res, next) => {
 const getDataById = async (req, res, next) => {
     // search the database by ID
     try {
-        const author = await Records.findById(req.params.patientRecord_id).lean()
-        if (!author) {
-            // no author found in database
+        const patient = await joins.getAPatient(res.userInfo.username)
+        if (!patient) {
+            // Patient does not have a clinician
             return res.sendStatus(404)
         }
         // found the author
-        return res.render('oneData', {oneItem: author})
+        return res.render('oneData', {oneItem: patient})
     } catch (err) {
         return next(err)
     }

@@ -110,7 +110,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{{!-- loops over the data set --}}
+				{{!-- loops over the data set
 				{{#with data}}
 			
                 {{#each records}}
@@ -120,22 +120,22 @@
                     <td data-label="View"><a href="/clinician/patient/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
                 </tr>
                 {{else}}
-                {{/each}}
+                {{/each}} --}}
 
-
-				{{#each data.records}}
-				{{#if (isFromToday this.created_at)}}
-				<tr>
-					<td data-label="Record Type">
-						<p>{{this.record_type}}</p>
-					</td>
-					<td data-label="Value"><p>{{this.value}}</p></td>
-					<td data-label="View"><a href="/user/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
-				</tr>
-				{{else}}
-				{{/if}}
-				{{/each}}
-			{{/with}}
+				{{#with data}}
+					{{#each records}}
+						{{#if (isFromToday created_at)}}
+							<tr>
+								<td data-label="Record Type">
+									<p>{{record_type}}</p>
+								</td>
+								<td data-label="Value"><p>{{this.value}}</p></td>
+								<td data-label="View"><a href="/user/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
+							</tr>
+						{{else}}
+						{{/if}}
+					{{/each}}
+				{{/with}}
 			</tbody>
 		</table>
 		<br>
