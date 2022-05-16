@@ -56,16 +56,20 @@
 			</thead>
 			<tbody>
 				{{!-- loops over the data set --}}
-				{{#each data}}
-				<tr>
-					<td data-label="Record Type"> 
-						<p>{{this.record_type}}</p>
-					</td>
-					<td data-label="Value"><p>{{this.value}}</p></td>
-					<td data-label="Date Added"><p>{{formatDate this.created_at}}</p></td>
-					<td data-label="View"><a href="/userHistory/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
-				</tr>
-				{{/each}}
+
+				{{#with data}}
+					{{#each records}}
+						<tr>
+						<td data-label="Record Type"> 
+							<p>{{record_type}}</p>
+						</td>
+						<td data-label="Value"><p>{{value}}</p></td>
+						<td data-label="Date Added"><p>{{formatDate created_at}}</p></td>
+						<td data-label="View"><a href="/user/history/{{record_id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
+						</tr>
+					{{/each}}
+				{{/with}}
+				
 			</tbody>
 		</table>
 		<br>

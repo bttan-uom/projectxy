@@ -5,9 +5,7 @@ const passport = require('passport')
 const userRouter = express.Router()
 
 // import people controller functions
-const userHistoryController = require('../controllers/userHistoryController')
 const userDashboardController = require('../controllers/userDashboardController')
-const userAddRecordController = require('../controllers/userAddRecordController')
 
 // Authentication middleware
 const isAuthenticated = (req, res, next) => {
@@ -38,22 +36,63 @@ userRouter.get('/', isAuthenticated, (req, res) => {
         userRouter.get('/', isAuthenticated, userDashboardController.getAllRecords)
 })
 
+userRouter.get('/history', isAuthenticated,
+    function(req, res, next){ 
+       res.userInfo = req.user.toJSON()
+       next()
+    },
+    userDashboardController.getAllHistory
+);
+
+
+userRouter.get('/:record_id', isAuthenticated, 
+    function(req, res, next) {
+        console.log("ABCDEFGHIKL")
+        res.userInfo = req.user.toJSON()
+        next()
+    },
+    userDashboardController.getDataById
+)
+
 
 
 // add a route to handle the GET request for one data instance
-userRouter.get('/:patient_id', userDashboardController.getDataById)
+
 
 // add a route to handle the GET request for add records page
-userRouter.get('/userAddRecord', isAuthenticated, userAddRecordController.getAddUserRecordsPage)
+// userRouter.get('/addRecord', isAuthenticated, userDashboardController.getAddUserRecordsPage)
 
-// add a new JSON object to the database
-userRouter.post('/userAddRecord', isAuthenticated, userAddRecordController.addNewUserRecord)
+userRouter.get('/addRecord', isAuthenticated,
+    function(req, res, next){ 
+       res.userInfo = req.user.toJSON()
+       next()
+    },
+    userDashboardController.getAddUserRecordsPage
+);
 
-// add a route to handle the GET request for all people data
-userRouter.get('/history', isAuthenticated, userHistoryController.getAllHistory)
+// // add a new JSON object to the database
+// userRouter.post('/addRecord', isAuthenticated, userDashboardController.addNewUserRecord)
+
+userRouter.post('/addRecord', isAuthenticated,
+    function(req, res, next){ 
+       res.userInfo = req.user.toJSON()
+       next()
+    },
+    userDashboardController.addNewUserRecord
+);
+
 
 // // add a route to handle the GET request for one data instance
-userRouter.get('/history/:patient_id', isAuthenticated, userHistoryController.getDataById)
+// userRouter.get('/history/:patient_id', isAuthenticated, userDashboardController.getDataById)
+
+userRouter.post('/history/:record.record_id', isAuthenticated,
+    function(req, res, next){ 
+       res.userInfo = req.user.toJSON()
+       next()
+    },
+    userDashboardController.getDataById
+);
+
 
 // export the router
 module.exports = userRouter

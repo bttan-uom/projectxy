@@ -21,6 +21,16 @@ const getAllPatients = async (clinician_username) => {
     }
 }
 
+const getAPatientNoConvert = async (patient_username) => {
+    try {
+        const patient = await Patient.findOne({'email': patient_username})
+        return patient
+    } catch(err) {
+        console.log(err)
+    }
+}
+
+
 const getAPatient = async (patient_username) => {
     try {
         const patient = await Patient.findOne({'email': patient_username}).lean()
@@ -33,5 +43,6 @@ const getAPatient = async (patient_username) => {
 module.exports = {
     getClinician,
     getAllPatients,
-    getAPatient
+    getAPatient,
+    getAPatientNoConvert
 }

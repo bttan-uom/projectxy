@@ -1,5 +1,6 @@
 const exphbs = require('express-handlebars')
 const moment = require('moment');
+const crypto = require('crypto');
 var tz = require('moment-timezone');
 
 
@@ -74,63 +75,14 @@ app.use('/auth', auth);
 app.use('/user', userRouter);
 app.use('/clinician',clinicanRouter);
 
-// THESE ARE JUST FOR TESTING, NOT CONNECTED TO ANY ROUTERS
-// app.get('/clinicianMessages', (req, res) => {
-//     res.render('clinicianMessages', {layout : 'main2'});
-// });
-
-// // THESE ARE JUST FOR TESTING, NOT CONNECTED TO ANY ROUTERS
-// app.get('/clinicianViewAllPatients', (req, res) => {
-//     res.render('clinicianViewAllPatients', {layout : 'main2'});
-// });
-
-// // THESE ARE JUST FOR TESTING, NOT CONNECTED TO ANY ROUTERS
-// app.get('/clinicianNotes', (req, res) => {
-//     res.render('clinicianNotes', {layout : 'main2'});
-// });
-
-// // THESE ARE JUST FOR TESTING, NOT CONNECTED TO ANY ROUTERS
-// app.get('/addClinicalNote', (req, res) => {
-//     res.render('addClinicalNote', {layout : 'main2'});
-// });
-
-// // THESE ARE JUST FOR TESTING, NOT CONNECTED TO ANY ROUTERS
-// app.get('/oneMessageClinician', (req, res) => {
-//     res.render('oneMessageClinician', {layout : 'main2'});
-// });
-
-// // THESE ARE JUST FOR TESTING, NOT CONNECTED TO ANY ROUTERS
-// app.get('/clinicianSendMessage', (req, res) => {
-//     res.render('clinicianSendMessage', {layout : 'main2'});
-// });
-
-// // THESE ARE JUST FOR TESTING, NOT CONNECTED TO ANY ROUTERS
-// app.get('/oneClinicalNote', (req, res) => {
-//     res.render('oneClinicalNote', {layout : 'main2'});
-// });
-
-// // THESE ARE JUST FOR TESTING, NOT CONNECTED TO ANY ROUTERS
-// app.get('/clinicianViewPatient', (req, res) => {
-//     res.render('clinicianViewPatient', {layout : 'main2'});
-// });
-
-// // THESE ARE JUST FOR TESTING, NOT CONNECTED TO ANY ROUTERS
-// app.get('/clinicianAddPatient', (req, res) => {
-//     res.render('clinicianAddPatient', {layout : 'main2'});
-// });
-
-
-
-
-
 
 
 require('./models')
 
 // if user attempts to access any other route, send a 404 error with a customized page
-app.get('*', (req, res) => {
-    res.render('404.hbs')
-})
+// app.get('*', (req, res) => {
+//     res.render('404.hbs')
+// })
 
 
 
@@ -145,6 +97,18 @@ hbs.handlebars.registerHelper('getCurrentDate', function() {
         moment().tz('Australia/Melbourne').format("DD/MM/YY")
     );
 });
+
+hbs.handlebars.registerHelper('generateHash', function(encodeString) {
+
+    hash = crypto.getHashes();
+
+    hashPwd = crypto.createHash('sha1').update(encodeString).digest('hex');
+  
+    console.log(hash); 
+
+    return hash;
+});
+
 
 hbs.handlebars.registerHelper('formatDate', function(dateString) {
     return new hbs.handlebars.SafeString(
