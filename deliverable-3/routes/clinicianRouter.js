@@ -18,9 +18,11 @@ const isAuthenticated = (req, res, next) => {
 
 clinicianRouter.get('/', isAuthenticated, clinicianDashboardController.renderClinicianDashboard)
 
-clinicianRouter.get('/messages', isAuthenticated, clinicianDashboardController.renderClinicianMessages)
+clinicianRouter.get('/patients', isAuthenticated, clinicianDashboardController.renderClinicianPatientList)
 
 clinicianRouter.get('/:patientRecord_id', isAuthenticated, clinicianDashboardController.getDataById)
+
+clinicianRouter.get('/patients/:patient_id', isAuthenticated, clinicianDashboardController.getSinglePatient)
 
 
 

@@ -1,17 +1,17 @@
-
+{{#with oneItem}}
 <div class="head-title">
     <div class="left">
         <ul class="breadcrumb">
             <li>
-                <pre><a class="active generic-button" href="/clinicianNotes">Patients</a></pre>
+                <pre><a class="active generic-button" href="/clinician/patients">Patients</a></pre>
             </li>
             <li><i class='bx material-icons'>chevron_right</i></li>
             <li>
-                <pre><a class="active generic-button" href="#">View Patient {{name}}</a></pre>
+                <pre><a class="active generic-button" href="#">View Patient: {{this.first_name}} {{this.last_name}}</a></pre>
             </li>
         </ul>
         <br>
-        <h1>View Patient {{name}}</h1>
+        <h1>View Patient: {{this.first_name}} {{this.last_name}}</h1>
     </div>
 </div>
 
@@ -62,15 +62,15 @@
         <ul class="box-info">
             <li style="background-color:var(--grey);">
                 <span class="text">
-                    <h3>Full Name</h3>
-                    <h3>{{this.something}}</h3>
+                    <h2>Full Name</h2>
+                    <h3>{{this.first_name}} {{this.last_name}}</h3>
                 </span>
                 
             </li>
             <li style="background-color:var(--grey);">
                 <span class="text">
-                    <h3>Date of sign-up</h3>
-                    <h2>{{formatLongDate this.created_at}}</h2>
+                    <h2>Date of sign-up</h2>
+                    <h3>{{formatLongDate this.signupdate}}</h3>
                 </span>
             </li>
         </ul>
@@ -79,22 +79,22 @@
             
             <li style="background-color:var(--grey);">
                 <span class="text">
-                    <h3>Phone number</h3>
-                    <h3>{{this.something}}</h3>
+                    <h2>Phone number</h2>
+                    <h3>{{this.phone}}</h3>
                 </span>
             </li>
             <li style="background-color:var(--grey);">
                 <span class="text">
-                    <h3>Email/username</h3>
-                    <h3>{{this.something}}</h3>
+                    <h2>Email/username</h2>
+                    <h3>{{this.email}}</h3>
                 </span>
             </li>
         </ul>
         <ul class="box-info">
             <li style="background-color:var(--grey);">
                 <span class="text">
-                    <h3>Address</h3>
-                    <h3>{{this.something}}</h3>
+                    <h2>Address</h2>
+                    <h3>{{this.address}}</h3>
                 </span>
                 
             </li>
@@ -103,21 +103,21 @@
         <ul class="box-info">
             <li style="background-color:var(--grey);">
                 <span class="text">
-                    <h3>Height</h3>
-                    <h3>{{this.something}}</h3>
+                    <h2>Height</h2>
+                    <h3>{{this.height}}</h3>
                 </span>
             </li>
             
             <li style="background-color:var(--grey);">
                 <span class="text">
-                    <h3>Date of Birth</h3>
-                    <h3>{{this.something}}</h3>
+                    <h2>Date of Birth</h2>
+                    <h3>{{formatDateLongYear this.dob}}</h3>
                 </span>
             </li>
             <li style="background-color:var(--grey);">
                 <span class="text">
-                    <h3>Gender</h3>
-                    <h3>{{this.something}}</h3>
+                    <h2>Gender</h2>
+                    <h3>{{this.gender}}</h3>
                 </span>
             </li>
         </ul>
@@ -132,8 +132,7 @@
         </div>
         <ul class="todo-list">
             <li class="blueone">
-                <p>Records being recorded:</p>
-                <p>One, two, three, four</p>
+                <p>Records being recorded: {{this.assigned_records}}</p>
             </li>
         </ul>
         <br>
@@ -142,24 +141,28 @@
             <h3>Patient thresholds</h3>
         </div>
         <ul class="todo-list">
+            
+            {{#each thresholds}}
             <li class="blueone">
-                <p>Blood Glucose: 3.9 - 5.6 nMol/L</p>
+            {{#each this}}
+                <p>{{this.[0]}}</p>
+                {{#each this.[1]}}
+                
+                    <p>{{this.[0]}}</p>
+                
+                {{/each}}
+            {{/each}}
             </li>
-            <li class="blueone">
-                <p>Insulin Doses: 2 Doses</p>
-            </li>
-            <li class="blueone">
-                <p>Weight: 65 - 75 kg</p>
-            </li>
-            <li class="blueone">
-                <p>Exercise: At least 5000 steps</p>
-            </li>
+            {{/each}}
+                
+           
         </ul>
 
     </div>
     
     
 </div>
+
 
 <div class="table-data">
     <div class="order">
@@ -180,19 +183,16 @@
             </thead>
             <tbody>
                 {{!-- loops over the data set --}}
-                {{#each data}}
-                {{#if (isFromToday this.created_at)}}
-                {{#if (isOverThreshold this.record_type this.value)}}
-                <tr {{#if_eq_clinician_dashboard this.record_type this.value}} {{/if_eq_clinician_dashboard}}>
-                    <td data-label="Record Type"><p>{{this.record_type}}</p></td>
+                {{#each records}}
+
+                <tr>
+                    <td data-label="Record Type"><p>{{record_type}}</p></td>
                     <td data-label="Value"><p>{{this.value}}</p></td>
                     <td data-label="Warning"><p>{{#if_threshold_text this.record_type this.value}} {{/if_threshold_text}}</p></td>
-                    <td data-label="View"><a href="/clinicianDashboard/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
+                    <td data-label="View"><a href="/clinician/patient/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
                 </tr>
-                {{else}}
-                {{/if}}
-                {{else}}
-                {{/if}}
+
+
                 {{/each}}
             </tbody>
         </table>
@@ -201,4 +201,4 @@
         <img src="/img/bounce-arrow.gif" alt="scroll-down-animation" width="50vw">
     </div>
 </div>
-    
+{{/with}}

@@ -51,7 +51,7 @@
 				<div class="order">
 					<div class="head">
 						<!--					<i class='bx bx-check-square' ></i>-->
-						<h3>You have {{num}} patients</h3>
+						<h3>You have {{data.length}} patients</h3>
 						<input style="width:40%" type="text" class="input-button-select" id="attentionRequiredInput" onkeyup="attentionRequiredSearch()" placeholder="Search..." title="Type in a name">
 						<a style="color:var(--blue);" href="#"><i class='bx material-icons'>filter_list</i></a>
 					</div>
@@ -67,18 +67,12 @@
 						<tbody>
 							{{!-- loops over the data set --}}
 							{{#each data}}
-							{{#if (isFromToday this.created_at)}}
-								{{#if (isOverThreshold this.record_type this.value)}}
-									<tr {{#if_eq_clinician_dashboard this.record_type this.value}} {{/if_eq_clinician_dashboard}}>
-										<td data-label="Username"><p>{{this.record_type}}</p></td>
-										<td data-label="Full Name"><p>{{this.value}}</p></td>
-										<td data-label="Last Login"><p>{{this.username}}</p></td>
-										<td data-label="View"><a href="/clinicianDashboard/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
-									</tr>
-								{{else}}
-								{{/if}}
-							{{else}}
-							{{/if}}
+								<tr>
+									<td data-label="Username"><p>{{this.email}}</p></td>
+									<td data-label="Full Name"><p>{{this.first_name}} {{this.last_name}}</p></td>
+									<td data-label="Last Login"><p>{{this.last_login}}</p></td>
+									<td data-label="View"><a href="/clinician/patients/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
+								</tr>
 							{{/each}}
 						</tbody>
 					</table>

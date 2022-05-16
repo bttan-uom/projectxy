@@ -16,14 +16,35 @@ const renderClinicianDashboard = async (req, res, next) => {
 
 
 // handle request to get all people data instances
-const renderClinicianMessages = async (req, res, next) => {
+const renderClinicianPatientList = async (req, res, next) => {
     try {
-        const patientRecords = await Records.find().lean()
-        res.render('clinicianMessages', {data: Patients.reverse(), layout: 'main2'})
+        const PatientsList = await Patients.find().lean()
+        res.render('clinicianViewAllPatients', {data: PatientsList.reverse(), layout: 'main2'})
     } catch (err) {
         return next(err)
     }  
 }
+
+
+// handle request to get one data instance
+const getSinglePatient = async (req, res, next) => {
+    // search the database by ID
+    try {
+        const patientData = await Patients.findById(req.params.patient_id).lean()
+        if (!patientData) {
+            // no record found in database
+            return res.sendStatus(404)
+        }
+        // found the record
+
+        return res.render('clinicianViewPatient', {oneItem: patientData, layout: 'main2'})
+    } catch (err) {
+        return next(err)
+    }
+
+}
+
+
 
 
 // handle request to get one data instance
@@ -53,6 +74,7 @@ const getDataById = async (req, res, next) => {
 module.exports = {
     renderClinicianDashboard,
     getDataById,
-    renderClinicianMessages
+    renderClinicianPatientList,
+    getSinglePatient
 }
 
