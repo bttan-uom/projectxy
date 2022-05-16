@@ -4,7 +4,7 @@ const Patient = require('../models/patients')
 
 const getClinician = async (patient_username) => {
     try {
-        const patient = await Patient.findOne({'email': patient_username}).lean()
+        const patient = await Patient.Patient.findOne({'email': patient_username}).lean()
         const clinician = await Clinician.findOne({'email': patient.clinician}).lean()
         return clinician
     } catch(err) {
@@ -23,7 +23,7 @@ const getAllPatients = async (clinician_username) => {
 
 const getAPatientNoConvert = async (patient_username) => {
     try {
-        const patient = await Patient.findOne({'email': patient_username})
+        const patient = await Patient.Patient.findOne({'email': patient_username})
         return patient
     } catch(err) {
         console.log(err)
@@ -33,7 +33,7 @@ const getAPatientNoConvert = async (patient_username) => {
 
 const getAPatient = async (patient_username) => {
     try {
-        const patient = await Patient.findOne({'email': patient_username}).lean()
+        const patient = await Patient.Patient.findOne({'email': patient_username}).lean()
         return patient
     } catch(err) {
         console.log(err)

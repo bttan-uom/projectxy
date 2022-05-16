@@ -44,19 +44,17 @@ const getDataById = async (req, res, next) => {
             // Patient does not have a clinician
             return res.sendStatus(404)
         }
+
+        console.log(Patients.Record)
+
+
         
 
-        console.log(patient.records)
 
-        const singleRecord = await patient.records.findById(req.params.record_id).lean()
-        if (!singleRecord) {
-            // no author found in database
-            return res.sendStatus(404)
-        }
 
-        console.log(res.userInfo.username)
 
-        return res.render('oneData', {oneItem: patient, clinician: clinician, singleRecord: singleRecord})
+
+        return res.render('oneData', {oneItem: patient, clinician: clinician})
     } catch (err) {
         return next(err)
     }
