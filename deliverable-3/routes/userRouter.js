@@ -45,14 +45,14 @@ userRouter.get('/history', isAuthenticated,
 );
 
 
-// userRouter.get('/:record_id', isAuthenticated, 
-//     function(req, res, next) {
-//         console.log("ABCDEFGHIKL")
-//         res.userInfo = req.user.toJSON()
-//         next()
-//     },
-//     userDashboardController.getDataById
-// )
+userRouter.get('/:record_id', isAuthenticated, 
+    function(req, res, next) {
+        
+        res.userInfo = req.user.toJSON()
+        next()
+    },
+    userDashboardController.getDataById
+)
 
 
 

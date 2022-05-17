@@ -1,4 +1,4 @@
-{{#with oneItem}}
+{{#each oneItem.records}}
 <div class="head-title">
     <div class="left">
         <ul class="breadcrumb">
@@ -7,14 +7,14 @@
             </li>
             <li><i class='bx material-icons'>chevron_right</i></li>
             <li>
-                <a class="active generic-button" href="#">{{this.record_type}} on {{formatDate this.created_at}}</a>
+                <a class="active generic-button" href="#">{{record_type}} on {{formatDate created_at}}</a>
             </li>
         </ul>
         <br>
-        <h1>{{this.record_type}} record <br>{{formatDate this.created_at}}</h1>
+        <h1>{{record_type}} record <br>{{formatDate created_at}}</h1>
     </div>    
 </div>
-{{/with}}
+
 
 <ul class="box-info">
     <li>
@@ -27,15 +27,12 @@
     <li>
         <i class='bx material-icons'>medication</i>
         <span class="text">
-            {{#with clinician}}
-                <h3>Dr. {{this.first_name}} {{this.last_name}}</h3>
-            {{/with}}
+            <h3>Dr. {{../clinician.first_name}} {{../clinician.last_name}}</h3>
             <p>Your clinician</p>
         </span>
     </li>
 </ul>
 
-{{#with oneItem}}
 
 <div class="table-data">
     <div class="order">
@@ -47,7 +44,7 @@
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Date Added</h3>
-                    <h2>{{formatLongDate this.created_at}}</h2>
+                    <h2>{{formatLongDate created_at}}</h2>
                 </span>
             </li>
         </ul>
@@ -72,7 +69,7 @@
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Comments</h3>
-                    <h3>{{this.comment}}</h3>
+                    <h3>{{this.comments}}</h3>
                 </span>
             </li>
         </ul>
@@ -86,22 +83,13 @@
             <h3>Your thresholds</h3>
         </div>
         <ul class="todo-list">
+            {{#each ../oneItem.thresholds}}
             <li class="blueone">
-                <p>Blood Glucose: 3.9 - 5.6 nMol/L</p>
+                <p>{{this.[0]}}: {{this.[1].[0]}} - {{this.[1].[1]}}</p>
             </li>
-            <li class="blueone">
-                <p>Insulin Doses: 2 Doses</p>
-            </li>
-            <li class="blueone">
-                <p>Weight: 65 - 75 kg</p>
-            </li>
-            <li class="blueone">
-                <p>Exercise: At least 5000 steps</p>
-            </li>
+            {{/each}}
         </ul>
     </div>
 </div>
 
-{{/with}}
-
-<script></script>
+{{/each}}

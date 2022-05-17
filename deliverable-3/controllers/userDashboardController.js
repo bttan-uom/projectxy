@@ -33,8 +33,10 @@ const getAllRecords = async (req, res, next) => {
 const getDataById = async (req, res, next) => {
     // search the database by ID
     console.log(req.params.record_id);
+
+    const recordToView = req.params.record_id
     try {
-        const patient = await joins.getAPatientNoConvert(res.userInfo.username)
+        const patient = await joins.getAPatient(res.userInfo.username)
         if (!patient) {
             return res.sendStatus(404)
         }
@@ -45,27 +47,8 @@ const getDataById = async (req, res, next) => {
             return res.sendStatus(404)
         }
 
-        console.log("This is the record model:", Patients.Record)
-        const firstThing = await Patients.Record.findById("628236fb29e85d6d537049cf").lean()
-        if (!firstThing) {
-            // no author found in database
-            return res.sendStatus(404)
-        }
-        console.log(firstThing)
-        const singleRecord = await Patients.Record.findById(req.params.record_id).lean()
-        if (!singleRecord) {
-            // no author found in database
-            return res.sendStatus(404)
-        }
         
-        console.log(singleRecord)
-
-
-
-
-
-
-        return res.render('oneData', {oneItem: patient, clinician: clinician, singleRecord: singleRecord})
+        return res.render('oneData', {oneItem: patient, clinician: clinician, recordToView: req.params.record_id})
     } catch (err) {
         return next(err)
     }
