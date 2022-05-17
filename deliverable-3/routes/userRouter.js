@@ -1,5 +1,7 @@
 const express = require('express')
 const passport = require('passport')
+const { body, validationResult } = require('express-validator')
+const { redirect } = require('express/lib/response')
 
 // create our Router object
 const userRouter = express.Router()
@@ -17,8 +19,25 @@ const isAuthenticated = (req, res, next) => {
     return next()
 }
 
+// set up role-based authentication
+const hasRole = (thisRole) => {
+    return (req, res, next) => {
+        if (req.user.role == thisRole) 
+            return next()
+        else if (req.user.role=="patient"){
+            res.redirect('/user')
+        }
+        else if (req.user.role=="clinician"){
+            res.redirect('/clinician')
+        }
+        else {
+            res.redirect('/auth')
+        }
+    }    
+}
 
-userRouter.get('/', isAuthenticated,
+
+userRouter.get('/', isAuthenticated, hasRole("patient"),
     function(req, res, next){ 
        res.userInfo = req.user.toJSON()
        next()
@@ -26,17 +45,26 @@ userRouter.get('/', isAuthenticated,
     userDashboardController.getAllRecords
 );
 
-// user requests Home page - requires authentication
-userRouter.get('/', isAuthenticated, (req, res) => {
-    if (req.user.role === 'clinician') {
-        res.redirect('/clinician')    // redirect users with 'teacher' role to teachers' home page
-    }
-    else
-        res.userInfo = req.user.toJSON()
-        userRouter.get('/', isAuthenticated, userDashboardController.getAllRecords)
-})
 
-userRouter.get('/history', isAuthenticated,
+userRouter.get('/history/:record_id', isAuthenticated, hasRole("patient"), 
+    function(req, res, next) {
+
+        res.userInfo = req.user.toJSON()
+        next()
+    },
+    userDashboardController.getDataById
+)
+
+// userRouter.post('/history/:record_id', isAuthenticated, hasRole("patient"),
+//     function(req, res, next){ 
+//        console.log(req.params.record_id)
+//        res.userInfo = req.user.toJSON()
+//        next()
+//     },
+//     userDashboardController.getDataById
+// );
+
+userRouter.get('/history', isAuthenticated, hasRole("patient"),
     function(req, res, next){ 
        res.userInfo = req.user.toJSON()
        next()
@@ -45,9 +73,9 @@ userRouter.get('/history', isAuthenticated,
 );
 
 
-userRouter.get('/:record_id', isAuthenticated, 
+userRouter.get('/:record_id', isAuthenticated, hasRole("patient"), 
     function(req, res, next) {
-        
+
         res.userInfo = req.user.toJSON()
         next()
     },
@@ -56,13 +84,12 @@ userRouter.get('/:record_id', isAuthenticated,
 
 
 
-// add a route to handle the GET request for one data instance
+
 
 
 // add a route to handle the GET request for add records page
-// userRouter.get('/addRecord', isAuthenticated, userDashboardController.getAddUserRecordsPage)
 
-userRouter.get('/addRecord', isAuthenticated,
+userRouter.get('/addRecord', isAuthenticated, hasRole("patient"),
     function(req, res, next){ 
        res.userInfo = req.user.toJSON()
        next()
@@ -71,9 +98,8 @@ userRouter.get('/addRecord', isAuthenticated,
 );
 
 // // add a new JSON object to the database
-// userRouter.post('/addRecord', isAuthenticated, userDashboardController.addNewUserRecord)
 
-userRouter.post('/addRecord', isAuthenticated,
+userRouter.post('/addRecord', isAuthenticated, hasRole("patient"),
     function(req, res, next){ 
        res.userInfo = req.user.toJSON()
        next()
@@ -82,16 +108,7 @@ userRouter.post('/addRecord', isAuthenticated,
 );
 
 
-// // add a route to handle the GET request for one data instance
-// userRouter.get('/history/:patient_id', isAuthenticated, userDashboardController.getDataById)
 
-// userRouter.post('/history/:record.record_id', isAuthenticated,
-//     function(req, res, next){ 
-//        res.userInfo = req.user.toJSON()
-//        next()
-//     },
-//     userDashboardController.getDataById
-// );
 
 
 // export the router

@@ -77,12 +77,13 @@ app.use('/clinician',clinicanRouter);
 
 
 
+
 require('./models')
 
 // if user attempts to access any other route, send a 404 error with a customized page
-// app.get('*', (req, res) => {
-//     res.render('404.hbs')
-// })
+app.get('*', (req, res) => {
+    res.render('clinicianAddPatient.hbs')
+})
 
 
 
@@ -171,6 +172,42 @@ hbs.handlebars.registerHelper('if_eq_clinician_dashboard', function(record_type,
     return 'style="background-color:var(#FFFFFF);"';//outOfRange;
 });
 
+// hbs.handlebars.registerHelper('count_threshold_warnings', function(patientData) {
+//     numWarnings = 0
+//     for (i=0;i<patientData.length;i++){
+//         if (patientData[i].records){
+//             for (j=0;j<patientData[i].records.length;j++){
+//                 console.log(patientData[i].records[j].value)
+//                 console.log(patientData[i].thresholds)
+//                 console.log(patientData[i].thresholds[0].indexOf('weight'))
+//                 if (patientData[i].records[j].record_type == "weight"){
+//                     if (patientData[i].records[j].value < patientData[i].thresholds[patientData[i].thresholds.indexOf('weight')][0] || patientData[i].records[j].value > patientData[i].thresholds[patientData[i].thresholds.indexOf('weight')][1]){
+//                         numWarnings+=1
+//                     }
+//                 }
+//                 if (patientData[i].records[j].record_type == "insulin"){
+//                     if (patientData[i].records[j].value < patientData[i].thresholds[patientData[i].thresholds.indexOf('insulin')][0] || patientData[i].records[j].value > patientData[i].thresholds[patientData[i].thresholds.indexOf('insulin')][1]){
+//                         numWarnings+=1
+//                     }
+//                 }
+//                 if (patientData[i].records[j].record_type == "glucose"){
+//                     if (patientData[i].records[j].value < patientData[i].thresholds[patientData[i].thresholds.indexOf('glucose')][0] || patientData[i].records[j].value > patientData[i].thresholds[patientData[i].thresholds.indexOf('glucose')][1]){
+//                         numWarnings+=1
+//                     }
+//                 }
+//                 if (patientData[i].records[j].record_type == "exercise"){
+//                     if (patientData[i].records[j].value < patientData[i].thresholds[patientData[i].thresholds.indexOf('exercise')][0] || patientData[i].records[j].value > patientData[i].thresholds[patientData[i].thresholds.indexOf('exercise')][1]){
+//                         numWarnings+=1
+//                     }
+//                 }
+
+//             }
+//         }
+//     }
+//     return numWarnings
+// });
+
+
 hbs.handlebars.registerHelper('if_threshold_text', function(record_type, patientData) {
     if (record_type == "Blood Glucose"){
         const upperGlucoseThreshold = 5.6;
@@ -183,6 +220,19 @@ hbs.handlebars.registerHelper('if_threshold_text', function(record_type, patient
     }
     return 'None';
 });
+
+hbs.handlebars.registerHelper('one_record_compare', function(record_id, id_to_compare) {
+    if (record_id == id_to_compare){
+        return true
+    }
+    return false;
+});
+
+hbs.handlebars.registerHelper('print_data', function(data) {
+    console.log(data)
+    return true
+});
+
 
 hbs.handlebars.registerHelper('isOverThreshold', function(record_type, patientData) {
     if (record_type == "Blood Glucose"){
@@ -200,6 +250,9 @@ hbs.handlebars.registerHelper('isFromToday', function (givenDate) {
     const convertGivenDate = moment(givenDate).tz('Australia/Melbourne').format("DD/MM/YY");
     return convertGivenDate == convertCurrentDate;
 });
+
+
+
 
 
 // Tells the app to listen on port 3000 and logs that information to the console.

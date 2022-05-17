@@ -48,8 +48,15 @@
         <ul class="box-info">
             <li style="background-color:var(--grey);" class="bluehighlightedbox">
                 <span class="text">
-                    <label>Full Name</label>
-                    <input class="input-button-select" type="text" placeholder="" name="value" />
+                    <label>Given Name</label>
+                    <input class="input-button-select" type="text" placeholder="" name="given name" />
+                </span>
+                
+            </li>
+             <li style="background-color:var(--grey);" class="bluehighlightedbox">
+                <span class="text">
+                    <label>Last Name</label>
+                    <input class="input-button-select" type="text" placeholder="" name="last name" />
                 </span>
                 
             </li>
@@ -65,13 +72,13 @@
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Phone number</h3>
-                    <input class="input-button-select" type="text" placeholder="" name="value" />
+                    <input class="input-button-select" type="text" placeholder="" name="phone number" />
                 </span>
             </li>
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Email/username</h3>
-                    <input class="input-button-select" type="text" placeholder="" name="value" />
+                    <input class="input-button-select" type="text" placeholder="" name="username" />
                 </span>
             </li>
         </ul>
@@ -79,7 +86,7 @@
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Address</h3>
-                    <input class="input-button-select" type="text" placeholder="" name="value"/>
+                    <input class="input-button-select" type="text" placeholder="" name="address"/>
                 </span>
                 
             </li>
@@ -89,14 +96,14 @@
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Height</h3>
-                    <input class="input-button-select" type="number" placeholder="" name="value"/>
+                    <input class="input-button-select" type="number" placeholder="" name="height"/>
                 </span>
             </li>
             
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Date of Birth</h3>
-                    <input class="input-button-select" type="date" placeholder="" name="value"/>
+                    <input class="input-button-select" type="date" placeholder="" name="date of birth"/>
                 </span>
             </li>
             <li style="background-color:var(--grey);">
@@ -139,21 +146,23 @@
             <li class="blueone">
                 <p>Blood Glucose</p>
 
-                <input class="small-input-button-select" type="number" placeholder="From" name="value" /><input class="small-input-button-select" type="number" placeholder="To" name="value" />
+                {{!-- <input class="small-input-button-select" type="number" placeholder="From" name="value" /><input class="small-input-button-select" type="number" placeholder="To" name="value" /> --}}
+                <input class="input-button-select" type="number" placeholder="From" name="blood glucose threshold lower" />
+                <input class="input-button-select" type="number" placeholder="To" name="blood glucose threshold upper" />
             </li>
             <li class="blueone">
                 <p>Insulin Doses</p>
-                <input class="small-input-button-select" type="number" placeholder="" name="value" />
+                <input class="input-button-select" type="number" placeholder="" name="insulin doses threshold" />
             </li>
             <li class="blueone">
                 <p>Weight</p>
-                <input class="small-input-button-select" type="number" placeholder="From" name="value" />
-                <input class="small-input-button-select" type="number" placeholder="To" name="value" />
+                <input class="input-button-select" type="number" placeholder="From" name="weight threshold lower" />
+                <input class="input-button-select" type="number" placeholder="To" name="weight threshold upper" />
             </li>
             <li class="blueone">
                 <p>Exercise</p>
-                <input class="small-input-button-select" type="number" placeholder="From" name="value" />
-                <input class="small-input-button-select" type="number" placeholder="To" name="value" />
+                <input class="input-button-select" type="number" placeholder="From" name="exercise threshold lower" />
+                <input class="input-button-select" type="number" placeholder="To" name="exercise threshold upper" />
             </li>
         </ul>
 

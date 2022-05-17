@@ -2,6 +2,16 @@
 const Clinician = require('../models/clinicians')
 const Patient = require('../models/patients')
 
+const getClinicianOnly = async (clinician_username) => {
+    try {
+        const clinician = await Clinician.findOne({'email': clinician_username}).lean()
+        return clinician
+    } catch(err) {
+        console.log(err)
+    }
+}
+
+
 const getClinician = async (patient_username) => {
     try {
         const patient = await Patient.Patient.findOne({'email': patient_username}).lean()
@@ -34,4 +44,5 @@ module.exports = {
     getClinician,
     getAllPatients,
     getAPatient,
+    getClinicianOnly
 }

@@ -12,6 +12,7 @@ router.get('/', (req, res) => {
 
 router.post('/',
     passport.authenticate('local', {failureRedirect: '/auth', failureFlash: true}), 
+
     (req, res) => { 
         console.log(req.user.username + ' logged in with role ' + req.user.role)  // for debugging
 

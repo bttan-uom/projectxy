@@ -1,4 +1,5 @@
 {{#each oneItem.records}}
+{{#if (one_record_compare ../recordToView _id)}}
 <div class="head-title">
     <div class="left">
         <ul class="breadcrumb">
@@ -91,5 +92,9 @@
         </ul>
     </div>
 </div>
+
+{{else}}
+{{/if}}
+
 
 {{/each}}
