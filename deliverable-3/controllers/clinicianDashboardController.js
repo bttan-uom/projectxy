@@ -32,20 +32,19 @@ const renderClinicianPatientList = async (req, res, next) => {
 const getSinglePatient = async (req, res, next) => {
     // search the database by ID
     try {
-        const patientData = await Patients.Patient.findById(req.params.patient_id).lean()
-        if (!patientData) {
-            // no record found in database
+        const patient = await joins.getAPatient(req.params.patient_id)
+        if (!patient) {
+            /* Record not associated with a patient. Should be impossible, but
+            just in case */
             return res.sendStatus(404)
         }
         // found the record
 
-        return res.render('clinicianViewPatient', {oneItem: patientData, layout: 'main2'})
+        return res.render('clinicianViewPatient', {oneItem: patient, layout: 'main2'})
     } catch (err) {
         return next(err)
     }
-
 }
-
 
 
 
@@ -96,25 +95,27 @@ const getDataById = async (req, res, next) => {
 
 const getAddNewUserPage = async (req, res, next) => {
     try {
-        res.render("clinicianAddPatient")
+        const PatientsList = await Patients.Patient.find().lean()
+        res.render("clinicianAddPatient", {data: PatientsList.reverse(), layout: 'main2'})
     } catch (err) {
         return next(err)
     }
 }
 
-const addNewUser = async (req, res, next) => {
-    try {
-        
-    } catch (err) {
-        return next(err)
-    }
-}
+// const addNewUser = async (req, res, next) => {
+//     try {
+
+//     } catch (err) {
+//         return next(err)
+//     }
+// }
 
 module.exports = {
     renderClinicianDashboard,
     getDataById,
     renderClinicianPatientList,
     getSinglePatient,
-    addNewUser
+    // addNewUser,
+    getAddNewUserPage
 }
 

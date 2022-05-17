@@ -81,9 +81,9 @@ app.use('/clinician',clinicanRouter);
 require('./models')
 
 // if user attempts to access any other route, send a 404 error with a customized page
-app.get('*', (req, res) => {
-    res.render('clinicianAddPatient.hbs')
-})
+// app.get('*', (req, res) => {
+//     res.render('clinicianAddPatient.hbs')
+// })
 
 
 
