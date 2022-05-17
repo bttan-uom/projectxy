@@ -54,13 +54,13 @@ const getDataById = async (req, res, next) => {
     // search the database by ID
     try {
         // found the record
-        const patient = await joins.getAPatient('pat.fakename@example.com')
+        const patient = await joins.getAPatient(req.params.patient_id)
         if (!patient) {
             /* Record not associated with a patient. Should be impossible, but
             just in case */
             return res.sendStatus(404)
         }
-        return res.render('onePatientRecordClinician', {oneItem: record, layout: 'main2', patient: patient})
+        return res.render('onePatientRecordClinician', {patient: patient, layout: 'main2', recordToShow: req.params.record_id})
     } catch (err) {
         return next(err)
     }
@@ -94,9 +94,17 @@ const getDataById = async (req, res, next) => {
 //     }
 // }
 
+const getAddNewUserPage = async (req, res, next) => {
+    try {
+        res.render("clinicianAddPatient")
+    } catch (err) {
+        return next(err)
+    }
+}
+
 const addNewUser = async (req, res, next) => {
     try {
-
+        
     } catch (err) {
         return next(err)
     }

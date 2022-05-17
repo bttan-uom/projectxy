@@ -1,9 +1,10 @@
-{{#with oneItem}}
+{{#each patient.records}}
+{{#if (one_record_compare ../recordToShow _id)}}
 <div class="head-title">
     <div class="left">
         <ul class="breadcrumb">
             <li>
-                <a class="active generic-button" href="/clinicianDashboard">Dashboard</a>
+                <a class="active generic-button" href="/clinician">Dashboard</a>
             </li>
             <li><i class='bx material-icons'>chevron_right</i></li>
             <li>
@@ -14,7 +15,7 @@
         <h1>View Patient Record</h1>
     </div>
 </div>
-{{/with}}
+
 
 <ul class="box-info">
     <li>
@@ -27,25 +28,18 @@
     <li>
         <i class='bx material-icons'>medication</i>
         <span class="text">
-            {{#with patient}}
-                <h3>{{this.first_name}} {{this.last_name}}</h3>
-            {{/with}}
+                <h3>{{../patient.first_name}} {{../patient.last_name}}</h3>
             <p>Patient</p>
         </span>
     </li>
     <li>
         <i class='bx material-icons'>medication</i>
         <span class="text usernametext">
-            {{#with patient}}
-            <h3>{{this.email}}</h3>
-            {{/with}}
+            <h3>{{../patient.email}}</h3>
             <p>Patient Username</p>
         </span>
     </li>
 </ul>
-
-{{#with oneItem}}
-
 
 
 <div class="table-data">
@@ -83,7 +77,7 @@
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Comments</h3>
-                    <h3>{{this.comment}}</h3>
+                    <h3>{{this.comments}}</h3>
                 </span>
             </li>
         </ul>
@@ -97,19 +91,16 @@
             <h3>Patient thresholds</h3>
         </div>
         <ul class="todo-list">
+            {{#each ../patient.thresholds}}
             <li class="blueone">
-                <p>Blood Glucose: 3.9 - 5.6 nMol/L</p>
+                <p>{{this.[0]}}: {{this.[1].[0]}} - {{this.[1].[1]}}</p>
             </li>
-            <li class="blueone">
-                <p>Insulin Doses: 2 Doses</p>
-            </li>
-            <li class="blueone">
-                <p>Weight: 65 - 75 kg</p>
-            </li>
-            <li class="blueone">
-                <p>Exercise: At least 5000 steps</p>
-            </li>
+            {{/each}}
         </ul>
     </div>
 </div>
-{{/with}}
+{{else}}
+{{/if}}
+
+
+{{/each}}

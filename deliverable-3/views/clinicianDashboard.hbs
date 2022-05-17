@@ -76,7 +76,7 @@
 									<td data-label="Value"><p>{{this.value}}</p></td>
 									<td data-label="Username"><p>{{this.username}}</p></td>
 									<td data-label="Warning"><p>{{#if_threshold_text this.record_type this.value}} {{/if_threshold_text}}</p></td>
-									<td data-label="View"><a href="/clinicianDashboard/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
+									<td data-label="View"><a href="/clinician/patients/{{../email}}/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
 								</tr>
 					{{/each}}
 				{{/each}}
