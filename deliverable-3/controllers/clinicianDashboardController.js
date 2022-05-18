@@ -1,4 +1,5 @@
 // import people model
+const Clinician = require('../models/clinicians')
 const Records = require('../models/patientRecords')
 const Patients = require('../models/patients')
 const joins = require('./joins')
@@ -116,8 +117,13 @@ const writeMessage = async (req, res, next) => {
 }
 
 const getMessages = async (req, res, next) => {
-    console.log('clinician messages')
-    res.render('clinicianMessages')
+    try {
+        const clinician = await joins.getClinicianOnly(res.userInfo.username)
+        const allmessages = await joins.listAllMessages(res.userInfo.username)
+        res.render('clinicianMessages', {npatients: clinician.patients.length, data: allmessages})
+    } catch (err) {
+        return next(err)
+    }
 }
 
 
@@ -134,7 +140,6 @@ const sendPatientMessage = async (req, res, next) => {
             Patients.Patient.findOneAndUpdate(
                 {"email": req.body.username}, 
                 {$push: {messages: {content: req.body.comment, time: req.body.timestamp}}},
-                {returnDocument: false},
                 (err) => {
                     if (err) {
                         console.log(err)
