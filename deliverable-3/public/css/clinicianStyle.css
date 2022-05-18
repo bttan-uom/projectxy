@@ -431,22 +431,15 @@ nav{
 	flex-basis: 25rem;
 }
 #content main .table-data .todo .todo-list li {
-
+	width: 100%;
 	margin-bottom: 16px;
 	background: var(--grey);
 	border-radius: 10px;
 	padding: 14px 20px;
 	display: flex;
+	justify-content: space-between;
 	align-items: center;
 }
-#content main .table-data .todo .todo-list-wide li {
-	
-	margin-bottom: 16px;
-	background: var(--grey);
-	border-radius: 10px;
-	padding: 14px 20px;
-}
-
 #content main .table-data .todo .todo-list li .bx {
 	cursor: pointer;
 }
@@ -454,7 +447,7 @@ nav{
 	border-left: 10px solid var(--blue);
 }
 #content main .table-data .todo .todo-list li.completed {
-	border-left: 10px solid var(--blue);
+	border-left: 10px solid var(--light-green);
 }
 #content main .table-data .todo .todo-list li.not-completed {
 	border-left: 10px solid var(--orange);

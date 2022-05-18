@@ -46,6 +46,7 @@ userRouter.get('/', isAuthenticated, hasRole("patient"),
 );
 
 
+
 userRouter.get('/history/:record_id', isAuthenticated, hasRole("patient"), 
     function(req, res, next) {
 
