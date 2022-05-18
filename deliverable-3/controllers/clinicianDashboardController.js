@@ -122,13 +122,25 @@ const getMessages = async (req, res, next) => {
 
 const sendPatientMessage = async (req, res, next) => {
     try {
-        if (req.body.username === undefined) {
+        console.log(req.body)
+        if (req.body.username === undefined || req.body.username === '') {
             res.render('clinicianSendMessageFail', {error: 'No username selected.'})
-        } else if (req.body.comment === '') {
+        } else if (req.body.comment === undefined || req.body.comment === '') {
             res.render('clinicianSendMessageFail', {error: 'Cannot send empty comment.'})
+        } else if (req.body.timestamp === undefined || req.body.timestamp === '') {
+            res.render('clinicianSendMessageFail', {error: 'Could not get current time.'})
         } else {
             const patient = await joins.getAPatient(req.body.username)
-            patient.messages.push({content: req.body.comment, time: req.body.timestamp})
+            Patients.Patient.findOneAndUpdate(
+                {"email": req.body.username}, 
+                {$push: {messages: {content: req.body.comment, time: req.body.timestamp}}},
+                {returnDocument: false},
+                (err) => {
+                    if (err) {
+                        console.log(err)
+                    }
+                }
+            );
             res.render('clinicianSendMessageSuccess', {patient: patient})
         }
     } catch (err) {

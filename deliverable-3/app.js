@@ -252,7 +252,11 @@ hbs.handlebars.registerHelper('isFromToday', function (givenDate) {
 });
 
 
-
+hbs.handlebars.registerHelper('getTimestamp', function() {
+    return new hbs.handlebars.SafeString(
+        moment().tz('Australia/Melbourne').format()
+    );
+});
 
 
 // Tells the app to listen on port 3000 and logs that information to the console.

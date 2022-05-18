@@ -61,7 +61,8 @@
         
         <form class="form-group" id="addRecordForm" action="/clinician/sendmessage" method="POST">
             <label>Message Timestamp</label>
-            <input class="input-button-select" type="text" id="timestamp" name="timestamp" value="{{getCurrentDate}}" readonly><br><br>
+            <input class="input-button-select" type="text" value="{{getCurrentDate}}" readonly>
+            <input class="input-button-select" type="hidden" id="timestamp" name="timestamp" placeholder="testtime" value="{{getTimestamp}}" readonly><br><br>
             <label>Username</label>
             <br>
             <input class="input-button-select" list="username-list" id="username-choice" placeholder="Select username" name="username" />
