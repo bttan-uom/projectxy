@@ -103,14 +103,10 @@ const getAddNewUserPage = async (req, res, next) => {
     }
 }
 
-const writeMessage = async (req, res, next) => {
+const newMessage = async (req, res, next) => {
     try {
-        const patient = await joins.getAPatient(req.params.patient_id)
-        if (!patient) {
-            res.sendStatus(404)
-        }
-
-        res.render('clinicianSendMessage', {patient: patient})
+        const patients = await joins.getAllPatients(res.userInfo.username)
+        res.render('clinicianSendMessage', {patients: patients})
     } catch (err) {
         return next(err)
     }
@@ -118,14 +114,21 @@ const writeMessage = async (req, res, next) => {
 
 const getMessages = async (req, res, next) => {
     try {
-        const clinician = await joins.getClinicianOnly(res.userInfo.username)
-        const allmessages = await joins.listAllMessages(res.userInfo.username)
-        res.render('clinicianMessages', {npatients: clinician.patients.length, data: allmessages})
+        if (Object.keys(req.query).length !== 0) {
+            /* Viewing an individual message */
+            const patient = await Patients.Patient.findById(req.query.user).lean().exec()
+            const message = await joins.getAMessage(patient, req.query.message)
+            res.render('oneMessageClinician', {patient: patient, message: message})
+        } else {
+            /* Viewing all messages */
+            const clinician = await joins.getClinicianOnly(res.userInfo.username)
+            const allmessages = await joins.listAllMessages(res.userInfo.username)
+            res.render('clinicianMessages', {npatients: clinician.patients.length, data: allmessages})
+        }
     } catch (err) {
         return next(err)
     }
 }
-
 
 const sendPatientMessage = async (req, res, next) => {
     try {
@@ -152,7 +155,6 @@ const sendPatientMessage = async (req, res, next) => {
         return next(err)
     }
 }
-
 // const addNewUser = async (req, res, next) => {
 //     try {
 
@@ -170,6 +172,6 @@ module.exports = {
     getAddNewUserPage,
     sendPatientMessage,
     getMessages,
-    writeMessage
+    newMessage
 }
 

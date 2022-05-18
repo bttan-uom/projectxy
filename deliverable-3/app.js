@@ -258,6 +258,16 @@ hbs.handlebars.registerHelper('getTimestamp', function() {
     );
 });
 
+hbs.handlebars.registerHelper('formatLongDateNoBreak', function(dateString) {
+    return new hbs.handlebars.SafeString(
+        moment(dateString).tz('Australia/Melbourne').format("MMMM Do YYYY h:mm a")
+    );
+});
+
+hbs.handlebars.registerHelper('formatUpper', function (str) {
+    return str.replace(/^\w/, (c) => c.toUpperCase());
+})
+
 
 // Tells the app to listen on port 3000 and logs that information to the console.
 app.listen(process.env.PORT || 3000, () => {

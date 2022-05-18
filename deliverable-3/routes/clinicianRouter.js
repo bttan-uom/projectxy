@@ -88,12 +88,12 @@ clinicianRouter.get('/messages', isAuthenticated, hasRole("clinician"),
 );
 
 // add a route for GET request to user messages page
-clinicianRouter.get('/messages/:patient_id', isAuthenticated, hasRole("clinician"),
+clinicianRouter.get('/newmessage', isAuthenticated, hasRole("clinician"),
     function(req, res, next) { 
        res.userInfo = req.user.toJSON()
        next()
     },
-    clinicianDashboardController.writeMessage
+    clinicianDashboardController.newMessage
 );
 
 clinicianRouter.post('/sendmessage', isAuthenticated, hasRole("clinician"), 
