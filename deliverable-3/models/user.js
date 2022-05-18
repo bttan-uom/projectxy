@@ -3,11 +3,6 @@
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 
-const resultSchema = new mongoose.Schema({  // each user has an array of these
-    subject: {type: String, required: true},
-    result: {type: Number, required: true}
-})
-
 const userSchema = new mongoose.Schema({
     username: {type: String, required: true, unique: true},
     password: {type: String, required: true},

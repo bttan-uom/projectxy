@@ -3,7 +3,7 @@
 		<div class="left">
 			<ul class="breadcrumb">
 				<li>
-					<a class="active generic-button" href="#">+Record</a>
+					<pre><a class="active generic-button" href="#">Add Record</a></pre>
 				</li>
 				<li><i class='bx material-icons'>chevron_right</i></li>
 			</ul>
@@ -26,9 +26,7 @@
 		<li>
 			<i class='bx material-icons'>medication</i>
 			<span class="text">
-				{{#with clinician}}
-					<h3>Dr. {{this.first_name}} {{this.last_name}}</h3>
-				{{/with}}
+					<h3>Dr. {{clinician.first_name}} {{clinician.last_name}}</h3>
 				<p>Your clinician</p>
 			</span>
 		</li>

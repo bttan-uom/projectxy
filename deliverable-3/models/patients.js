@@ -8,22 +8,19 @@ const assigned_record = new mongoose.Schema({  // each user has an array of thes
     is_recording: {type: Boolean, required: true}
 })
 
-const threshold_values = new mongoose.Schema({  // each user has an array of these
-    lower: {type: mongoose.Schema.Types.Decimal128, required: true},
-    higher: {type: mongoose.Schema.Types.Decimal128, required: true}
-})
+// const threshold_values = new mongoose.Schema({  // each user has an array of these
+//     lower: {type: mongoose.Schema.Types.Decimal128, required: true},
+//     higher: {type: mongoose.Schema.Types.Decimal128, required: true}
+// })
 
-const threshold_type = new mongoose.Schema({  // each user has an array of these
-    type: {type: String, required: true},
-    threshold_range: [threshold_values]
-})
-
-
-
+// const threshold_type = new mongoose.Schema({  // each user has an array of these
+//     type: {type: String, required: true},
+//     threshold_range: [threshold_values]
+// })
 
 const record = new mongoose.Schema({
     record_type: {type: String, required: true},
-    value: {type: String, required: true},
+    value: {type: mongoose.Schema.Types.Decimal128, required: true},
     created_at: {type: Date, required: true},
     updatedAt: {type: Date, required: true}
 })
@@ -33,6 +30,11 @@ const message = new mongoose.Schema({
     time: {type: Date, required: true}
 })
 
+const threshold = new mongoose.Schema({
+    name: {type: String, required: true},
+    lower: {type: mongoose.Schema.Types.Decimal128, required: true},
+    upper: {type: mongoose.Schema.Types.Decimal128, required: true}
+})
 
 const patientSchema = new mongoose.Schema({
     first_name: {type: String, required: true},
@@ -40,12 +42,12 @@ const patientSchema = new mongoose.Schema({
     email: {type: String, required: true, unique: true},
     phone: {type: String, required: true},
     height: mongoose.Schema.Types.Decimal128,
-    address: String,
-    gender: String,
-    dob: Date,
+    address: {type: String, required: true},
+    gender: {type: String, required: true},
+    dob: {type: Date, required: true},
     signupdate: {type: Date, required: true},
     clinician_username: {type: String, required: true},
-    threshholds: [threshold_type],
+    threshholds: [threshold],
     engagement_rate: mongoose.Schema.Types.Decimal128,
     records: [record],
     messages: [message],

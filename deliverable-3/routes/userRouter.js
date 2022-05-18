@@ -55,15 +55,6 @@ userRouter.get('/history/:record_id', isAuthenticated, hasRole("patient"),
     userDashboardController.getDataById
 )
 
-// userRouter.post('/history/:record_id', isAuthenticated, hasRole("patient"),
-//     function(req, res, next){ 
-//        console.log(req.params.record_id)
-//        res.userInfo = req.user.toJSON()
-//        next()
-//     },
-//     userDashboardController.getDataById
-// );
-
 userRouter.get('/history', isAuthenticated, hasRole("patient"),
     function(req, res, next){ 
        res.userInfo = req.user.toJSON()

@@ -1,5 +1,4 @@
 // import people model
-const Records = require('../models/patientRecords')
 const Patients = require('../models/patients')
 const joins = require('./joins')
 
@@ -96,26 +95,59 @@ const getDataById = async (req, res, next) => {
 const getAddNewUserPage = async (req, res, next) => {
     try {
         const PatientsList = await Patients.Patient.find().lean()
-        res.render("clinicianAddPatient", {data: PatientsList.reverse(), layout: 'main2'})
+        const clinicianUsername = res.userInfo.username
+
+        res.render("clinicianAddPatient", {data: PatientsList.reverse(), clinician: clinicianUsername, layout: 'main2'})
     } catch (err) {
         return next(err)
     }
 }
 
-// const addNewUser = async (req, res, next) => {
-//     try {
+const addNewUser = async (req, res, next) => {
+    try {
+        newPatient = new Patients.Patient(req.body)
+        await newPatient.save()
 
-//     } catch (err) {
-//         return next(err)
-//     }
-// }
+        Patients.Patient.findOneAndUpdate(
+            {"email": req.body.username}, 
+            {$push: {
+                    thresholds: {
+                        $each: [{name: "glucose", lower: req.body.blood_glucose_lower, upper: req.body.blood_glucose_upper}, 
+                                {name: "insulin", lower: req.body.insulin_lower, upper: req.body.insulin_upper},
+                                {name: "weight", lower: req.body.weight_lower, upper: req.body.weight_upper},
+                                {name: "exercise", lower: req.body.exercise_lower, upper: req.body.exercise_upper}]
+
+                    },
+                    assigned_records: {
+                        $each: [{record_type: "glucose", is_recording: req.body.glucose_required},
+                                {record_type: "insulin", is_recording: req.body.insulin_required},
+                                {record_type: "weight", is_recoridng: req.body.weight_required},
+                                {record_type: "exercise", is_recording: req.body.exercise_required}]
+                    }
+                }
+            },
+            (err) => {
+                if (err) {
+                    console.log(err)
+                }
+            }
+        );
+        const clinicianUsername = res.userInfo.username
+        res.render('userAddRecordSuccess', {clinician: clinicianUsername})
+
+    } catch (err) {
+        return next(err)
+    }
+}
 
 module.exports = {
     renderClinicianDashboard,
     getDataById,
     renderClinicianPatientList,
     getSinglePatient,
-    // addNewUser,
-    getAddNewUserPage
+    getAddNewUserPage,
+    addNewUser
 }
 
+// record_type: {type: String, required: true},
+//     is_recording:

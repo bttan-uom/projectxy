@@ -111,8 +111,12 @@ const addNewUserRecord = async (req, res, next) => {
             newPatientRecord = new Records(req.body)
             await newPatientRecord.save()
             
-            // Hard-coded email for example in deliverable 2.
-            // Not to be used in deliverable 3.
+
+            const patient = await joins.getAPatient(res.userInfo.username)
+            if (!patient) {
+                // Patient does not have a clinician
+                return res.sendStatus(404)
+            }
             const clinician = await joins.getClinician('pat.fakename@example.com')
             if (!clinician) {
                 // Patient does not have a clinician
