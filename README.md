@@ -22,4 +22,3 @@ Deliverable-3
 - Brad Tan
 - Ash Zhang
 - Rory Healy
-- Arpan Patel
