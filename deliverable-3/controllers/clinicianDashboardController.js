@@ -116,13 +116,13 @@ const writeMessage = async (req, res, next) => {
 }
 
 const getMessages = async (req, res, next) => {
+    console.log('clinician messages')
     res.render('clinicianMessages')
 }
 
 
 const sendPatientMessage = async (req, res, next) => {
     try {
-        console.log(req.body)
         if (req.body.username === undefined || req.body.username === '') {
             res.render('clinicianSendMessageFail', {error: 'No username selected.'})
         } else if (req.body.comment === undefined || req.body.comment === '') {

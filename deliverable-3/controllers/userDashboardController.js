@@ -127,18 +127,17 @@ const addNewUserRecord = async (req, res, next) => {
 }
 
 // handle request to get all messages from a clinician
-const getAllMessages = async (req, res, next) => {
+const getMessages = async (req, res, next) => {
     try {
-        req.body.username = 'pat.fakename@example.com'
-        const patient = await joins.getAPatient(req.body.username)
+        const patient = await joins.getAPatient(res.userInfo.username)
         if (!patient) {
             return res.sendStatus(404)
         }
-        const clinician = await joins.getClinician(req.body.username)
+        const clinician = await joins.getClinician(res.userInfo.username)
         if (!clinician) {
             return res.sendStatus(404)
         }
-        res.render('userMessages', {clinician: clinician, data: patient.messages})
+        res.render('userMessages', {clinician: clinician, data: patient.messages.reverse(), length: patient.messages.length})
     } catch(err) {
         return next(err)
     }
@@ -151,5 +150,5 @@ module.exports = {
     getAllHistory,
     getAddUserRecordsPage,
     addNewUserRecord,
-    getAllMessages
+    getMessages
 }

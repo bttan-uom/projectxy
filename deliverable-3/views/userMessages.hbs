@@ -8,10 +8,7 @@
 		</ul>
 		<br>
 		<h1>Messages</h1>
-		
 	</div>
-	
-	
 </div>
 
 <ul class="box-info">
@@ -33,11 +30,12 @@
 	</li>
 </ul>
 
-{{#with data}}
 <div class="table-data">
 	<div class="order">
 		<div class="head">
+			{{#with length}}
 			<h3>There are {{data.length}} messages</h3>
+			{{/with}}
 			<input style="width:40%" type="text" class="input-button-select" id="allMessagesInput" onkeyup="allPatientsSearch()" placeholder="Search..." title="Type in a name">
 
 			<a style="color:var(--blue);" href="#"><i class='bx material-icons'>filter_list</i></a>
@@ -54,21 +52,17 @@
 				{{!-- loops over the data set --}}
 				{{#each data}}
 				<tr>
-					<td data-label="Record Type"> 
-						<p>{{this.record_type}}</p>
+					<td data-label="Message"> 
+						<p>{{this.content}}</p>
 					</td>
-					<td data-label="Date Added"><p>{{formatDate this.created_at}}</p></td>
+					<td data-label="Date Added"><p>{{formatDate this.time}}</p></td>
 					<td data-label="View"><a href="/userHistory/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
 				</tr>
 				{{/each}}
 			</tbody>
 		</table>
-		<br>
-		<p>Records may be hidden, scroll if required</p>
-		<img src="/img/bounce-arrow.gif" alt="scroll-down-animation" width="50vw">
 	</div>
 </div>
-{{/with}}
 
 <script>
 	const allPatientsSearch = () => {
