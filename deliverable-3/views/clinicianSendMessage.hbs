@@ -34,14 +34,19 @@
         </span>
     </li>
     <li>
-        <i class='bx material-icons'>medication</i>
-        <span class="text usernametext">
-            {{#with patient}}
-            <h3>{{this.email}}</h3>
-            {{/with}}
-            <p>Reciever Username</p>
-        </span>
-    </li>
+    <i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
+    <span class="text">
+        <h3>{{clinician.length}}</h3>
+        <p>Messages(s) Sent</p>
+    </span>
+</li>
+    <li>
+    <i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
+    <span class="text">
+        <h3>{{clinician.length}}</h3>
+        <p>Clinician Note(s) created</p>
+    </span>
+</li>
 </ul>
 
 
