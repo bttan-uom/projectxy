@@ -79,7 +79,7 @@ clinicianRouter.get('/addNewPatient', isAuthenticated, hasRole("clinician"),
     clinicianDashboardController.getAddNewUserPage
 );
 
-clinicianRouter.get('/messages', isAuthenticated, hasRole("cliniaian"), 
+clinicianRouter.get('/messages', isAuthenticated, hasRole("clinician"), 
     function(req, res, next) {
         res.userInfo = req.user.toJSON()
         next()
