@@ -126,6 +126,23 @@ const addNewUserRecord = async (req, res, next) => {
     }
 }
 
+// handle request to get all messages from a clinician
+const getAllMessages = async (req, res, next) => {
+    try {
+        req.body.username = 'pat.fakename@example.com'
+        const patient = await joins.getAPatient(req.body.username)
+        if (!patient) {
+            return res.sendStatus(404)
+        }
+        const clinician = await joins.getClinician(req.body.username)
+        if (!clinician) {
+            return res.sendStatus(404)
+        }
+        res.render('userMessages', {clinician: clinician, data: patient.messages})
+    } catch(err) {
+        return next(err)
+    }
+}
 
 // exports an object, which contain functions imported by router
 module.exports = {
@@ -133,5 +150,6 @@ module.exports = {
     getDataById,
     getAllHistory,
     getAddUserRecordsPage,
-    addNewUserRecord
+    addNewUserRecord,
+    getAllMessages
 }

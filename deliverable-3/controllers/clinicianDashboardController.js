@@ -102,6 +102,23 @@ const getAddNewUserPage = async (req, res, next) => {
     }
 }
 
+const sendPatientMessage = async (req, res, next) => {
+    try {
+        const patient = await joins.getAPatient(req.params.patient_id)
+        if (!patient) {
+            res.sendStatus(404)
+        }
+
+        res.render('clinicianSendMessage', {patient: patient})
+    } catch (err) {
+        return next(err)
+    }
+}
+
+const getMessages = async (req, res, next) => {
+    res.render('clinicianMessages')
+}
+
 // const addNewUser = async (req, res, next) => {
 //     try {
 
@@ -116,6 +133,8 @@ module.exports = {
     renderClinicianPatientList,
     getSinglePatient,
     // addNewUser,
-    getAddNewUserPage
+    getAddNewUserPage,
+    sendPatientMessage,
+    getMessages
 }
 

@@ -24,34 +24,33 @@
             <p>Today's Date</p>
         </span>
     </li>
+
+    {{#with patient}}
     <li>
         <i class='bx material-icons'>medication</i>
         <span class="text">
-            {{#with patient}}
                 <h3>{{this.first_name}} {{this.last_name}}</h3>
-            {{/with}}
             <p>Receiving Patient</p>
         </span>
     </li>
+
     <li>
     <i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
     <span class="text">
-        <h3>{{clinician.length}}</h3>
+        <h3>{{this.messages.length}}</h3>
         <p>Messages(s) Sent</p>
     </span>
-</li>
+    </li>
+
     <li>
     <i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
     <span class="text">
-        <h3>{{clinician.length}}</h3>
+        <h3>{{this.messages.length}}</h3>
         <p>Clinician Note(s) created</p>
     </span>
-</li>
+    </li>
+    {{/with}}
 </ul>
-
-
-
-
 
 <div class="table-data">
     <div class="order">
@@ -86,22 +85,23 @@
             <!--					<i class='bx bx-edit-alt'></i>-->
             <h3>Patient details</h3>
         </div>
+        {{#with patient}}
         <ul class="todo-list">
             <li class="blueone">
                 <p>THIS SECTION WILL BE AN IFRAME FOR DYNAMIC CHANGES</p>
                 <p></p>
             </li>
             <li class="blueone">
-                <p>Height:</p>
+                <p>Height: {{patient.height}} </p>
                 <p>Another thing</p>
             </li>
             <li class="blueone">
-                <p>Gender:</p>
+                <p>Gender: {{patient.gender}}</p>
                 <p>Third thing</p>
             </li>
             <li class="blueone">
                 <p>Records being recorded:</p>
-                <p>One, two, three, four</p>
+                <p>{{patient.assigned_records}}</p>
             </li>
         </ul>
         <br>
@@ -109,6 +109,7 @@
             <!--					<i class='bx bx-edit-alt'></i>-->
             <h3>Patient thresholds</h3>
         </div>
+
         <ul class="todo-list">
             <li class="blueone">
                 <p>Blood Glucose: 3.9 - 5.6 nMol/L</p>
@@ -123,6 +124,6 @@
                 <p>Exercise: At least 5000 steps</p>
             </li>
         </ul>
-
+        {{/with}}
     </div>
 </div>

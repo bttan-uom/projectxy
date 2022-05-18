@@ -33,10 +33,7 @@
 	</li>
 </ul>
 
-
-
-
-
+{{#with data}}
 <div class="table-data">
 	<div class="order">
 		<div class="head">
@@ -70,8 +67,9 @@
 		<p>Records may be hidden, scroll if required</p>
 		<img src="/img/bounce-arrow.gif" alt="scroll-down-animation" width="50vw">
 	</div>
-	
 </div>
+{{/with}}
+
 <script>
 	const allPatientsSearch = () => {
 		const trs = document.querySelectorAll('#allMessagesTable tr:not(.header)')
