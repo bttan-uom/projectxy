@@ -55,30 +55,29 @@
 <div class="table-data">
     <div class="order">
         <div class="head">
-            <!--					<i class='bx bx-check-square' ></i>-->
+            <!--<i class='bx bx-check-square'></i>-->
             <h3>Compose message</h3>
         </div>
         
-        <form class="form-group" id="addRecordForm" action="/userAddRecord" method="POST">
+        <form class="form-group" id="addRecordForm" action="/clinician/sendmessage" method="POST">
             <label>Message Timestamp</label>
             <input class="input-button-select" type="text" id="timestamp" name="timestamp" value="{{getCurrentDate}}" readonly><br><br>
             <label>Username</label>
             <br>
-            <input class="input-button-select" list="username-list" id="username-choice" name="username-choice" />
+            <input class="input-button-select" list="username-list" id="username-choice" placeholder="Select username" name="username" />
             <datalist id="username-list">
                 <option value="UserOne">
-                    <option value="UserTwo">
-                        <option value="UserThree">
-                            <option value="UserFour">
-                                <option value="UserFive">
-                                    </datalist>
-                                    <br><br>
-                                    <textarea class="input-button-select" id="addRecordForm" placeholder="Compose message here" name="comment" rows="5" cols="33"></textarea>
-                                    <br><br>
-                                    <input style="font-size: 110%;" class="generic-button" type="submit" />
-                                    </form>
-                                    
-                                    </div>
+                <option value="UserTwo">
+                <option value="UserThree">
+                <option value="UserFour">
+                <option value="UserFive">
+            </datalist>
+            <br><br>
+            <textarea class="input-button-select" id="addRecordForm" placeholder="Compose message here" name="comment" rows="5" cols="33"></textarea>
+            <br><br>
+            <input style="font-size: 110%;" class="generic-button" type="submit" />
+        </form>                 
+    </div>
 
     <div class="todo">
         <div class="head">
@@ -92,16 +91,16 @@
                 <p></p>
             </li>
             <li class="blueone">
-                <p>Height: {{patient.height}} </p>
-                <p>Another thing</p>
+                <p>Height:</p>
+                <p>{{this.height}} cm</p>
             </li>
             <li class="blueone">
-                <p>Gender: {{patient.gender}}</p>
-                <p>Third thing</p>
+                <p>Gender:</p>
+                <p>{{this.gender}}</p>
             </li>
             <li class="blueone">
                 <p>Records being recorded:</p>
-                <p>{{patient.assigned_records}}</p>
+                <p>{{this.assigned_records}}</p>
             </li>
         </ul>
         <br>

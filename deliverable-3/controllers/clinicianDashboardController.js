@@ -102,7 +102,7 @@ const getAddNewUserPage = async (req, res, next) => {
     }
 }
 
-const sendPatientMessage = async (req, res, next) => {
+const writeMessage = async (req, res, next) => {
     try {
         const patient = await joins.getAPatient(req.params.patient_id)
         if (!patient) {
@@ -117,6 +117,23 @@ const sendPatientMessage = async (req, res, next) => {
 
 const getMessages = async (req, res, next) => {
     res.render('clinicianMessages')
+}
+
+
+const sendPatientMessage = async (req, res, next) => {
+    try {
+        if (req.body.username === undefined) {
+            res.render('clinicianSendMessageFail', {error: 'No username selected.'})
+        } else if (req.body.comment === '') {
+            res.render('clinicianSendMessageFail', {error: 'Cannot send empty comment.'})
+        } else {
+            const patient = await joins.getAPatient(req.body.username)
+            patient.messages.push({content: req.body.comment, time: req.body.timestamp})
+            res.render('clinicianSendMessageSuccess', {patient: patient})
+        }
+    } catch (err) {
+        return next(err)
+    }
 }
 
 // const addNewUser = async (req, res, next) => {
@@ -135,6 +152,7 @@ module.exports = {
     // addNewUser,
     getAddNewUserPage,
     sendPatientMessage,
-    getMessages
+    getMessages,
+    writeMessage
 }
 

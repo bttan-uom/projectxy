@@ -93,8 +93,17 @@ clinicianRouter.get('/messages/:patient_id', isAuthenticated, hasRole("clinician
        res.userInfo = req.user.toJSON()
        next()
     },
+    clinicianDashboardController.writeMessage
+);
+
+clinicianRouter.post('/sendmessage', isAuthenticated, hasRole("clinician"), 
+    function (req, res, next) {
+        res.userInfo = req.user.toJSON()
+        next()
+    },
     clinicianDashboardController.sendPatientMessage
 );
+
 
 // clinicianRouter.post('/addNewPatient', isAuthenticated, hasRole("clinician"),
 //     body('given name', 'cannot be empty').not().isEmpty().escape(),
