@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 
 const assigned_record = new mongoose.Schema({  // each user has an array of these
     record_type: {type: String, required: true},
-    is_recording: {type: Boolean, required: true}
+    is_recording: {type: String, required: true}
 })
 
 // const threshold_values = new mongoose.Schema({  // each user has an array of these
@@ -47,7 +47,7 @@ const patientSchema = new mongoose.Schema({
     dob: {type: Date, required: true},
     signupdate: {type: Date, required: true},
     clinician_username: {type: String, required: true},
-    threshholds: [threshold],
+    thresholds: [threshold],
     engagement_rate: mongoose.Schema.Types.Decimal128,
     records: [record],
     messages: [message],

@@ -109,7 +109,7 @@ const addNewUser = async (req, res, next) => {
         await newPatient.save()
 
         Patients.Patient.findOneAndUpdate(
-            {"email": req.body.username}, 
+            {"email": newPatient.email}, 
             {$push: {
                     thresholds: {
                         $each: [{name: "glucose", lower: req.body.blood_glucose_lower, upper: req.body.blood_glucose_upper}, 
