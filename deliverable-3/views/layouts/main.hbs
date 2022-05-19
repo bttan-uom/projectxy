@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- Google Icons -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+		rel="stylesheet">
+	<!-- CSS -->
+	<link rel="stylesheet" href="/css/styles.css">
+
+	<title>MyGlucose</title>
+</head>
+<body>
+
+	<!-- CONTENT -->
+	<section id="content">
+		<!-- NAVBAR -->
+		<nav>
+			<div class="logo">
+				<a href="/user"><img src="/img/myglucosewhite.svg" alt="MyGlucose Logo"></a>
+			</div>
+			<div class="hamburger">
+				<div class="bars1"></div>
+				<div class="bars2"></div>
+				<div class="bars3"></div>
+			</div>
+			<ul class="nav-links">
+				<li><a href="/user/">Dashboard</a></li>
+				<li><a href="/user/history">History</a></li>
+				<li><pre><a href="/user/addrecord">Add Record</a></pre></li>
+				<li><a href="/user/messages">Messages</a></li>
+				<li><a href="/user/leaderboard">Leaderboard</a></li>
+				<li><form action="/user/myinfo">
+			<button class="login-button" href="#"><i class='bx material-icons'>account_circle</i></button>
+		</form></li>
+				<li><form method="POST" action="/auth/logout">
+			<button class="login-button" href="#"><i class='bx material-icons'>logout</i></button>
+		</form>
+		</li>
+			</ul>
+		</nav>
+
+		<!-- MAIN -->
+		<br><br><br>
+		<main>
+			{{{body}}}
+
+		</main>
+		<!-- MAIN -->
+	</section>
+	<!-- CONTENT -->
+	<br>
+	
+
+	<script src="/js/patientScript.js"></script>
+	
+</body>
+	<script>
+		var today = new Date();
+		var dd = String(today.getDate()).padStart(2, '0');
+		var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+		var yyyy = today.getFullYear();
+		
+		today = dd + '/' + mm + '/' + yyyy;
+		
+		document.getElementById("CurrentDate").innerHTML = today;
+		document.getElementById("CurrentDateTop").innerHTML = today;
+	</script>
+</html>

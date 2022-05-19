@@ -1,0 +1,123 @@
+
+<div class="head-title">
+    <div class="left">
+        <ul class="breadcrumb">
+            <li>
+                <pre><a class="active generic-button" href="/clinician/notes">Clinical Notes</a></pre>
+            </li>
+
+            <li>
+                <i class='bx material-icons'>chevron_right</i>
+            </li>
+
+            <li>
+                <pre><a class="active generic-button" href="#">View Clinical Note</a></pre>
+            </li>
+        </ul>
+        <br>
+        <h1>View Clinical Note</h1>
+    </div>
+</div>
+
+
+<ul class="box-info">
+    <li>
+        <i class='bx material-icons'>today</i>
+        <span class="text">
+            <h3>{{getCurrentDate}}</h3>
+            <p>Today's Date</p>
+        </span>
+    </li>
+    <li>
+        <i class='bx material-icons'>medication</i>
+        <span class="text">
+            {{#with patient}}
+                <h3>{{this.first_name}} {{this.last_name}}</h3>
+            {{/with}}
+            <p>Note for patient</p>
+        </span>
+    </li>
+    <li>
+        <i class='bx material-icons'>medication</i>
+        <span class="text usernametext">
+            {{#with patient}}
+            <h3>{{this.email}}</h3>
+            {{/with}}
+            <p>Patient Username</p>
+        </span>
+    </li>
+</ul>
+
+<div class="table-data">
+    {{#with note}}
+    <div class="order">
+        <div class="head">
+            <h3>Note Details</h3>
+        </div>
+
+        <ul class="box-info">
+            <li style="background-color:var(--grey);">
+                <span class="text">
+                    <h3>Date added</h3>
+                    <h2>{{formatLongDate this.date}}</h2>
+                </span>
+            </li>
+        </ul>
+        
+        <ul class="box-info">
+            <li style="background-color:var(--grey);">
+                <span class="text">
+                    <h3>Clinical Note</h3>
+                    <h3>{{this.content}}</h3>
+                </span>
+            </li>
+        </ul>
+    </div>
+    {{/with}}
+
+    {{#with patient}}
+    <div class="todo">
+        <div class="head">
+            <!--					<i class='bx bx-edit-alt'></i>-->
+            <h3>Patient details</h3>
+        </div>
+        <ul class="todo-list">
+            <li class="blueone">
+                <p>DOB:</p>
+                <p>{{formatDate this.dob}}</p>
+            </li>
+            <li class="blueone">
+                <p>Height:</p>
+                <p>{{this.height}}</p>
+            </li>
+            <li class="blueone">
+                <p>Gender:</p>
+                <p>{{this.gender}}</p>
+            </li>
+            <li class="blueone">
+                <p>Records being recorded:</p>
+                <p>{{#each this.assigned_records}} {{formatUpper this}} {{/each}}</p>
+            </li>
+        </ul>
+        <br>
+        <div class="head">
+            <!--					<i class='bx bx-edit-alt'></i>-->
+            <h3>Patient thresholds</h3>
+        </div>
+        <ul class="todo-list">
+            <li class="blueone">
+                <p>Blood Glucose: 3.9 - 5.6 nMol/L</p>
+            </li>
+            <li class="blueone">
+                <p>Insulin Doses: 2 Doses</p>
+            </li>
+            <li class="blueone">
+                <p>Weight: 65 - 75 kg</p>
+            </li>
+            <li class="blueone">
+                <p>Exercise: At least 5000 steps</p>
+            </li>
+        </ul>
+    </div>
+    {{/with}}
+</div>
