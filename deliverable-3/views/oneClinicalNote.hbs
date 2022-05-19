@@ -3,9 +3,13 @@
     <div class="left">
         <ul class="breadcrumb">
             <li>
-                <pre><a class="active generic-button" href="/clinicianNotes">Clinical Notes</a></pre>
+                <pre><a class="active generic-button" href="/clinician/notes">Clinical Notes</a></pre>
             </li>
-            <li><i class='bx material-icons'>chevron_right</i></li>
+
+            <li>
+                <i class='bx material-icons'>chevron_right</i>
+            </li>
+
             <li>
                 <pre><a class="active generic-button" href="#">View Clinical Note</a></pre>
             </li>
@@ -44,21 +48,18 @@
     </li>
 </ul>
 
-
-
-
-
 <div class="table-data">
+    {{#with note}}
     <div class="order">
         <div class="head">
-            <!--					<i class='bx bx-check-square' ></i>-->
             <h3>Note Details</h3>
         </div>
+
         <ul class="box-info">
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Date added</h3>
-                    <h2>{{formatLongDate this.created_at}}</h2>
+                    <h2>{{formatLongDate this.date}}</h2>
                 </span>
             </li>
         </ul>
@@ -67,14 +68,14 @@
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Clinical Note</h3>
-                    <h3>{{this.comment}}</h3>
+                    <h3>{{this.content}}</h3>
                 </span>
             </li>
         </ul>
-        
-
-        
     </div>
+    {{/with}}
+
+    {{#with patient}}
     <div class="todo">
         <div class="head">
             <!--					<i class='bx bx-edit-alt'></i>-->
@@ -83,19 +84,19 @@
         <ul class="todo-list">
             <li class="blueone">
                 <p>DOB:</p>
-                <p>A thing</p>
+                <p>{{formatDate this.dob}}</p>
             </li>
             <li class="blueone">
                 <p>Height:</p>
-                <p>Another thing</p>
+                <p>{{this.height}}</p>
             </li>
             <li class="blueone">
                 <p>Gender:</p>
-                <p>Third thing</p>
+                <p>{{this.gender}}</p>
             </li>
             <li class="blueone">
                 <p>Records being recorded:</p>
-                <p>One, two, three, four</p>
+                <p>{{#each this.assigned_records}} {{formatUpper this}} {{/each}}</p>
             </li>
         </ul>
         <br>
@@ -117,6 +118,6 @@
                 <p>Exercise: At least 5000 steps</p>
             </li>
         </ul>
-
     </div>
+    {{/with}}
 </div>
