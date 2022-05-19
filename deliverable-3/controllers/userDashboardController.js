@@ -9,8 +9,6 @@ const getAllRecords = async (req, res, next) => {
     //     res.redirect("/user/login")
     // }
     try {
-        // Hard-coded email for example in deliverable 2.
-        // Not to be used in deliverable 3.
         const clinician = await joins.getClinician(res.userInfo.username)
         if (!clinician) {
             // Patient does not have a clinician
@@ -22,7 +20,8 @@ const getAllRecords = async (req, res, next) => {
             // Patient does not have a clinician
             return res.sendStatus(404)
         }
-        return res.render('index', {data: patient, clinician: clinician, currentUser: res.userInfo})
+        const message = patient.messages.reverse()[0].content
+        return res.render('index', {data: patient, clinician: clinician, currentUser: res.userInfo, latestmessage: message})
     } catch (err) {
         return next(err)
     }
