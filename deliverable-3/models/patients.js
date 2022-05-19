@@ -18,8 +18,10 @@ const threshold_type = new mongoose.Schema({  // each user has an array of these
     threshold_range: [threshold_values]
 })
 
-
-
+const note = new mongoose.Schema({
+    date: {type: Date, required: true},
+    content: {type: String, required: true}
+})
 
 const record = new mongoose.Schema({
     record_type: {type: String, required: true},
@@ -49,7 +51,8 @@ const patientSchema = new mongoose.Schema({
     engagement_rate: mongoose.Schema.Types.Decimal128,
     records: [record],
     messages: [message],
-    assigned_records: [assigned_record]
+    assigned_records: [assigned_record],
+    notes: [note]
 })
 
 const Patient = mongoose.model('patient', patientSchema)

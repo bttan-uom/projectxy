@@ -80,6 +80,22 @@ const getAMessage = async (patient, message_id) => {
     return null
 }
 
+/* Get clinical notes */
+const getAllNotes = async (clinician) => {
+    try {
+        const notes = []
+        for (const patient_username of clinician.patients) {
+            const patient = await getAPatient(patient_username)
+            for (const note of patient.notes) {
+                notes.push({'username': patient_username, 'content': note.content, 'date': note.date, 'id': note._id})
+            }
+        }
+        return notes
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 module.exports = {
     getClinician,
     getClinicianOnly,
@@ -87,5 +103,6 @@ module.exports = {
     getAPatient,
     getAllMessages,
     listAllMessages,
-    getAMessage
+    getAMessage,
+    getAllNotes
 }

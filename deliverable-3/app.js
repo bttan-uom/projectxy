@@ -268,6 +268,12 @@ hbs.handlebars.registerHelper('formatUpper', function (str) {
     return str.replace(/^\w/, (c) => c.toUpperCase());
 })
 
+hbs.handlebars.registerHelper('previewString', function (str) {
+    if (str.length < 50) {
+        return str
+    }
+    return str.slice(0, 50) + "..."
+})
 
 // Tells the app to listen on port 3000 and logs that information to the console.
 app.listen(process.env.PORT || 3000, () => {

@@ -165,6 +165,17 @@ const sendPatientMessage = async (req, res, next) => {
 //     }
 // }
 
+const renderAllNotes = async (req, res, next) => {
+    try {
+        const clinician = await joins.getClinicianOnly(res.userInfo.username)
+        const allnotes = await joins.getAllNotes(clinician)
+        const allmessages = await joins.getAllMessages(res.userInfo.username)
+        res.render('clinicianNotes', {notes: allnotes.reverse(), npatients: clinician.patients.length, nmessages: allmessages.length})
+    } catch (err) {
+        return next(err)
+    }
+}
+
 module.exports = {
     renderClinicianDashboard,
     getDataById,
@@ -174,6 +185,7 @@ module.exports = {
     getAddNewUserPage,
     sendPatientMessage,
     getMessages,
-    newMessage
+    newMessage,
+    renderAllNotes
 }
 
