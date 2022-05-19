@@ -12,7 +12,8 @@ const renderClinicianDashboard = async (req, res, next) => {
             return res.sendStatus(404)
         }
         const patients = await Patients.Patient.find().lean()
-        return res.render('clinicianDashboard', {clinician: clinician, data: patients, layout: 'main2'})
+        const nmessages = await joins.listAllMessages(res.userInfo.username)
+        return res.render('clinicianDashboard', {clinician: clinician, data: patients, layout: 'main2', nmessages: nmessages.length})
     } catch (err) {
         return next(err)
     }
@@ -22,7 +23,8 @@ const renderClinicianDashboard = async (req, res, next) => {
 const renderClinicianPatientList = async (req, res, next) => {
     try {
         const PatientsList = await Patients.Patient.find().lean()
-        res.render('clinicianViewAllPatients', {data: PatientsList.reverse(), layout: 'main2'})
+        const nmessages = await joins.listAllMessages(res.userInfo.username)
+        res.render('clinicianViewAllPatients', {data: PatientsList.reverse(), layout: 'main2', nmessages: nmessages.length})
     } catch (err) {
         return next(err)
     }  
