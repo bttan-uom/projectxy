@@ -153,26 +153,24 @@
         </div>
         <ul class="todo-list-wide">
             <li class="blueone">
-                <p>Blood Glucose</p>
-
-                {{!-- <input class="small-input-button-select" type="number" placeholder="From" name="value" /><input class="small-input-button-select" type="number" placeholder="To" name="value" /> --}}
-                <input class="input-button-select" type="number" placeholder="From" name="blood_glucose_lower" />
-                <input class="input-button-select" type="number" placeholder="To" name="blood_glucose_upper" />
+                <p>Blood Glucose (nMol/L)</p>
+                <input class="input-button-select" type="number" placeholder="From" name="blood_glucose_lower" step=".01"/>
+                <input class="input-button-select" type="number" placeholder="To" name="blood_glucose_upper" step=".01"/>
             </li>
             <li class="blueone">
-                <p>Insulin Doses</p>
-                <input class="input-button-select" type="number" placeholder="Number of doses" name="insulin_lower" />
-                <input class="input-button-select" type="number" placeholder="Number of doses" name="insulin_upper" />
+                <p>Insulin Doses (doses)</p>
+                <input class="input-button-select" type="number" placeholder="Minimum number of doses" name="insulin_lower" />
+                <input class="input-button-select" type="number" placeholder="Maximum number of doses" name="insulin_upper" />
             </li>
             <li class="blueone">
-                <p>Weight</p>
-                <input class="input-button-select" type="number" placeholder="From" name="weight_lower" />
-                <input class="input-button-select" type="number" placeholder="To" name="weight_upper" />
+                <p>Weight (kg)</p>
+                <input class="input-button-select" type="number" placeholder="From" name="weight_lower" step=".01"/>
+                <input class="input-button-select" type="number" placeholder="To" name="weight_upper" step=".01"/>
             </li>
             <li class="blueone">
-                <p>Exercise</p>
-                <input class="input-button-select" type="number" placeholder="From" name="exercise_lower" />
-                <input class="input-button-select" type="number" placeholder="To" name="exercise_upper" />
+                <p>Exercise (steps)</p>
+                <input class="input-button-select" type="number" placeholder="Minimum exercise level" name="exercise_lower" step=".01"/>
+                <input class="input-button-select" type="number" placeholder="Maximum exercise level" name="exercise_upper" step=".01"/>
             </li>
         </ul>
 
