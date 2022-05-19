@@ -83,7 +83,15 @@ require('./models')
 
 // if user attempts to access any other route, send a 404 error with a customized page
 app.get('/', (req, res) => {
-    res.render('welcome.hbs')
+    res.render('welcome.hbs', {layout: 'loggedout'})
+})
+
+app.get('/aboutus', (req, res) => {
+    res.render('aboutus.hbs', {layout: 'loggedout'})
+})
+
+app.get('/aboutdiabetes', (req, res) => {
+    res.render('aboutdiabetes.hbs', {layout: 'loggedout'})
 })
 
 

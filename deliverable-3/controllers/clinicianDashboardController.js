@@ -65,33 +65,6 @@ const getDataById = async (req, res, next) => {
 
 }
 
-// const addNewUserRecord = async (req, res, next) => {
-//     try {
-//         if (req.body.record_type === undefined) {
-//             res.render('userAddRecordFail', {error: 'No record type selected.', clinician: clinician})
-//         } else if (req.body.value === '') {
-//             res.render('userAddRecordFail', {error: 'Cannot input empty value.', clinician: clinician})
-//         } else {
-//             /* Hard-coded for deliverable 2. Remove for deliverable 3. */
-//             req.body.username = 'pat.fakename@example.com'
-//             newPatientRecord = new Records(req.body)
-//             await newPatientRecord.save()
-            
-//             // Hard-coded email for example in deliverable 2.
-//             // Not to be used in deliverable 3.
-//             const clinician = await joins.getClinician('pat.fakename@example.com')
-//             if (!clinician) {
-//                 // Patient does not have a clinician
-//                 return res.sendStatus(404)
-//             }
-
-//             res.render('userAddRecordSuccess', {oneItem: patient, clinician: clinician})
-//         }
-//     } catch (err) {
-//         return next(err)
-//     }
-// }
-
 const getAddNewUserPage = async (req, res, next) => {
     try {
         const PatientsList = await Patients.Patient.find().lean()
@@ -132,8 +105,11 @@ const addNewUser = async (req, res, next) => {
                 }
             }
         );
-        const clinicianUsername = res.userInfo.username
-        res.render('userAddRecordSuccess', {clinician: clinicianUsername})
+        
+        //res.render('userAddRecordSuccess')
+        patientEmail = newPatient.email
+        const redirectString = "patients/" + newPatient.email
+        res.redirect(redirectString)
 
     } catch (err) {
         return next(err)
@@ -148,6 +124,3 @@ module.exports = {
     getAddNewUserPage,
     addNewUser
 }
-
-// record_type: {type: String, required: true},
-//     is_recording:
