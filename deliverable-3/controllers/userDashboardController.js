@@ -42,7 +42,6 @@ const getDataById = async (req, res, next) => {
             // Patient does not have a clinician
             return res.sendStatus(404)
         }
-
         
         return res.render('oneData', {oneItem: patient, clinician: clinician, recordToView: req.params.record_id})
     } catch (err) {
@@ -91,6 +90,55 @@ const getAddUserRecordsPage = async (req, res) => {
         return next(err)
     }
 }
+
+
+
+
+// handle request to get all data instances
+const getUserInformation = async (req, res) => {
+
+    try {
+        const clinician = await joins.getClinician(res.userInfo.username)
+        if (!clinician) {
+            // Patient does not have a clinician
+            return res.sendStatus(404)
+        }
+
+        const patient = await joins.getAPatient(res.userInfo.username)
+        if (!patient) {
+            // Patient does not have a clinician
+            return res.sendStatus(404)
+        }
+
+        res.render('userInformation', {patient: patient, clinician: clinician, userInfo: res.userInfo})
+    } catch(err) {
+        return next(err)
+    }
+}
+
+
+const renderEditUserInformation = async (req, res) => {
+
+    try {
+        const clinician = await joins.getClinician(res.userInfo.username)
+        if (!clinician) {
+            // Patient does not have a clinician
+            return res.sendStatus(404)
+        }
+
+        const patient = await joins.getAPatient(res.userInfo.username)
+        if (!patient) {
+            // Patient does not have a clinician
+            return res.sendStatus(404)
+        }
+
+        res.render('userEditInformation', {patient: patient, clinician: clinician})
+    } catch(err) {
+        return next(err)
+    }
+}
+
+
 
 // handle request to get one data instance
 const addNewUserRecord = async (req, res, next) => {
@@ -161,6 +209,8 @@ module.exports = {
     getAllHistory,
     getAddUserRecordsPage,
     addNewUserRecord,
+    getUserInformation,
+    renderEditUserInformation,
     getMessages,
     getAMessage
 }
