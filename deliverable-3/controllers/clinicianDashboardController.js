@@ -1,6 +1,4 @@
 // import people model
-const Clinician = require('../models/clinicians')
-const Records = require('../models/patientRecords')
 const Patients = require('../models/patients')
 const joins = require('./joins')
 
@@ -11,9 +9,10 @@ const renderClinicianDashboard = async (req, res, next) => {
         if (!clinician) {
             return res.sendStatus(404)
         }
-        const patients = await Patients.Patient.find().lean()
+        const patients = await joins.getAllPatients(res.userInfo.username)
         const nmessages = await joins.listAllMessages(res.userInfo.username)
-        return res.render('clinicianDashboard', {clinician: clinician, data: patients, layout: 'main2', nmessages: nmessages.length})
+        const nnotes = await joins.getAllNotes(clinician)
+        return res.render('clinicianDashboard', {clinician: clinician, data: patients, layout: 'main2', nmessages: nmessages.length, nnotes: nnotes.length})
     } catch (err) {
         return next(err)
     }
@@ -125,7 +124,7 @@ const getMessages = async (req, res, next) => {
             /* Viewing all messages */
             const clinician = await joins.getClinicianOnly(res.userInfo.username)
             const allmessages = await joins.listAllMessages(res.userInfo.username)
-            res.render('clinicianMessages', {npatients: clinician.patients.length, data: allmessages})
+            res.render('clinicianMessages', {npatients: clinician.patients.length, data: allmessages.reverse()})
         }
     } catch (err) {
         return next(err)
@@ -185,6 +184,45 @@ const renderAllNotes = async (req, res, next) => {
     }
 }
 
+const newNote = async (req, res, next) => {
+    try {
+        const patients = await joins.getAllPatients(res.userInfo.username)
+        const clinician = await joins.getClinicianOnly(res.userInfo.username)
+        const allnotes = await joins.getAllNotes(clinician)
+        const allmessages = await joins.getAllMessages(res.userInfo.username)
+        res.render('clinicianNewNote', {patients: patients, nnotes: allnotes.length, nmessages: allmessages.length})
+    } catch (err) {
+        return next(err)
+    }
+}
+
+const createNote = async (req, res, next) => {
+    try {
+        if (req.body.username === undefined || req.body.username === '') {
+            res.render('clinicianCreateNoteFail', {error: 'No username selected.'})
+        } else if (req.body.content === undefined || req.body.content === '') {
+            res.render('clinicianCreateNoteFail', {error: 'Cannot create empty note.'})
+        } else if (req.body.timestamp === undefined || req.body.timestamp === '') {
+            res.render('clinicianCreateNoteFail', {error: 'Could not get current time.'})
+        } else {
+            const patient = await joins.getAPatient(req.body.username)
+            Patients.Patient.findOneAndUpdate(
+                {"email": req.body.username}, 
+                {$push: {notes: {content: req.body.content, time: req.body.timestamp}}},
+                {},
+                (err) => {
+                    if (err) {
+                        console.log(err)
+                    }
+                }
+            );
+            res.render('clinicianCreateNoteSuccess', {patient: patient})
+        }
+    } catch (err) {
+        return next(err)
+    }
+}
+
 module.exports = {
     renderClinicianDashboard,
     getDataById,
@@ -195,6 +233,8 @@ module.exports = {
     sendPatientMessage,
     getMessages,
     newMessage,
-    renderAllNotes
+    renderAllNotes,
+    newNote,
+    createNote
 }
 

@@ -79,6 +79,7 @@ clinicianRouter.get('/addNewPatient', isAuthenticated, hasRole("clinician"),
     clinicianDashboardController.getAddNewUserPage
 );
 
+// add a route for GET request to clinician messages page
 clinicianRouter.get('/messages', isAuthenticated, hasRole("clinician"), 
     function(req, res, next) {
         res.userInfo = req.user.toJSON()
@@ -87,7 +88,7 @@ clinicianRouter.get('/messages', isAuthenticated, hasRole("clinician"),
     clinicianDashboardController.getMessages
 );
 
-// add a route for GET request to user messages page
+// add a route for GET request to clinician new message page
 clinicianRouter.get('/newmessage', isAuthenticated, hasRole("clinician"),
     function(req, res, next) { 
        res.userInfo = req.user.toJSON()
@@ -96,6 +97,7 @@ clinicianRouter.get('/newmessage', isAuthenticated, hasRole("clinician"),
     clinicianDashboardController.newMessage
 );
 
+// add a route for POST request for a message
 clinicianRouter.post('/sendmessage', isAuthenticated, hasRole("clinician"), 
     function (req, res, next) {
         res.userInfo = req.user.toJSON()
@@ -104,13 +106,32 @@ clinicianRouter.post('/sendmessage', isAuthenticated, hasRole("clinician"),
     clinicianDashboardController.sendPatientMessage
 );
 
+// add a route for GET request to clinician notes page
 clinicianRouter.get('/notes', isAuthenticated, hasRole("clinician"), 
     function (req, res, next) {
         res.userInfo = req.user.toJSON()
         next()
     },
     clinicianDashboardController.renderAllNotes
-)
+);
+
+// add a route for GET request to clinician new note page
+clinicianRouter.get('/newnote', isAuthenticated, hasRole("clinician"),
+    function(req, res, next) { 
+       res.userInfo = req.user.toJSON()
+       next()
+    },
+    clinicianDashboardController.newNote
+);
+
+// add a route for POST request for a clinical note
+clinicianRouter.post('/createnote', isAuthenticated, hasRole("clinician"), 
+    function (req, res, next) {
+        res.userInfo = req.user.toJSON()
+        next()
+    },
+    clinicianDashboardController.createNote
+);
 
 // clinicianRouter.post('/addNewPatient', isAuthenticated, hasRole("clinician"),
 //     body('given name', 'cannot be empty').not().isEmpty().escape(),

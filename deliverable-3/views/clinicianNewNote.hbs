@@ -1,0 +1,88 @@
+<div class="head-title">
+	<div class="left">
+		<ul class="breadcrumb">
+			<li>
+				<pre><a class="active generic-button" href="#">Clinical Notes</a></pre>
+			</li>
+
+			<li>
+				<i class='bx material-icons'>chevron_right</i>
+			</li>
+
+			<li>
+				<pre><a class="active generic-button" href="#">Add Note</a></pre>
+			</li>
+
+			<li>
+				<i class='bx material-icons'>chevron_right</i>
+			</li>
+		</ul>
+		<br>
+		<pre><h1>Add Clinical Note</h1></pre>
+	</div>
+</div>
+
+<ul class="box-info">
+	<li>
+		<i class='bx material-icons'>today</i>
+		<span class="text">
+			<h3>{{getCurrentDate}}</h3>
+			<p>Current Date</p>
+		</span>
+	</li>
+
+	<li>
+		<i class='bx material-icons'>personal_injury</i>
+		<span class="text">
+			{{#with patients}}
+			<h3>{{this.length}}</h3>
+			{{/with}}
+			<p>patient(s)</p>
+		</span>
+	</li>
+
+	<li>
+		<i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
+		<span class="text">
+			{{#with nmessages}}
+			<h3>{{this}}</h3>
+			{{/with}}
+			<p>Messages(s) Sent</p>
+		</span>
+	</li>
+
+	<li>
+		<i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
+		<span class="text">
+			{{#with nnotes}}
+			<h3>{{this}}</h3>
+			{{/with}}
+			<p>Clinician Note(s) created</p>
+		</span>
+	</li>
+</ul>
+
+<div class="table-data">
+	<div class="order">
+		<div class="head">
+			<h3>Enter note details</h3>
+		</div>
+
+		<form class="form-group" id="addnote" action="/clinician/createnote" method="POST">
+			<label>Time</label>
+            <input class="input-button-select" type="text" value="{{formatLongDateNoBreak getTimestamp}}" readonly>
+            <input class="input-button-select" type="hidden" id="timestamp" name="timestamp" placeholder="testtime" value="{{getTimestamp}}" readonly>
+			<br><br>
+			<label>Username</label>
+            <select class="input-button-select" list="username-list" id="username-choice" placeholder="Select username" name="username"/>
+                {{#each patients}}
+                <option value="{{this.email}}">{{this.email}}</option>
+                {{/each}}
+			</select>
+			<br><br>
+			<textarea class="input-button-select" id="addnote" placeholder="Add note here" name="content" rows="5" cols="33"></textarea>
+			<br><br>
+            <input style="font-size: 110%;" class="generic-button" type="submit" value="Save note"/>
+		</form>
+	</div>
+</div>

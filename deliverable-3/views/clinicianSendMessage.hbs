@@ -65,11 +65,9 @@
             <input class="input-button-select" type="hidden" id="timestamp" name="timestamp" placeholder="testtime" value="{{getTimestamp}}" readonly><br><br>
             <label>Username</label>
             <br>
-            {{!-- <input class="input-button-select" list="username-list" id="username-choice" placeholder="Select username" name="username" /> --}}
-            {{!-- <select id="username-list" name="username"> --}}
             <select class="input-button-select" list="username-list" id="username-choice" placeholder="Select username" name="username"/>
                 {{#each patients}}
-                <option value="{{this}}">{{this.email}}</option>
+                <option value="{{this.email}}">{{this.email}}</option>
                 {{/each}}
             </select>
             <br><br>

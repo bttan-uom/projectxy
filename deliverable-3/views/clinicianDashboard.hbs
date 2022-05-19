@@ -43,7 +43,9 @@
 		<li>
 		<i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
 		<span class="text">
-			<h3>{{clinician.length}}</h3>
+			{{#with nnotes}}
+			<h3>{{this}}</h3>
+			{{/with}}
 			<p>Clinician Note(s) created</p>
 		</span>
 	</li>
