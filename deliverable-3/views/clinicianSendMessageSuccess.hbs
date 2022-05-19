@@ -1,0 +1,75 @@
+<body>
+	<div class="head-title" >
+		<div class="left">
+			<ul class="breadcrumb">
+				<li>
+					<a class="active generic-button" href="/clinician/messages">+Messages</a>
+				</li>
+				<li><i class='bx material-icons'>chevron_right</i></li>
+				<li>
+					<a class="active generic-button" href="#">Message sent</a>
+				</li>
+			</ul>
+			<br>
+			<h1>Message sent</h1>
+		</div>
+	</div>
+
+	<ul class="box-info">
+		<li>
+			<i class='bx material-icons'>today</i>
+			<span class="text">
+				<h3 id="CurrentDate"></h3>
+				<p>Today's Date</p>
+			</span>
+		</li>
+	</ul>
+	
+	<div class="table-data">
+		<div class="order" style="background-color:#00e17b;">
+			<div class="head">
+				<i style="font-size: 500%;" class='bx material-icons'>task_alt</i>
+			</div>
+            {{#with patient}}
+			<h2>Your message was successfully sent to {{this.first_name}} {{this.last_name}}.</h2>
+            {{/with}}
+			<br>
+				<h2>You should be automatically redirected to the messages page in <span id="seconds">5</span> seconds.</h2>
+			</div>
+		
+	</div>
+	<br>
+
+	<br><br>
+	<a href="/clinician/messages">
+		{{!-- buttton needs to be centered --}}
+		<button class="generic-button" style="font-size: 25px; border: 3.5px solid; border-radius: 5em;" ><i class='bx material-icons' style="font-size: 30px;">check</i>&nbsp;Done</button>
+	</a> 
+	<script>
+		// Countdown timer for redirecting to another URL after several seconds
+
+		var seconds = 5; // seconds for HTML
+		var foo; // variable for clearInterval() function
+
+		function redirect() {
+			document.location.href = '/clinician/messages';
+		}
+
+		function updateSecs() {
+			document.getElementById("seconds").innerHTML = seconds;
+			seconds--;
+			if (seconds == -1) {
+				clearInterval(foo);
+				redirect();
+			}
+		}
+
+		function countdownTimer() {
+			foo = setInterval(function () {
+				updateSecs()
+			}, 1000);
+		}
+
+		countdownTimer();
+	</script>
+</body>

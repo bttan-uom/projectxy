@@ -1,0 +1,180 @@
+
+<div class="head-title">
+    <div class="left">
+        <ul class="breadcrumb">
+            <li>
+                <pre><a class="active generic-button" href="/clinician/patients">Patients</a></pre>
+            </li>
+            <li><i class='bx material-icons'>chevron_right</i></li>
+            <li>
+                <pre><a class="active generic-button" href="#">New Patient</a></pre>
+            </li>
+        </ul>
+        <br>
+        <h1>New Patient</h1>
+    </div>
+</div>
+
+
+<ul class="box-info">
+    <li>
+        <i class='bx material-icons'>today</i>
+        <span class="text">
+            <h3>{{getCurrentDate}}</h3>
+            <p>Current Date</p>
+        </span>
+    </li>
+    <li>
+        <i class='bx material-icons'>personal_injury</i>
+        <span class="text">
+            <h3>{{data.length}}</h3>
+            <p>Total patients</p>
+        </span>
+    </li>
+</ul>
+
+
+
+
+<div class="table-data">
+    <div class="order">
+        <div class="head">
+            <!--					<i class='bx bx-check-square' ></i>-->
+            <h3>Patient Details</h3>
+            <i class='bx material-icons'>edit</i>
+        </div>
+        
+        <form class="form-group" id="addRecordForm" action="/clinician/addNewPatient" method="POST">
+        <ul class="box-info">
+            <li style="background-color:var(--grey);" class="bluehighlightedbox">
+                <span class="text">
+                    <label>Given Name</label>
+                    <input class="input-button-select" type="text" placeholder="" name="first_name" />
+                </span>
+                
+            </li>
+             <li style="background-color:var(--grey);" class="bluehighlightedbox">
+                <span class="text">
+                    <label>Last Name</label>
+                    <input class="input-button-select" type="text" placeholder="" name="last_name" />
+                </span>
+            </li>
+            <li style="background-color:var(--grey);">
+                <span class="text">
+                    <label>Date of Sign Up</label>
+                    <input class="input-button-select" type="date" value="{{formatCurrentDateForPost}}" name="signupdate" readonly/>
+                </span>
+            </li>
+        </ul>
+        <ul class="box-info">
+            
+            <li style="background-color:var(--grey);">
+                <span class="text">
+                    <h3>Phone number</h3>
+                    <input class="input-button-select" type="text" placeholder="e.g. 9999-999-999" name="phone" />
+                </span>
+            </li>
+            <li style="background-color:var(--grey);">
+                <span class="text">
+                    <h3>Email/username</h3>
+                    <input class="input-button-select" type="text" placeholder="Email" name="email" />
+                </span>
+            </li>
+        </ul>
+        <ul class="box-info">
+            <li style="background-color:var(--grey);">
+                <span class="text">
+                    <h3>Address</h3>
+                    <input class="input-button-select" type="text" placeholder="Residential Address" name="address"/>
+                </span>
+                
+            </li>
+        </ul>
+
+        <ul class="box-info">
+            <li style="background-color:var(--grey);">
+                <span class="text">
+                    <h3>Height</h3>
+                    <input class="input-button-select" type="number" placeholder="Height in Centimeters" name="height"/>
+                </span>
+            </li>
+            
+            <li style="background-color:var(--grey);">
+                <span class="text">
+                    <h3>Date of Birth</h3>
+                    <input class="input-button-select" type="date" placeholder="Date of Birth" name="dob"/>
+                </span>
+            </li>
+            <li style="background-color:var(--grey);">
+                <span class="text">
+                    <h3>Gender</h3>
+                    <select class="input-button-select" name="gender" id="gender">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </span>
+            </li>
+            
+        </ul><br>
+            <input style="font-size: 110%;" class="generic-button" type="submit" />
+        
+
+
+
+    </div>
+    <div class="todo">
+        <div class="head">
+            <!--					<i class='bx bx-edit-alt'></i>-->
+            <h3>Health details</h3>
+        </div>
+        <ul class="todo-list-wide">
+          <li class="blueone">
+                <span class="text">
+                    <label>Clinician Username</label>
+                    <input class="input-button-select" type="text" value="{{clinician}}" name="clinician_username" readonly/>
+                </span>
+            </li>
+        </ul>
+        <br>
+        <ul class="todo-list-wide">
+            <li class="blueone">
+                <p>Records to record:</p>
+                <pre><input type="checkbox" id="bloodglucose" name="glucose_required"> <label for="bloodglucose">Blood Glucose</label></pre>
+                <pre><input type="checkbox" id="insulin" name="insulin_required"> <label for="insulin">Insulin Dose(s)</label></pre>
+                <pre><input type="checkbox" id="weight" name="weight_required"> <label for="weight">Weight</label></pre>
+                <pre><input type="checkbox" id="exercise" name="exercise_required"> <label for="exercise">Exercise</label></pre>
+            </li>
+        </ul>
+        <br>
+        <div class="head">
+            <!--					<i class='bx bx-edit-alt'></i>-->
+            <h3>Patient thresholds</h3>
+        </div>
+        <ul class="todo-list-wide">
+            <li class="blueone">
+                <p>Blood Glucose (nMol/L)</p>
+                <input class="input-button-select" type="number" placeholder="From" name="blood_glucose_lower" step=".01"/>
+                <input class="input-button-select" type="number" placeholder="To" name="blood_glucose_upper" step=".01"/>
+            </li>
+            <li class="blueone">
+                <p>Insulin Doses (doses)</p>
+                <input class="input-button-select" type="number" placeholder="Minimum number of doses" name="insulin_lower" />
+                <input class="input-button-select" type="number" placeholder="Maximum number of doses" name="insulin_upper" />
+            </li>
+            <li class="blueone">
+                <p>Weight (kg)</p>
+                <input class="input-button-select" type="number" placeholder="From" name="weight_lower" step=".01"/>
+                <input class="input-button-select" type="number" placeholder="To" name="weight_upper" step=".01"/>
+            </li>
+            <li class="blueone">
+                <p>Exercise (steps)</p>
+                <input class="input-button-select" type="number" placeholder="Minimum exercise level" name="exercise_lower" step=".01"/>
+                <input class="input-button-select" type="number" placeholder="Maximum exercise level" name="exercise_upper" step=".01"/>
+            </li>
+        </ul>
+
+    </div>
+    </form>
+    
+</div>

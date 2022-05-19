@@ -1,0 +1,64 @@
+<div class="head-title">
+    <div class="left">
+        <ul class="breadcrumb">
+            <li>
+                <a class="active generic-button" href="/user/messages">Messages</a>
+            </li>
+            <li><i class='bx material-icons'>chevron_right</i></li>
+            <li>
+                <pre><a class="active generic-button" href="#">View Message</a></pre>
+            </li>
+        </ul>
+        <br>
+        <h1>View Message</h1>
+    </div>
+</div>
+
+<ul class="box-info">
+	<li>
+		<i class='bx material-icons'>today</i>
+		<span class="text">
+			<h3>{{getCurrentDate}}</h3>
+			<p>Today's Date</p>
+		</span>
+	</li>
+	<li>
+		<i class='bx material-icons'>medication</i>
+		<span class="text">
+			{{#with clinician}}
+				<h3>Dr. {{this.first_name}} {{this.last_name}}</h3>
+			{{/with}}
+			<p>Your clinician</p>
+		</span>
+	</li>
+</ul>
+
+<div class="table-data">
+    <div class="order">
+        <div class="head">
+            <h3>Message Details</h3>
+        </div>
+
+        <ul class="box-info">
+            <li style="background-color:var(--grey);">
+                <span class="text">
+                    <h3>Date sent</h3>
+                    {{#with message}}
+                    <h2>{{formatLongDate this.time}}</h2>
+                    {{/with}}
+                </span>
+            </li>
+        </ul>
+        
+        <ul class="box-info">
+            <li style="background-color:var(--grey);">
+                <span class="text">
+                    <h3>Message</h3>
+                    {{#with message}}
+                    <h3>{{this.content}}</h3>
+                    {{/with}}
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

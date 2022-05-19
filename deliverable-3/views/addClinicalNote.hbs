@@ -1,0 +1,84 @@
+			
+			<div class="head-title">
+				<div class="left">
+					<ul class="breadcrumb">
+						<li>
+							<pre><a class="active generic-button" href="#">Clinical Notes</a></pre>
+						</li>
+						<li><i class='bx material-icons'>chevron_right</i></li>
+						<li>
+							<pre><a class="active generic-button" href="#">Add Note</a></pre>
+						</li>
+						<li><i class='bx material-icons'>chevron_right</i></li>
+					</ul>
+					<br>
+					<pre><h1>Add Clinical Note</h1></pre>
+					
+				</div>
+			</div>
+
+			<ul class="box-info">
+				<li>
+					<i class='bx material-icons'>today</i>
+					<span class="text">
+						<h3>{{getCurrentDate}}</h3>
+						<p>Current Date</p>
+					</span>
+				</li>
+				<li>
+					<i class='bx material-icons'>personal_injury</i>
+					<span class="text">
+						<h3>1</h3>
+						<p>patient(s)</p>
+					</span>
+				</li>
+				<li>
+					<i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
+					<span class="text">
+						<h3>{{clinician.length}}</h3>
+						<p>Messages(s) Sent</p>
+					</span>
+				</li>
+					<li>
+					<i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
+					<span class="text">
+						<h3>{{clinician.length}}</h3>
+						<p>Clinician Note(s) created</p>
+					</span>
+				</li>
+			</ul>
+
+
+
+			<div class="table-data">
+				<div class="order">
+					<div class="head">
+						<!--					<i class='bx bx-check-square' ></i>-->
+						<h3>Enter note details</h3>
+					</div>
+					
+					<form class="form-group" id="addRecordForm" action="/userAddRecord" method="POST">
+						<label>Note Timestamp</label>
+						<input class="input-button-select" type="text" id="timestamp" name="timestamp" value="{{getCurrentDate}}" readonly><br><br>
+						<label>Username</label>
+						<br>
+						<input class="input-button-select" list="username-list" id="username-choice" name="username-choice" />
+						<datalist id="username-list">
+							<option value="UserOne">
+							<option value="UserTwo">
+							<option value="UserThree">
+							<option value="UserFour">
+							<option value="UserFive">
+						</datalist>
+						<br><br>
+						<textarea class="input-button-select" id="addRecordForm" placeholder="Add note here" name="comment" rows="5" cols="33"></textarea>
+						<br><br>
+						<input style="font-size: 110%;" class="generic-button" type="submit" />
+					</form>
+					
+				</div>
+				
+
+
+
+			</div>

@@ -1,0 +1,159 @@
+<div class="head-title">
+	<div class="left">
+		<ul class="breadcrumb">
+			<li>
+				<a class="active generic-button" href="/">Dashboard</a>
+			</li>
+			<li><i class='bx material-icons'>chevron_right</i></li>
+		</ul>
+		<br>
+		<h1>Dashboard</h1>
+		<h2>Welcome, {{currentUser.username}}.</h2>
+		<p>User ID is {{currentUser._id}}. User role is {{currentUser.role}}.</p>
+		
+		
+	</div>
+
+<!--Used in D3-->
+<!--<a href="#" class="btn-download">-->
+<!--	<i class='bx material-icons'>edit_calendar</i>-->
+<!--	<span style='font-size:13px' class="text">Viewing data for <span id="CurrentDateTop"></span><br>Click to change</span>-->
+<!--</a>-->
+	
+</div>
+
+<ul class="box-info">
+	<li>
+		<i class='bx material-icons'>today</i>
+		<span class="text">
+			<h3>{{getCurrentDate}}</h3>
+			<p>Today's Date</p>
+		</span>
+	</li>
+	<li>
+		<i class='bx material-icons'>medication</i>
+		<span class="text">
+			{{#with clinician}}
+				<h3>Dr. {{this.first_name}} {{this.last_name}}</h3>
+			{{/with}}
+			<p>Your clinician</p>
+		</span>
+	</li>
+	<li>
+		<i class='bx material-icons'>playlist_add</i>
+		<span class="text">
+			<h3>NUM</h3>
+			<p>Outstanding records</p>
+		</span>
+	</li>
+	<li>
+		<i class='bx material-icons'>leaderboard</i>
+		<span class="text">
+			<h3>1</h3>
+			<p>Leaderboard position</p>
+		</span>
+	</li>
+</ul>
+{{!-- {{data.records.[0].record_type}} --}}
+<ul class="box-info">
+	<li>
+		<i class='bx material-icons'>recommend</i>
+		<span class="text">
+		{{#with latestmessage}}
+			<h3>{{this}}</h3>
+		{{/with}}
+		{{#with clinician}}
+			<p>Your latest message of support from Dr {{this.first_name}} {{this.last_name}}.</p>
+		{{/with}}
+		</span>
+	</li>
+</ul>
+
+
+
+		
+<div class="table-data">
+	<div class="todo">
+		<div class="head">
+<!--					<i class='bx bx-edit-alt'></i>-->
+			<a style="color:var(--blue);" href="/userAddRecord"><h3>You are required to complete <i style="vertical-align: -3px; color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></h3></a>
+		</div>
+		<ul class="todo-list">
+		{{#with data}}
+			{{#each assigned_records}}
+            <li class="not-completed">
+				<p>{{this}}</p>
+				<a href="/user/addrecord"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a>
+			</li>
+        	{{/each}}
+		{{/with}}
+		</ul>
+	</div>
+	
+	<div class="order">
+		<div class="head">
+			<h3 style="color:var(--blue);">Today's records <a href="/userHistory"><i style="vertical-align: -3px; color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></h3>
+			<input style="width:40%" type="text" class="input-button-select" id="allPatientsInput" onkeyup="allPatientsSearch()" placeholder="Search..." title="Type in a name">
+			<a style="color:var(--blue);" href="#"><i class='bx material-icons'>filter_list</i></a>
+		</div>
+		<table class="scrollTable" id="allPatientsTable">
+			<thead>
+				<tr>
+					<th scope="col">Record Type</th>
+					<th scope="col">Value</th>
+					<th scope="col">View</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{!-- loops over the data set
+				{{#with data}}
+			
+                {{#each records}}
+                <tr {{#if_eq_clinician_dashboard this.record_type this.value}} {{/if_eq_clinician_dashboard}}>
+                    <td data-label="Record Type"><p>{{record_type}}</p></td>
+                    <td data-label="Value"><p>{{this.value}}</p></td>
+                    <td data-label="View"><a href="/clinician/patient/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
+                </tr>
+                {{else}}
+                {{/each}} --}}
+
+				{{#with data}}
+					{{#each records}}
+						{{#if (isFromToday created_at)}}
+							<tr>
+								<td data-label="Record Type">
+									<p>{{record_type}}</p>
+								</td>
+								<td data-label="Value"><p>{{this.value}}</p></td>
+								<td data-label="View"><a href="/user/{{_id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
+							</tr>
+						{{else}}
+						{{/if}}
+					{{/each}}
+				{{/with}}
+			</tbody>
+		</table>
+		<br>
+		<p>Records may be hidden, scroll if required</p>
+		<img src="/img/bounce-arrow.gif" alt="scroll-down-animation" width="50vw">
+	</div>
+
+</div>
+<script>
+	const allPatientsSearch = () => {
+		const trs = document.querySelectorAll('#allPatientsTable tr:not(.header)')
+		const filter = document.querySelector('#allPatientsInput').value
+		const regex = new RegExp(filter, 'i')
+		const isFoundInTds = td => regex.test(td.innerHTML)
+		const isFound = childrenArr => childrenArr.some(isFoundInTds)
+		const setTrStyleDisplay = ({ style, children }) => {
+			style.display = isFound([
+				...children // <-- All columns
+			]) ? '' : 'none' 
+		}
+		
+		trs.forEach(setTrStyleDisplay)
+	}
+	
+</script>
+
