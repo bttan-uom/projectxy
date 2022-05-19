@@ -72,12 +72,38 @@ clinicianRouter.get('/patients/:patient_id', isAuthenticated, hasRole("clinician
 );
 
 clinicianRouter.get('/addNewPatient', isAuthenticated, hasRole("clinician"),
-    function(req, res, next){ 
+    function(req, res, next) { 
        res.userInfo = req.user.toJSON()
        next()
     },
     clinicianDashboardController.getAddNewUserPage
 );
+
+clinicianRouter.get('/messages', isAuthenticated, hasRole("clinician"), 
+    function(req, res, next) {
+        res.userInfo = req.user.toJSON()
+        next()
+    },
+    clinicianDashboardController.getMessages
+);
+
+// add a route for GET request to user messages page
+clinicianRouter.get('/newmessage', isAuthenticated, hasRole("clinician"),
+    function(req, res, next) { 
+       res.userInfo = req.user.toJSON()
+       next()
+    },
+    clinicianDashboardController.newMessage
+);
+
+clinicianRouter.post('/sendmessage', isAuthenticated, hasRole("clinician"), 
+    function (req, res, next) {
+        res.userInfo = req.user.toJSON()
+        next()
+    },
+    clinicianDashboardController.sendPatientMessage
+);
+
 
 // clinicianRouter.post('/addNewPatient', isAuthenticated, hasRole("clinician"),
 //     body('given name', 'cannot be empty').not().isEmpty().escape(),

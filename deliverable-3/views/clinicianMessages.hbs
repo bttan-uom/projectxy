@@ -24,36 +24,44 @@
 				<li>
 					<i class='bx material-icons'>personal_injury</i>
 					<span class="text">
-						<h3>1</h3>
+						{{#with npatients}}
+						<h3>{{this}}</h3>
+						{{/with}}
 						<p>patient(s)</p>
 					</span>
 				</li>
 				<li>
 					<i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
 					<span class="text">
-						<h3>{{clinician.length}}</h3>
+						{{#with data}}
+						<h3>{{this.length}}</h3>
+						{{/with}}
 						<p>Messages(s) Sent</p>
 					</span>
 				</li>
 					<li>
 					<i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
 					<span class="text">
-						<h3>{{clinician.length}}</h3>
+						{{#with nnotes}}
+						<h3>{{this}}</h3>
+						{{/with}}
 						<p>Clinician Note(s) created</p>
 					</span>
 				</li>
 			</ul>
 
 
-
 			<div class="table-data">
 				<div class="order">
 					<div class="head">
-						<!--					<i class='bx bx-check-square' ></i>-->
-						<h3>There are a total of {{data.length}} messages</h3>
+						<!--<i class='bx bx-check-square' ></i>-->
+						{{#with data}}
+						<h3>There are a total of {{this.length}} messages</h3>
+						{{/with}}
 						<input style="width:40%" type="text" class="input-button-select" id="attentionRequiredInput" onkeyup="attentionRequiredSearch()" placeholder="Search..." title="Type in a name">
 						<a style="color:var(--blue);" href="#"><i class='bx material-icons'>filter_list</i></a>
 					</div>
+
 					<table id="attentionRequiredTable">
 						<thead>
 							<tr class="header">
@@ -66,19 +74,21 @@
 							{{!-- loops over the data set --}}
 						{{#each data}}
 						<tr>
-							<td data-label="Username">
-								<p>{{this.first_name}}</p>
+							<td data-label="Name">
+								<p>{{this.first_name}} {{this.last_name}}</p>
 							</td>
-							<td data-label="Message Preview"><p>{{this.value}}</p></td>
-							<td data-label="View"><a href="/clinician/messages/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
+							<td data-label="Message Preview"><p>{{this.message}}</p></td>
+							<td data-label="View"><a href="/clinician/messages?user={{this.user_id}}&message={{this.message_id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
 						</tr>
 						{{/each}}
 						</tbody>
 					</table>
+
 					<br>
 					<p>Records may be hidden, scroll if required</p>
 					<img src="/img/bounce-arrow.gif" alt="scroll-down-animation" width="50vw">
 				</div>
+
 				<div class="todo">
 					<div class="head">
 						<!--					<i class='bx bx-edit-alt'></i>-->
@@ -92,14 +102,9 @@
 						</li>
 						<li class="blueone">
 							<p>Message someone:</p>
-							<p>></p>
+							<a href="/clinician/newmessage">></a>
 						</li>
 					</ul>
 					<br>
-					
 				</div>
-
-
-
-
 			</div>

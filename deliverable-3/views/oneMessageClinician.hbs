@@ -1,9 +1,8 @@
-
 <div class="head-title">
     <div class="left">
         <ul class="breadcrumb">
             <li>
-                <a class="active generic-button" href="/clinicianMessages">Messages</a>
+                <a class="active generic-button" href="/clinician/messages">Messages</a>
             </li>
             <li><i class='bx material-icons'>chevron_right</i></li>
             <li>
@@ -14,7 +13,6 @@
         <h1>View Message</h1>
     </div>
 </div>
-
 
 <ul class="box-info">
     <li>
@@ -30,7 +28,7 @@
             {{#with patient}}
                 <h3>{{this.first_name}} {{this.last_name}}</h3>
             {{/with}}
-            <p>Receiving Patient</p>
+            <p>Patient Name</p>
         </span>
     </li>
     <li>
@@ -39,26 +37,24 @@
             {{#with patient}}
             <h3>{{this.email}}</h3>
             {{/with}}
-            <p>Reciever Username</p>
+            <p>Patient Username</p>
         </span>
     </li>
 </ul>
 
-
-
-
-
 <div class="table-data">
     <div class="order">
         <div class="head">
-            <!--					<i class='bx bx-check-square' ></i>-->
             <h3>Message Details</h3>
         </div>
+
         <ul class="box-info">
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Date sent</h3>
-                    <h2>{{formatLongDate this.created_at}}</h2>
+                    {{#with message}}
+                    <h2>{{formatLongDate this.time}}</h2>
+                    {{/with}}
                 </span>
             </li>
         </ul>
@@ -67,42 +63,49 @@
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Message</h3>
-                    <h3>{{this.comment}}</h3>
+                    {{#with message}}
+                    <h3>{{this.content}}</h3>
+                    {{/with}}
                 </span>
             </li>
         </ul>
-        
-
-        
     </div>
+
     <div class="todo">
         <div class="head">
-            <!--					<i class='bx bx-edit-alt'></i>-->
             <h3>Patient details</h3>
         </div>
+
         <ul class="todo-list">
+            {{#with patient}}
             <li class="blueone">
                 <p>DOB:</p>
-                <p>A thing</p>
+                <p>{{formatDate this.dob}}</p>
             </li>
+
             <li class="blueone">
                 <p>Height:</p>
-                <p>Another thing</p>
+                <p>{{this.height}} cm</p>
             </li>
+
             <li class="blueone">
                 <p>Gender:</p>
-                <p>Third thing</p>
+                <p>{{this.gender}}</p>
             </li>
+            {{/with}}
+
             <li class="blueone">
                 <p>Records being recorded:</p>
-                <p>One, two, three, four</p>
+                <p>{{#each patient.assigned_records}} {{formatUpper this}} {{/each}}</p>
             </li>
         </ul>
+
         <br>
         <div class="head">
-            <!--					<i class='bx bx-edit-alt'></i>-->
             <h3>Patient thresholds</h3>
         </div>
+
+        {{#with patient}}
         <ul class="todo-list">
             <li class="blueone">
                 <p>Blood Glucose: 3.9 - 5.6 nMol/L</p>
@@ -117,6 +120,6 @@
                 <p>Exercise: At least 5000 steps</p>
             </li>
         </ul>
-
+        {{/with}}
     </div>
 </div>

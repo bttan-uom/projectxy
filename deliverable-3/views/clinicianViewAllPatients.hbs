@@ -32,7 +32,9 @@
 				<li>
 					<i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
 					<span class="text">
-						<h3>{{clinician.length}}</h3>
+						{{#with nmessages}}
+						<h3>{{this}}</h3>
+						{{/with}}
 						<p>Messages(s) Sent</p>
 					</span>
 				</li>
@@ -93,6 +95,10 @@
 						</li>
 						<li class="blueone">
 							<p>Message someone:</p>
+							<p data-label="View"><a href="/clinician/newmessage"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></p>
+						</li>
+						<li class="blueone">
+							<p>View all messages:</p>
 							<p data-label="View"><a href="/clinician/messages"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></p>
 						</li>
 					</ul>
