@@ -54,6 +54,15 @@ userRouter.get('/messages', isAuthenticated, hasRole("patient"),
     userDashboardController.getMessages
 );
 
+// add a route for GET request to user messages page
+userRouter.get('/messages/:message_id', isAuthenticated, hasRole("patient"),
+    function(req, res, next) {
+        res.userInfo = req.user.toJSON()
+        next()
+    },
+    userDashboardController.getAMessage
+);
+
 userRouter.get('/history/:record_id', isAuthenticated, hasRole("patient"), 
     function(req, res, next) {
 

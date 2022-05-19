@@ -4,7 +4,6 @@ const joins = require('./joins')
 
 // handle request to get all data instances
 const getAllRecords = async (req, res, next) => {
-    console.log(res.userInfo)
     // if (req.session.customerID == undefined){
     //     // for the weird URL's
     //     res.redirect("/user/login")
@@ -31,9 +30,6 @@ const getAllRecords = async (req, res, next) => {
 
 // handle request to get one data instance
 const getDataById = async (req, res, next) => {
-    // search the database by ID
-    console.log(req.params.record_id);
-
     const recordToView = req.params.record_id
     try {
         const patient = await joins.getAPatient(res.userInfo.username)
@@ -55,8 +51,6 @@ const getDataById = async (req, res, next) => {
 }
 
 const getAllHistory = async (req, res, next) => {
-    console.log(res.userInfo)
-
     try {
         const clinician = await joins.getClinician(res.userInfo.username)
         if (!clinician) {
@@ -143,6 +137,23 @@ const getMessages = async (req, res, next) => {
     }
 }
 
+const getAMessage = async (req, res, next) => {
+    try {
+        const patient = await joins.getAPatient(res.userInfo.username)
+        if (!patient) {
+            return res.sendStatus(404)
+        }
+        const clinician = await joins.getClinician(patient.email)
+        if (!clinician) {
+            return res.sendStatus(404)
+        }
+        const message = await joins.getAMessage(patient, req.params.message_id)
+        res.render('oneMessagePatient', {clinician: clinician, message: message})
+    } catch(err) {
+        return next(err)
+    }
+}
+
 // exports an object, which contain functions imported by router
 module.exports = {
     getAllRecords,
@@ -150,5 +161,6 @@ module.exports = {
     getAllHistory,
     getAddUserRecordsPage,
     addNewUserRecord,
-    getMessages
+    getMessages,
+    getAMessage
 }
