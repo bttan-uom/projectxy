@@ -145,6 +145,7 @@ const sendPatientMessage = async (req, res, next) => {
             Patients.Patient.findOneAndUpdate(
                 {"email": req.body.username}, 
                 {$push: {messages: {content: req.body.comment, time: req.body.timestamp}}},
+                {},
                 (err) => {
                     if (err) {
                         console.log(err)
@@ -167,10 +168,18 @@ const sendPatientMessage = async (req, res, next) => {
 
 const renderAllNotes = async (req, res, next) => {
     try {
-        const clinician = await joins.getClinicianOnly(res.userInfo.username)
-        const allnotes = await joins.getAllNotes(clinician)
-        const allmessages = await joins.getAllMessages(res.userInfo.username)
-        res.render('clinicianNotes', {notes: allnotes.reverse(), npatients: clinician.patients.length, nmessages: allmessages.length})
+        if (Object.keys(req.query).length !== 0) {
+            /* Viewing an individual note */
+            const patient = await Patients.Patient.findById(req.query.user).lean().exec()
+            const note = await joins.getANote(patient, req.query.note)
+            res.render('oneClinicalNote', {patient: patient, note: note})
+        } else {
+            /* Viewing all note */
+            const clinician = await joins.getClinicianOnly(res.userInfo.username)
+            const allnotes = await joins.getAllNotes(clinician)
+            const allmessages = await joins.getAllMessages(res.userInfo.username)
+            res.render('clinicianNotes', {notes: allnotes.reverse(), npatients: clinician.patients.length, nmessages: allmessages.length})    
+        }
     } catch (err) {
         return next(err)
     }
