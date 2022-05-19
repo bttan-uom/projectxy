@@ -1,6 +1,4 @@
 // import people model
-const Clinician = require('../models/clinicians')
-const Records = require('../models/patientRecords')
 const Patients = require('../models/patients')
 const joins = require('./joins')
 
@@ -12,8 +10,7 @@ const renderClinicianDashboard = async (req, res, next) => {
             return res.sendStatus(404)
         }
         const patients = await Patients.Patient.find().lean()
-        const nmessages = await joins.listAllMessages(res.userInfo.username)
-        return res.render('clinicianDashboard', {clinician: clinician, data: patients, layout: 'main2', nmessages: nmessages.length})
+        return res.render('clinicianDashboard', {clinician: clinician, data: patients, layout: 'main2'})
     } catch (err) {
         return next(err)
     }
@@ -23,8 +20,7 @@ const renderClinicianDashboard = async (req, res, next) => {
 const renderClinicianPatientList = async (req, res, next) => {
     try {
         const PatientsList = await Patients.Patient.find().lean()
-        const nmessages = await joins.listAllMessages(res.userInfo.username)
-        res.render('clinicianViewAllPatients', {data: PatientsList.reverse(), layout: 'main2', nmessages: nmessages.length})
+        res.render('clinicianViewAllPatients', {data: PatientsList.reverse(), layout: 'main2'})
     } catch (err) {
         return next(err)
     }  
@@ -99,81 +95,59 @@ const getDataById = async (req, res, next) => {
 const getAddNewUserPage = async (req, res, next) => {
     try {
         const PatientsList = await Patients.Patient.find().lean()
-        res.render("clinicianAddPatient", {data: PatientsList.reverse(), layout: 'main2'})
+        const clinicianUsername = res.userInfo.username
+
+        res.render("clinicianAddPatient", {data: PatientsList.reverse(), clinician: clinicianUsername, layout: 'main2'})
     } catch (err) {
         return next(err)
     }
 }
 
-const newMessage = async (req, res, next) => {
+const addNewUser = async (req, res, next) => {
     try {
-        const patients = await joins.getAllPatients(res.userInfo.username)
-        res.render('clinicianSendMessage', {patients: patients})
-    } catch (err) {
-        return next(err)
-    }
-}
+        newPatient = new Patients.Patient(req.body)
+        await newPatient.save()
 
-const getMessages = async (req, res, next) => {
-    try {
-        if (Object.keys(req.query).length !== 0) {
-            /* Viewing an individual message */
-            const patient = await Patients.Patient.findById(req.query.user).lean().exec()
-            const message = await joins.getAMessage(patient, req.query.message)
-            res.render('oneMessageClinician', {patient: patient, message: message})
-        } else {
-            /* Viewing all messages */
-            const clinician = await joins.getClinicianOnly(res.userInfo.username)
-            const allmessages = await joins.listAllMessages(res.userInfo.username)
-            res.render('clinicianMessages', {npatients: clinician.patients.length, data: allmessages})
-        }
-    } catch (err) {
-        return next(err)
-    }
-}
+        Patients.Patient.findOneAndUpdate(
+            {"email": newPatient.email}, 
+            {$push: {
+                    thresholds: {
+                        $each: [{name: "glucose", lower: req.body.blood_glucose_lower, upper: req.body.blood_glucose_upper}, 
+                                {name: "insulin", lower: req.body.insulin_lower, upper: req.body.insulin_upper},
+                                {name: "weight", lower: req.body.weight_lower, upper: req.body.weight_upper},
+                                {name: "exercise", lower: req.body.exercise_lower, upper: req.body.exercise_upper}]
 
-const sendPatientMessage = async (req, res, next) => {
-    try {
-        if (req.body.username === undefined || req.body.username === '') {
-            res.render('clinicianSendMessageFail', {error: 'No username selected.'})
-        } else if (req.body.comment === undefined || req.body.comment === '') {
-            res.render('clinicianSendMessageFail', {error: 'Cannot send empty comment.'})
-        } else if (req.body.timestamp === undefined || req.body.timestamp === '') {
-            res.render('clinicianSendMessageFail', {error: 'Could not get current time.'})
-        } else {
-            const patient = await joins.getAPatient(req.body.username)
-            Patients.Patient.findOneAndUpdate(
-                {"email": req.body.username}, 
-                {$push: {messages: {content: req.body.comment, time: req.body.timestamp}}},
-                (err) => {
-                    if (err) {
-                        console.log(err)
+                    },
+                    assigned_records: {
+                        $each: [{record_type: "glucose", is_recording: req.body.glucose_required},
+                                {record_type: "insulin", is_recording: req.body.insulin_required},
+                                {record_type: "weight", is_recoridng: req.body.weight_required},
+                                {record_type: "exercise", is_recording: req.body.exercise_required}]
                     }
                 }
-            );
-            res.render('clinicianSendMessageSuccess', {patient: patient})
-        }
+            },
+            (err) => {
+                if (err) {
+                    console.log(err)
+                }
+            }
+        );
+        const clinicianUsername = res.userInfo.username
+        res.render('userAddRecordSuccess', {clinician: clinicianUsername})
+
     } catch (err) {
         return next(err)
     }
 }
-// const addNewUser = async (req, res, next) => {
-//     try {
-
-//     } catch (err) {
-//         return next(err)
-//     }
-// }
 
 module.exports = {
     renderClinicianDashboard,
     getDataById,
     renderClinicianPatientList,
     getSinglePatient,
-    // addNewUser,
     getAddNewUserPage,
-    sendPatientMessage,
-    getMessages,
-    newMessage
+    addNewUser
 }
 
+// record_type: {type: String, required: true},
+//     is_recording:

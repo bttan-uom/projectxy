@@ -127,6 +127,12 @@ hbs.handlebars.registerHelper('formatDateLongYear', function(dateString) {
     );
 });
 
+hbs.handlebars.registerHelper('formatCurrentDateForPost', function() {
+    return new hbs.handlebars.SafeString(
+        moment().tz('Australia/Melbourne').format("YYYY-MM-DD")
+    );
+});
+
 hbs.handlebars.registerHelper('formatLongDate', function(dateString) {
     return new hbs.handlebars.SafeString(
         moment(dateString).tz('Australia/Melbourne').format("MMMM Do YYYY<br> h:mm a zz")

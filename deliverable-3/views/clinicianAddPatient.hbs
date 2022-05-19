@@ -3,7 +3,7 @@
     <div class="left">
         <ul class="breadcrumb">
             <li>
-                <pre><a class="active generic-button" href="/clinicianViewAllPatients">Patients</a></pre>
+                <pre><a class="active generic-button" href="/clinician/patients">Patients</a></pre>
             </li>
             <li><i class='bx material-icons'>chevron_right</i></li>
             <li>
@@ -44,26 +44,25 @@
             <i class='bx material-icons'>edit</i>
         </div>
         
-        <form class="form-group" id="addRecordForm" action="/userAddRecord" method="POST">
+        <form class="form-group" id="addRecordForm" action="/clinician/addNewPatient" method="POST">
         <ul class="box-info">
             <li style="background-color:var(--grey);" class="bluehighlightedbox">
                 <span class="text">
                     <label>Given Name</label>
-                    <input class="input-button-select" type="text" placeholder="" name="given name" />
+                    <input class="input-button-select" type="text" placeholder="" name="first_name" />
                 </span>
                 
             </li>
              <li style="background-color:var(--grey);" class="bluehighlightedbox">
                 <span class="text">
                     <label>Last Name</label>
-                    <input class="input-button-select" type="text" placeholder="" name="last name" />
+                    <input class="input-button-select" type="text" placeholder="" name="last_name" />
                 </span>
-                
             </li>
             <li style="background-color:var(--grey);">
                 <span class="text">
-                    <h3>Date of sign-up</h3>
-                    <h2>{{formatLongDate this.created_at}}</h2>
+                    <label>Date of Sign Up</label>
+                    <input class="input-button-select" type="date" value="{{formatCurrentDateForPost}}" name="signupdate" readonly/>
                 </span>
             </li>
         </ul>
@@ -72,13 +71,13 @@
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Phone number</h3>
-                    <input class="input-button-select" type="text" placeholder="e.g. 9999-999-999" name="phone number" />
+                    <input class="input-button-select" type="text" placeholder="e.g. 9999-999-999" name="phone" />
                 </span>
             </li>
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Email/username</h3>
-                    <input class="input-button-select" type="text" placeholder="Email" name="username" />
+                    <input class="input-button-select" type="text" placeholder="Email" name="email" />
                 </span>
             </li>
         </ul>
@@ -103,7 +102,7 @@
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Date of Birth</h3>
-                    <input class="input-button-select" type="date" placeholder="Date of Birth" name="date of birth"/>
+                    <input class="input-button-select" type="date" placeholder="Date of Birth" name="dob"/>
                 </span>
             </li>
             <li style="background-color:var(--grey);">
@@ -121,7 +120,8 @@
             <input style="font-size: 110%;" class="generic-button" type="submit" />
         
 
-        
+
+
     </div>
     <div class="todo">
         <div class="head">
@@ -129,12 +129,21 @@
             <h3>Health details</h3>
         </div>
         <ul class="todo-list-wide">
+          <li class="blueone">
+                <span class="text">
+                    <label>Clinician Username</label>
+                    <input class="input-button-select" type="text" value="{{clinician}}" name="clinician_username" readonly/>
+                </span>
+            </li>
+        </ul>
+        <br>
+        <ul class="todo-list-wide">
             <li class="blueone">
                 <p>Records to record:</p>
-                <pre><input type="checkbox" id="bloodglucose" name="bloodglucose"> <label for="bloodglucose">Blood Glucose</label></pre>
-                <pre><input type="checkbox" id="insulin" name="insulin"> <label for="insulin">Insulin Dose(s)</label></pre>
-                <pre><input type="checkbox" id="weight" name="weight"> <label for="weight">Weight</label></pre>
-                <pre><input type="checkbox" id="exercise" name="exercise"> <label for="exercise">Exercise</label></pre>
+                <pre><input type="checkbox" id="bloodglucose" name="glucose_required"> <label for="bloodglucose">Blood Glucose</label></pre>
+                <pre><input type="checkbox" id="insulin" name="insulin_required"> <label for="insulin">Insulin Dose(s)</label></pre>
+                <pre><input type="checkbox" id="weight" name="weight_required"> <label for="weight">Weight</label></pre>
+                <pre><input type="checkbox" id="exercise" name="exercise_required"> <label for="exercise">Exercise</label></pre>
             </li>
         </ul>
         <br>
@@ -144,25 +153,24 @@
         </div>
         <ul class="todo-list-wide">
             <li class="blueone">
-                <p>Blood Glucose</p>
-
-                {{!-- <input class="small-input-button-select" type="number" placeholder="From" name="value" /><input class="small-input-button-select" type="number" placeholder="To" name="value" /> --}}
-                <input class="input-button-select" type="number" placeholder="From" name="blood glucose threshold lower" />
-                <input class="input-button-select" type="number" placeholder="To" name="blood glucose threshold upper" />
+                <p>Blood Glucose (nMol/L)</p>
+                <input class="input-button-select" type="number" placeholder="From" name="blood_glucose_lower" step=".01"/>
+                <input class="input-button-select" type="number" placeholder="To" name="blood_glucose_upper" step=".01"/>
             </li>
             <li class="blueone">
-                <p>Insulin Doses</p>
-                <input class="input-button-select" type="number" placeholder="Number of doses" name="insulin doses threshold" />
+                <p>Insulin Doses (doses)</p>
+                <input class="input-button-select" type="number" placeholder="Minimum number of doses" name="insulin_lower" />
+                <input class="input-button-select" type="number" placeholder="Maximum number of doses" name="insulin_upper" />
             </li>
             <li class="blueone">
-                <p>Weight</p>
-                <input class="input-button-select" type="number" placeholder="From" name="weight threshold lower" />
-                <input class="input-button-select" type="number" placeholder="To" name="weight threshold upper" />
+                <p>Weight (kg)</p>
+                <input class="input-button-select" type="number" placeholder="From" name="weight_lower" step=".01"/>
+                <input class="input-button-select" type="number" placeholder="To" name="weight_upper" step=".01"/>
             </li>
             <li class="blueone">
-                <p>Exercise</p>
-                <input class="input-button-select" type="number" placeholder="From" name="exercise threshold lower" />
-                <input class="input-button-select" type="number" placeholder="To" name="exercise threshold upper" />
+                <p>Exercise (steps)</p>
+                <input class="input-button-select" type="number" placeholder="Minimum exercise level" name="exercise_lower" step=".01"/>
+                <input class="input-button-select" type="number" placeholder="Maximum exercise level" name="exercise_upper" step=".01"/>
             </li>
         </ul>
 

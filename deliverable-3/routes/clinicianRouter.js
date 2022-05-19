@@ -35,7 +35,7 @@ const hasRole = (thisRole) => {
     }    
 }
 
-//clinicianRouter.get('/', isAuthenticated, clinicianDashboardController.renderClinicianDashboard)
+
 clinicianRouter.get('/', isAuthenticated, hasRole("clinician"),
     function(req, res, next) {
         res.userInfo = req.user.toJSON()
@@ -44,7 +44,7 @@ clinicianRouter.get('/', isAuthenticated, hasRole("clinician"),
     clinicianDashboardController.renderClinicianDashboard
 );
 
-//clinicianRouter.get('/patients', isAuthenticated, clinicianDashboardController.renderClinicianPatientList)
+
 clinicianRouter.get('/patients', isAuthenticated, hasRole("clinician"),
     function(req, res, next) {
         res.userInfo = req.user.toJSON()
@@ -53,7 +53,7 @@ clinicianRouter.get('/patients', isAuthenticated, hasRole("clinician"),
     clinicianDashboardController.renderClinicianPatientList
 );
 
-//clinicianRouter.get('/:patient_id', isAuthenticated, clinicianDashboardController.getDataById)
+
 clinicianRouter.get('/patients/:patient_id/:record_id', isAuthenticated, hasRole("clinician"),
     function(req, res, next) {
         res.userInfo = req.user.toJSON()
@@ -62,7 +62,7 @@ clinicianRouter.get('/patients/:patient_id/:record_id', isAuthenticated, hasRole
     clinicianDashboardController.getDataById
 );
 
-//clinicianRouter.get('/patients/:patient_id', isAuthenticated, clinicianDashboardController.getSinglePatient)
+
 clinicianRouter.get('/patients/:patient_id', isAuthenticated, hasRole("clinician"),
     function(req, res, next) {
         res.userInfo = req.user.toJSON()
@@ -72,69 +72,36 @@ clinicianRouter.get('/patients/:patient_id', isAuthenticated, hasRole("clinician
 );
 
 clinicianRouter.get('/addNewPatient', isAuthenticated, hasRole("clinician"),
-    function(req, res, next) { 
+    function(req, res, next){ 
        res.userInfo = req.user.toJSON()
        next()
     },
     clinicianDashboardController.getAddNewUserPage
 );
 
-clinicianRouter.get('/messages', isAuthenticated, hasRole("clinician"), 
+clinicianRouter.post('/addNewPatient', isAuthenticated, hasRole("clinician"),
+    body('first_name', 'cannot be empty').not().isEmpty().escape(),
+    body('last_name', 'cannot be empty').not().isEmpty().escape(),
+    body('phone', 'must be a number').isNumeric().escape(),
+    body('email', 'must be an email address').isEmail().escape(),
+    body('address', 'cannot be empty').not().isEmpty().escape(),
+    body('height', 'must be a number').isFloat({ min: 50, max: 272}).escape(), 
+    body("thresholds.*.blood_glucose_lower", "TOO LOW").isFloat({ min: 5, max: 5 }).escape(),
     function(req, res, next) {
-        res.userInfo = req.user.toJSON()
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            return res.send(errors) // if validation errors, do not process data
+        }
+        res.userInfo = req.user.toJSON();
         next()
     },
-    clinicianDashboardController.getMessages
+    clinicianDashboardController.addNewUser
 );
-
-// add a route for GET request to user messages page
-clinicianRouter.get('/newmessage', isAuthenticated, hasRole("clinician"),
-    function(req, res, next) { 
-       res.userInfo = req.user.toJSON()
-       next()
-    },
-    clinicianDashboardController.newMessage
-);
-
-clinicianRouter.post('/sendmessage', isAuthenticated, hasRole("clinician"), 
-    function (req, res, next) {
-        res.userInfo = req.user.toJSON()
-        next()
-    },
-    clinicianDashboardController.sendPatientMessage
-);
-
-
-// clinicianRouter.post('/addNewPatient', isAuthenticated, hasRole("clinician"),
-//     body('given name', 'cannot be empty').not().isEmpty().escape(),
-//     body('last name', 'cannot be empty').not().isEmpty().escape(),
-//     body('phone number', 'must be a number').isNumeric().escape(),
-//     body('username', 'must be an email address').isEmail().escape(),
-//     body('address', 'cannot be empty').not().isEmpty().escape(),
-//     body('height', 'must be a number').isFloat({ min: 50, max: 272}).escape(), 
-//     body('blood glucose threshold lower', 'must be a number').isFloat({ min: 5, max: 5 }).escape(),
-//     body('blood glucose threshold upper', 'must be a number').isFloat({ min: 5, max: 5 }).escape(),
-//     body('insulin doses threshold', 'must be a number').isFloat({ min: 5, max: 5 }).escape(),
-//     body('weight threshold lower', 'must be a number').isFloat({ min: 5, max: 5 }).escape(),
-//     body('weight threshold upper', 'must be a number').isFloat({ min: 5, max: 5 }).escape(),
-//     body('exercise threshold lower', 'must be a number').isFloat({ min: 5, max: 5 }).escape(),
-//     body('exercise threshold upper', 'must be a number').isFloat({ min: 5, max: 5 }).escape(),
-//     function(req, res, next) {
-//         const errors = validationResult(req)
-//         if (!errors.isEmpty()) {
-//             return res.send(errors) // if validation errors, do not process data
-//         }
-//         res.userInfo = req.user.toJSON();
-//     },
-//     //clinicianDashboardController.add new controller
-// );
 
 module.exports = clinicianRouter
 
 
 /*
 ROUTERS THAT NEED TO BE COMPLETE:
-- clinician viewing all patients
-- messages
 - clinicial note
 */

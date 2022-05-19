@@ -32,9 +32,7 @@
 				<li>
 					<i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
 					<span class="text">
-						{{#with nmessages}}
-						<h3>{{this}}</h3>
-						{{/with}}
+						<h3>{{clinician.length}}</h3>
 						<p>Messages(s) Sent</p>
 					</span>
 				</li>
@@ -91,15 +89,15 @@
 					<ul class="todo-list">
 						<li class="blueone">
 							<p>Clinical Notes</p>
-							<a href="/clinician/addNotes"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a>
+							<p data-label="View"><a href="/clinician/addNotes"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></p>
 						</li>
 						<li class="blueone">
-							<p>Message someone:</p>
-							<p data-label="View"><a href="/clinician/newmessage"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></p>
-						</li>
-						<li class="blueone">
-							<p>View all messages:</p>
+							<p>Message Someone:</p>
 							<p data-label="View"><a href="/clinician/messages"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></p>
+						</li>
+							<li class="blueone">
+							<p>Add a New Patient</p>
+							<p data-label="View"><a href="/clinician/addNewPatient"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></p>
 						</li>
 					</ul>
 					<br>

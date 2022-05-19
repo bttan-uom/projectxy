@@ -45,24 +45,6 @@ userRouter.get('/', isAuthenticated, hasRole("patient"),
     userDashboardController.getAllRecords
 );
 
-// add a route for GET request to user messages page
-userRouter.get('/messages', isAuthenticated, hasRole("patient"),
-    function(req, res, next) {
-        res.userInfo = req.user.toJSON()
-        next()
-    },
-    userDashboardController.getMessages
-);
-
-// add a route for GET request to user messages page
-userRouter.get('/messages/:message_id', isAuthenticated, hasRole("patient"),
-    function(req, res, next) {
-        res.userInfo = req.user.toJSON()
-        next()
-    },
-    userDashboardController.getAMessage
-);
-
 
 userRouter.get('/history/:record_id', isAuthenticated, hasRole("patient"), 
     function(req, res, next) {
@@ -73,7 +55,6 @@ userRouter.get('/history/:record_id', isAuthenticated, hasRole("patient"),
     userDashboardController.getDataById
 )
 
-
 userRouter.get('/history', isAuthenticated, hasRole("patient"),
     function(req, res, next){ 
        res.userInfo = req.user.toJSON()
@@ -82,21 +63,22 @@ userRouter.get('/history', isAuthenticated, hasRole("patient"),
     userDashboardController.getAllHistory
 );
 
-userRouter.get('/myinfo/edit', isAuthenticated, hasRole("patient"),
-    function(req, res, next){ 
-       res.userInfo = req.user.toJSON()
-       next()
-    },
-    userDashboardController.renderEditUserInformation
-);
 
-userRouter.get('/myinfo', isAuthenticated, hasRole("patient"),
-    function(req, res, next){ 
-       res.userInfo = req.user.toJSON()
-       next()
+userRouter.get('/:record_id', isAuthenticated, hasRole("patient"), 
+    function(req, res, next) {
+
+        res.userInfo = req.user.toJSON()
+        next()
     },
-    userDashboardController.getUserInformation
-);
+    userDashboardController.getDataById
+)
+
+
+
+
+
+
+// add a route to handle the GET request for add records page
 
 userRouter.get('/addRecord', isAuthenticated, hasRole("patient"),
     function(req, res, next){ 
@@ -115,24 +97,6 @@ userRouter.post('/addRecord', isAuthenticated, hasRole("patient"),
     },
     userDashboardController.addNewUserRecord
 );
-
-
-userRouter.get('/:record_id', isAuthenticated, hasRole("patient"), 
-    function(req, res, next) {
-
-        res.userInfo = req.user.toJSON()
-        next()
-    },
-    userDashboardController.getDataById
-)
-
-
-
-
-
-
-
-// add a route to handle the GET request for add records page
 
 
 
