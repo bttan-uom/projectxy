@@ -2,7 +2,7 @@
     <div class="left">
         <ul class="breadcrumb">
             <li>
-                <a class="active generic-button" href="/clinician/messages">Messages</a>
+                <a class="active generic-button" href="/user/messages">Messages</a>
             </li>
             <li><i class='bx material-icons'>chevron_right</i></li>
             <li>
@@ -36,7 +36,6 @@
 <div class="table-data">
     <div class="order">
         <div class="head">
-            <!--					<i class='bx bx-check-square' ></i>-->
             <h3>Message Details</h3>
         </div>
 
@@ -62,58 +61,4 @@
             </li>
         </ul>
     </div>
-
-    {{!-- <div class="todo">
-        <div class="head">
-            <!--					<i class='bx bx-edit-alt'></i>-->
-            <h3>Patient details</h3>
-        </div>
-
-        <ul class="todo-list">
-            {{#with patient}}
-            <li class="blueone">
-                <p>DOB:</p>
-                <p>{{formatDate this.dob}}</p>
-            </li>
-
-            <li class="blueone">
-                <p>Height:</p>
-                <p>{{this.height}} cm</p>
-            </li>
-
-            <li class="blueone">
-                <p>Gender:</p>
-                <p>{{this.gender}}</p>
-            </li>
-            {{/with}}
-
-            <li class="blueone">
-                <p>Records being recorded:</p>
-                <p>{{#each patient.assigned_records}} {{formatUpper this}} {{/each}}</p>
-            </li>
-        </ul>
-
-        <br>
-        <div class="head">
-            <!--<i class='bx bx-edit-alt'></i>-->
-            <h3>Patient thresholds</h3>
-        </div>
-
-        {{#with patient}}
-        <ul class="todo-list">
-            <li class="blueone">
-                <p>Blood Glucose: 3.9 - 5.6 nMol/L</p>
-            </li>
-            <li class="blueone">
-                <p>Insulin Doses: 2 Doses</p>
-            </li>
-            <li class="blueone">
-                <p>Weight: 65 - 75 kg</p>
-            </li>
-            <li class="blueone">
-                <p>Exercise: At least 5000 steps</p>
-            </li>
-        </ul>
-        {{/with}}
-    </div> --}}
 </div>
