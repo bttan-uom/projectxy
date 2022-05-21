@@ -7,9 +7,6 @@ const Clinicians = require('../models/clinicians')
 const renderClinicianDashboard = async (req, res, next) => {
     try { 
         const clinician = await joins.getClinician(res.userInfo.username)
-        if (!clinician) {
-            return res.sendStatus(404)
-        }
         const nmessages = await joins.listAllMessages(clinician)
         const nnotes = await joins.getAllNotes(clinician)
         return res.render('clinicianDashboard', {clinician: clinician, data: clinician.patients, layout: 'main2', nmessages: nmessages.length, nnotes: nnotes.length})

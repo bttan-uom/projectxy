@@ -62,7 +62,7 @@ const getAllNotes = async (clinician) => {
         for (const email_object of clinician.patients) {
             const patient = await getPatient(email_object.email)
             for (const note of patient.notes) {
-                notes.push({'username': patient_username, 'content': note.content, 'date': note.date, 'note_id': note._id, 'user_id': patient._id})
+                notes.push({'username': patient.email, 'content': note.content, 'date': note.date, 'note_id': note._id, 'user_id': patient._id})
             }
         }
         return notes
