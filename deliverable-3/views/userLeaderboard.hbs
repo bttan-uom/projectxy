@@ -52,15 +52,15 @@
 
 			<tbody>
 				{{!-- loops over the data set --}}
-				{{#each data}}
+				{{#each leaderboard}}
 				<tr>
 					<td data-label="Ranking"> 
-						<p>{{this.record_type}}</p>
+						<p>{{this.position}}</p>
 					</td>
 					<td data-label="User"> 
-						<p>{{this.record_type}}</p>
+						<p>{{this.username}}</p>
 					</td>
-					<td data-label="Engagement Rate"><p>{{this.value}}</p></td>
+					<td data-label="Engagement Rate"><p>{{this.engagement}}</p></td>
 				</tr>
 				{{/each}}
 			</tbody>

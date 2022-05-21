@@ -206,7 +206,8 @@ const getLeaderboard = async (req, res, next) => {
     try {
         const patient = await joins.getAPatient(res.userInfo.username)
         const clinician = await joins.getClinician(patient.email)
-        res.render('userLeaderboard', {clinician: clinician})
+        const rankings = await joins.getTopFive()
+        res.render('userLeaderboard', {clinician: clinician, leaderboard: rankings})
     } catch(err) {
         return next(err)
     }
