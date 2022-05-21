@@ -296,9 +296,13 @@ hbs.handlebars.registerHelper('isInLeaderboard', function (position) {
 // greater than or equal to
 hbs.handlebars.registerHelper('isEngagementHigh', function(engagement) {
     if (engagement >= 0.8) {
-        return '<p><img style="width:3rem" src="/img/badges/badge1.png"></p><p>Congratuations! Your engagement rate is above 80%!</p>'
+        return '<p><img style="width:3rem" src="/img/badges/badge1.png"></p><p>Congratuations! Your engagement rate is ' + (engagement * 100).toFixed(0) + '%</p>'
     }
-    return '<p>Remember to record your information everyday to earn a special badge.</p>'
+    return '<p>Your engagement rate is ' + (engagement * 100).toFixed(0) + "%. Keep recording your data, and if you get above 80%, you'll earn a special badge!</p>"
+});
+
+hbs.handlebars.registerHelper('formatEngagement', function(engagement) {
+    return (engagement * 100).toFixed(0)
 });
 
 // Tells the app to listen on port 3000 and logs that information to the console.
