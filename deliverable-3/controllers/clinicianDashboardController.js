@@ -6,14 +6,13 @@ const Clinicians = require('../models/clinicians')
 // handle request to get all people data instances
 const renderClinicianDashboard = async (req, res, next) => {
     try { 
-        const clinician = await joins.getClinicianOnly(res.userInfo.username)
+        const clinician = await joins.getClinician(res.userInfo.username)
         if (!clinician) {
             return res.sendStatus(404)
         }
-        const patients = await joins.getAllPatients(res.userInfo.username)
-        const nmessages = await joins.listAllMessages(res.userInfo.username)
+        const nmessages = await joins.listAllMessages(clinician)
         const nnotes = await joins.getAllNotes(clinician)
-        return res.render('clinicianDashboard', {clinician: clinician, data: patients, layout: 'main2', nmessages: nmessages.length, nnotes: nnotes.length})
+        return res.render('clinicianDashboard', {clinician: clinician, data: clinician.patients, layout: 'main2', nmessages: nmessages.length, nnotes: nnotes.length})
     } catch (err) {
         return next(err)
     }
@@ -22,9 +21,9 @@ const renderClinicianDashboard = async (req, res, next) => {
 // handle request to get all people data instances
 const renderClinicianPatientList = async (req, res, next) => {
     try {
-        const PatientsList = await Patients.Patient.find().lean()
-        const nmessages = await joins.listAllMessages(res.userInfo.username)
-        res.render('clinicianViewAllPatients', {data: PatientsList.reverse(), layout: 'main2', nmessages: nmessages.length})
+        const clinician = await joins.getClinician(res.userInfo.username)
+        const nmessages = await joins.listAllMessages(clinician)
+        res.render('clinicianViewAllPatients', {data: clinician.patients.reverse(), layout: 'main2', nmessages: nmessages.length})
     } catch (err) {
         return next(err)
     }  
@@ -35,7 +34,7 @@ const renderClinicianPatientList = async (req, res, next) => {
 const getSinglePatient = async (req, res, next) => {
     // search the database by ID
     try {
-        const patient = await joins.getAPatient(req.params.patient_id)
+        const patient = await joins.getPatient(req.params.patient_id)
         if (!patient) {
             /* Record not associated with a patient. Should be impossible, but
             just in case */
@@ -56,7 +55,7 @@ const getDataById = async (req, res, next) => {
     // search the database by ID
     try {
         // found the record
-        const patient = await joins.getAPatient(req.params.patient_id)
+        const patient = await joins.getPatient(req.params.patient_id)
         if (!patient) {
             /* Record not associated with a patient. Should be impossible, but
             just in case */
@@ -69,11 +68,10 @@ const getDataById = async (req, res, next) => {
 
 }
 
-
 const newMessage = async (req, res, next) => {
     try {
-        const patients = await joins.getAllPatients(res.userInfo.username)
-        res.render('clinicianSendMessage', {patients: patients, layout: 'main2'})
+        const clinician = await joins.getClinician(res.userInfo.username)
+        res.render('clinicianSendMessage', {patients: clinician.patients, layout: 'main2'})
     } catch (err) {
         return next(err)
     }
@@ -83,13 +81,13 @@ const getMessages = async (req, res, next) => {
     try {
         if (Object.keys(req.query).length !== 0) {
             /* Viewing an individual message */
-            const patient = await Patients.Patient.findById(req.query.user).lean().exec()
+            const patient = await joins.getPatient(req.query.user)
             const message = await joins.getAMessage(patient, req.query.message)
             res.render('oneMessageClinician', {patient: patient, message: message})
         } else {
             /* Viewing all messages */
-            const clinician = await joins.getClinicianOnly(res.userInfo.username)
-            const allmessages = await joins.listAllMessages(res.userInfo.username)
+            const clinician = await joins.getClinician(res.userInfo.username)
+            const allmessages = await joins.listAllMessages(clinician)
             res.render('clinicianMessages', {npatients: clinician.patients.length, data: allmessages.reverse(), layout: 'main2'})
         }
     } catch (err) {
@@ -106,7 +104,7 @@ const sendPatientMessage = async (req, res, next) => {
         } else if (req.body.timestamp === undefined || req.body.timestamp === '') {
             res.render('clinicianSendMessageFail', {error: 'Could not get current time.'})
         } else {
-            const patient = await joins.getAPatient(req.body.username)
+            const patient = await joins.getPatient(req.body.username)
             Patients.Patient.findOneAndUpdate(
                 {"email": req.body.username}, 
                 {$push: {messages: {content: req.body.comment, time: req.body.timestamp}}},
@@ -128,14 +126,14 @@ const renderAllNotes = async (req, res, next) => {
     try {
         if (Object.keys(req.query).length !== 0) {
             /* Viewing an individual note */
-            const patient = await Patients.Patient.findById(req.query.user).lean().exec()
+            const patient = await joins.getPatient(req.query.user)
             const note = await joins.getANote(patient, req.query.note)
             res.render('oneClinicalNote', {patient: patient, note: note})
         } else {
             /* Viewing all note */
-            const clinician = await joins.getClinicianOnly(res.userInfo.username)
+            const clinician = await joins.getClinician(res.userInfo.username)
             const allnotes = await joins.getAllNotes(clinician)
-            const allmessages = await joins.getAllMessages(res.userInfo.username)
+            const allmessages = await joins.getAllMessages(clinician)
             res.render('clinicianNotes', {notes: allnotes.reverse(), npatients: clinician.patients.length, nmessages: allmessages.length, layout: 'main2'})    
         }
     } catch (err) {
@@ -145,11 +143,10 @@ const renderAllNotes = async (req, res, next) => {
 
 const newNote = async (req, res, next) => {
     try {
-        const patients = await joins.getAllPatients(res.userInfo.username)
-        const clinician = await joins.getClinicianOnly(res.userInfo.username)
+        const clinician = await joins.getClinician(res.userInfo.username)
         const allnotes = await joins.getAllNotes(clinician)
-        const allmessages = await joins.getAllMessages(res.userInfo.username)
-        res.render('clinicianNewNote', {patients: patients, nnotes: allnotes.length, nmessages: allmessages.length, layout: 'main2'})
+        const allmessages = await joins.getAllMessages(clinician)
+        res.render('clinicianNewNote', {patients: clinician.patients, nnotes: allnotes.length, nmessages: allmessages.length, layout: 'main2'})
     } catch (err) {
         return next(err)
     }
@@ -164,7 +161,7 @@ const createNote = async (req, res, next) => {
         } else if (req.body.timestamp === undefined || req.body.timestamp === '') {
             res.render('clinicianCreateNoteFail', {error: 'Could not get current time.'})
         } else {
-            const patient = await joins.getAPatient(req.body.username)
+            const patient = await joins.getPatient(req.body.username)
             Patients.Patient.findOneAndUpdate(
                 {"email": req.body.username}, 
                 {$push: {notes: {content: req.body.content, time: req.body.timestamp}}},

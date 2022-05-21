@@ -2,18 +2,8 @@
 const Clinician = require('../models/clinicians')
 const Patients = require('../models/patients')
 
-/* Get clinicians */
-const getClinician = async (patient_username) => {
-    try {
-        const patient = await getAPatient(patient_username)
-        const clinician = await Clinician.findOne({'email': patient.clinician}).lean()
-        return clinician
-    } catch(err) {
-        console.log(err)
-    }
-}
-
-const getClinicianOnly = async (clinician_username) => {
+/* Get clinician and patient from username */
+const getClinician = async (clinician_username) => {
     try {
         const clinician = await Clinician.findOne({'email': clinician_username}).lean()
         return clinician
@@ -22,36 +12,21 @@ const getClinicianOnly = async (clinician_username) => {
     }
 }
 
-/* Get patients */
-const getAllPatients = async (clinician_username) => {
+const getPatient = async (patient_username) => {
     try {
-        const clinician = await getClinicianOnly(clinician_username)
-        const patients = []
-        for (const username of clinician.patients) {
-            patients.push(await getAPatient(username))
-        }
-        return patients
+        const patient = await Patients.Patient.findOne({'email': patient_username}).lean()
+        return patient
     } catch (err) {
         console.log(err)
     }
 }
 
-const getAPatient = async (patient_username) => {
-    try {
-        const patient = await Patients.Patient.findOne({'email': patient_username}).lean()
-        return patient
-    } catch(err) {
-        console.log(err)
-    }
-}
-
-/* Get messages */
-const getAllMessages = async (clinician_username) => {
+/* Joins for messages */
+const getAllMessages = async (clinician) => {
     try {
         const messages = []
-        const clinician = await getClinicianOnly(clinician_username)
-        for (const patient_username of clinician.patients) {
-            const patient = await getAPatient(patient_username)
+        for (const email_object of clinician.patients) {
+            const patient = await getPatient(email_object.email)
             messages.push({'first_name': patient.first_name, 'last_name': patient.last_name, 'messages': patient.messages, 'user_id': patient._id})
         }
         return messages
@@ -60,9 +35,9 @@ const getAllMessages = async (clinician_username) => {
     }
 }
 
-const listAllMessages = async (clinician_username) => {
+const listAllMessages = async (clinician) => {
     const data = []
-    const allmessages = await getAllMessages(clinician_username)
+    const allmessages = await getAllMessages(clinician)
     for (const patient of allmessages) {
         for (const message of patient.messages) {
             data.push({'first_name': patient.first_name, 'last_name': patient.last_name, 'message': message.content, 'message_id': message._id, 'user_id': patient.user_id})
@@ -80,12 +55,12 @@ const getAMessage = async (patient, message_id) => {
     return null
 }
 
-/* Get clinical notes */
+/* Joins for clinical notes */
 const getAllNotes = async (clinician) => {
     try {
         const notes = []
-        for (const patient_username of clinician.patients) {
-            const patient = await getAPatient(patient_username)
+        for (const email_object of clinician.patients) {
+            const patient = await getPatient(email_object.email)
             for (const note of patient.notes) {
                 notes.push({'username': patient_username, 'content': note.content, 'date': note.date, 'note_id': note._id, 'user_id': patient._id})
             }
@@ -109,6 +84,7 @@ const getANote = async (patient, note_id) => {
     }
 }
 
+/* Joins for leaderboard */
 const getTopFive = async () => {
     try {
         let rankings = []
@@ -133,11 +109,11 @@ const getTopFive = async () => {
     }
 }
 
-const inLeaderboard = async(patient_username, rankings) => {
+const inLeaderboard = async(patient, rankings) => {
     // Returns either 1-5 if the patient is in the leaderboard
     // 0 otherwise
     for (let i in rankings) {
-        if (rankings[i]['username'] == patient_username) {
+        if (rankings[i]['username'] == patient.email) {
             return Number(i) + 1
         }
     }
@@ -146,9 +122,7 @@ const inLeaderboard = async(patient_username, rankings) => {
 
 module.exports = {
     getClinician,
-    getClinicianOnly,
-    getAllPatients,
-    getAPatient,
+    getPatient,
     getAllMessages,
     listAllMessages,
     getAMessage,
