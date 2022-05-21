@@ -133,6 +133,17 @@ const getTopFive = async () => {
     }
 }
 
+const inLeaderboard = async(patient_username, rankings) => {
+    // Returns either 1-5 if the patient is in the leaderboard
+    // 0 otherwise
+    for (let i in rankings) {
+        if (rankings[i]['username'] == patient_username) {
+            return Number(i) + 1
+        }
+    }
+    return 0
+}
+
 module.exports = {
     getClinician,
     getClinicianOnly,
@@ -143,5 +154,6 @@ module.exports = {
     getAMessage,
     getAllNotes,
     getANote,
-    getTopFive
+    getTopFive,
+    inLeaderboard
 }

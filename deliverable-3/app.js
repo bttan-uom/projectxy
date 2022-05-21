@@ -275,20 +275,30 @@ hbs.handlebars.registerHelper('previewString', function (str) {
     return str.slice(0, 50) + "..."
 })
 
-hbs.handlebars.registerHelper('getOrdinalEnding', function (num) {
-    if (num % 10 == 1) {
-        return "st"
-    } else if (num % 10 == 2) {
-        return "nd"
-    } else if (num % 10 == 3) {
-        return "rd"
-    } else {
-        return "th"
+hbs.handlebars.registerHelper('isInLeaderboard', function (position) {
+    if (position == 0) {
+        return "<h3>You aren't on the leaderboard, but keep trying!</h3>"
     }
+    let pos = ""
+    if (position % 10 == 1) {
+        pos = 'st'
+    } else if (position % 10 == 2) {
+        pos = 'nd'
+    } else if (position % 10 == 3) {
+        pos = 'rd'
+    } else {
+        pos = 'th'
+    }
+
+    return '<h3>You are ' + position + pos + ' on the leaderboard</h3>'
 });
 
-hbs.handlebars.registerHelper('isEngagementHigh', function (engagement) {
-    return engagement >= 0.8
+// greater than or equal to
+hbs.handlebars.registerHelper('isEngagementHigh', function(engagement) {
+    if (engagement >= 0.8) {
+        return '<p><img style="width:3rem" src="/img/badges/badge1.png"></p><p>Congratuations! Your engagement rate is above 80%!</p>'
+    }
+    return '<p>Remember to record your information everyday to earn a special badge.</p>'
 });
 
 // Tells the app to listen on port 3000 and logs that information to the console.
