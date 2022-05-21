@@ -202,6 +202,16 @@ const getAMessage = async (req, res, next) => {
     }
 }
 
+const getLeaderboard = async (req, res, next) => {
+    try {
+        const patient = await joins.getAPatient(res.userInfo.username)
+        const clinician = await joins.getClinician(patient.email)
+        res.render('userLeaderboard', {clinician: clinician})
+    } catch(err) {
+        return next(err)
+    }
+}
+
 // exports an object, which contain functions imported by router
 module.exports = {
     getAllRecords,
@@ -212,5 +222,6 @@ module.exports = {
     getUserInformation,
     renderEditUserInformation,
     getMessages,
-    getAMessage
+    getAMessage,
+    getLeaderboard
 }

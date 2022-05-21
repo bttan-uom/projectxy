@@ -275,6 +275,18 @@ hbs.handlebars.registerHelper('previewString', function (str) {
     return str.slice(0, 50) + "..."
 })
 
+hbs.handlebars.registerHelper('getOrdinalEnding', function (num) {
+    if (num % 10 == 1) {
+        return "st"
+    } else if (num % 10 == 2) {
+        return "nd"
+    } else if (num % 10 == 3) {
+        return "rd"
+    } else {
+        return "th"
+    }
+});
+
 // Tells the app to listen on port 3000 and logs that information to the console.
 app.listen(process.env.PORT || 3000, () => {
     console.log('MyGlucose is running!')

@@ -98,6 +98,7 @@ userRouter.get('/myinfo', isAuthenticated, hasRole("patient"),
     userDashboardController.getUserInformation
 );
 
+// add a route to handle the GET request for add records page
 userRouter.get('/addRecord', isAuthenticated, hasRole("patient"),
     function(req, res, next){ 
        res.userInfo = req.user.toJSON()
@@ -126,17 +127,13 @@ userRouter.get('/:record_id', isAuthenticated, hasRole("patient"),
     userDashboardController.getDataById
 )
 
-
-
-
-
-
-
-// add a route to handle the GET request for add records page
-
-
-
-
+userRouter.get('/leaderboard', isAuthenticated, hasRole("patient"),
+    function (req, res, next) {
+        res.userInfo = req.user.toJSON()
+        next()
+    },
+    userDashboardController.getLeaderboard
+);
 
 // export the router
 module.exports = userRouter

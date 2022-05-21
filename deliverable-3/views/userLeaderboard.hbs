@@ -4,14 +4,15 @@
 			<li>
 				<a class="active generic-button" href="#">Leaderboard</a>
 			</li>
-			<li><i class='bx material-icons'>chevron_right</i></li>
+
+			<li>
+				<i class='bx material-icons'>chevron_right</i>
+			</li>
 		</ul>
+
 		<br>
 		<h1>Leaderboard</h1>
-		
 	</div>
-	
-	
 </div>
 
 <ul class="box-info">
@@ -22,6 +23,7 @@
 			<p>Today's Date</p>
 		</span>
 	</li>
+
 	<li>
 		<i class='bx material-icons'>medication</i>
 		<span class="text">
@@ -33,15 +35,12 @@
 	</li>
 </ul>
 
-
-
-
-
 <div class="table-data">
 	<div class="order">
 		<div class="head">
-			<h3>You are #{{place}} on the leaderboard</h3>
+			<h3>You are {{getOrdinalEnding place}} on the leaderboard</h3>
 		</div>
+
 		<table class="scrollTable" id="allPatientsTable">
 			<thead>
 				<tr>
@@ -50,6 +49,7 @@
 					<th scope="col">Engagement Rate</th>
 				</tr>
 			</thead>
+
 			<tbody>
 				{{!-- loops over the data set --}}
 				{{#each data}}
@@ -65,17 +65,14 @@
 				{{/each}}
 			</tbody>
 		</table>
-		
-		
-		
-		
-		
 	</div>
+
 	<div class="todo">
 		<div class="head">
 			<!--					<i class='bx bx-edit-alt'></i>-->
 			<h3>Badges</h3>
 		</div>
+
 		<ul class="todo-list">
 			<li class="completed">
 				<p><img style="width:3rem" src="img/badges/badge1.png"></p>
@@ -87,14 +84,14 @@
 			</li>
 
 		</ul>
+
 		<br>
 		<div class="head">
 			<h3>This Week</h3>
 			
 		</div>
+
 		<img style="width:13rem" src="img/daysofweek.svg">
 	</div>
-
-	
 </div>
 
