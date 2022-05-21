@@ -109,6 +109,41 @@ const getANote = async (patient, note_id) => {
     }
 }
 
+const getTopFive = async () => {
+    try {
+        let rankings = []
+        const patients = await Patients.Patient.find().lean()
+        
+        // Get engagement rates of all patients
+        for (const patient of patients) {
+            rankings.push({'username': patient.email, 'engagement': patient.engagement_rate})
+        }
+
+        // Sort engagement rates and get top 5
+        rankings = rankings.sort((a, b) => b.engagement - a.engagement).slice(0, 5)
+
+        // Add position to the patients
+        for (const i in rankings) {
+            rankings[i]['position'] = Number(i) + 1
+        }
+
+        return rankings
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+const inLeaderboard = async(patient_username, rankings) => {
+    // Returns either 1-5 if the patient is in the leaderboard
+    // 0 otherwise
+    for (let i in rankings) {
+        if (rankings[i]['username'] == patient_username) {
+            return Number(i) + 1
+        }
+    }
+    return 0
+}
+
 module.exports = {
     getClinician,
     getClinicianOnly,
@@ -118,5 +153,7 @@ module.exports = {
     listAllMessages,
     getAMessage,
     getAllNotes,
-    getANote
+    getANote,
+    getTopFive,
+    inLeaderboard
 }
