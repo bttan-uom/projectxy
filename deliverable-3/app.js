@@ -85,6 +85,18 @@ require('./models')
 //     res.render('clinicianAddPatient.hbs')
 // })
 
+app.get('/', (req, res) => {
+    res.render('welcome.hbs', {layout: "loggedout"})
+})
+app.get('/aboutus', (req, res) => {
+    res.render('aboutus.hbs', {layout: "loggedout"})
+})
+app.get('/aboutdiabetes', (req, res) => {
+    res.render('aboutdiabetes.hbs', {layout: "loggedout"})
+})
+
+
+
 
 
 // limit an array to a maximum of elements (from the start)
@@ -113,10 +125,16 @@ hbs.handlebars.registerHelper('generateHash', function(encodeString) {
     return hash;
 });
 
-
 hbs.handlebars.registerHelper('formatDate', function(dateString) {
     return new hbs.handlebars.SafeString(
         moment(dateString).tz('Australia/Melbourne').format("DD/MM/YY")
+    );
+});
+
+
+hbs.handlebars.registerHelper('formatCurrentDateForPost', function() {
+    return new hbs.handlebars.SafeString(
+        moment().tz('Australia/Melbourne').format("YYYY-MM-DD")
     );
 });
 

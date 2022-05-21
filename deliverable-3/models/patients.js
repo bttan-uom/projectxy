@@ -2,20 +2,9 @@ const mongoose = require('mongoose')
 
 //messages schema
 
-
 const assigned_record = new mongoose.Schema({  // each user has an array of these
     record_type: {type: String, required: true},
-    is_recording: {type: Boolean, required: true}
-})
-
-const threshold_values = new mongoose.Schema({  // each user has an array of these
-    lower: {type: mongoose.Schema.Types.Decimal128, required: true},
-    higher: {type: mongoose.Schema.Types.Decimal128, required: true}
-})
-
-const threshold_type = new mongoose.Schema({  // each user has an array of these
-    type: {type: String, required: true},
-    threshold_range: [threshold_values]
+    is_recording: {type: String, required: true}
 })
 
 const note = new mongoose.Schema({
@@ -35,6 +24,12 @@ const message = new mongoose.Schema({
     time: {type: Date, required: true}
 })
 
+const threshold = new mongoose.Schema({
+    name: {type: String, required: true},
+    lower: {type: mongoose.Schema.Types.Decimal128, required: true},
+    upper: {type: mongoose.Schema.Types.Decimal128, required: true}
+})
+
 
 const patientSchema = new mongoose.Schema({
     first_name: {type: String, required: true},
@@ -47,7 +42,7 @@ const patientSchema = new mongoose.Schema({
     dob: Date,
     signupdate: {type: Date, required: true},
     clinician_username: {type: String, required: true},
-    threshholds: [threshold_type],
+    thresholds: [threshold],
     engagement_rate: mongoose.Schema.Types.Decimal128,
     records: [record],
     messages: [message],
@@ -59,18 +54,3 @@ const Patient = mongoose.model('patient', patientSchema)
 const Record = mongoose.model('record', record)
 
 module.exports = {Patient, Record}
-
-
-
-
-
-
-
-
-/* 
-const resultSchema = new mongoose.Schema({  // each user has an array of these
-    subject: {type: String, required: true},
-    result: {type: Number, required: true}
-})
-
-*/
