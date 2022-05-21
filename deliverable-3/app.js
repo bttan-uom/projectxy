@@ -305,6 +305,31 @@ hbs.handlebars.registerHelper('formatEngagement', function(engagement) {
     return (engagement * 100).toFixed(0)
 });
 
+hbs.handlebars.registerHelper('formatThresholds', function(threshold) {
+    if (threshold == "glucose"){
+        return "Blood Glucose (nMol/L)"
+    }
+    if (threshold == "insulin"){
+        return "Insulin (doses)"
+    }
+    if (threshold == "weight"){
+        return "Weight (kg)"
+    }
+    if (threshold == "exercise"){
+        return "Exercise (steps)"
+    }
+});
+
+app.get('/', (req, res) => {
+    res.render('welcome.hbs', {layout: "loggedout"})
+})
+app.get('/aboutus', (req, res) => {
+    res.render('aboutus.hbs', {layout: "loggedout"})
+})
+app.get('/aboutdiabetes', (req, res) => {
+    res.render('aboutdiabetes.hbs', {layout: "loggedout"})
+})
+
 // Tells the app to listen on port 3000 and logs that information to the console.
 app.listen(process.env.PORT || 3000, () => {
     console.log('MyGlucose is running!')
