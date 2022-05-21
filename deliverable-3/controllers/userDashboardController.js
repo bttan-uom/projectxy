@@ -5,7 +5,8 @@ const getAllRecords = async (req, res, next) => {
     try {
         const patient = await joins.getPatient(res.userInfo.username)
         const clinician = await joins.getClinician(patient.clinician)
-        return res.render('index', {data: patient, clinician: clinician, currentUser: res.userInfo})
+        const latest_message = patient.messages[patient.messages.length - 1].content
+        return res.render('index', {patient: patient, clinician: clinician, currentUser: res.userInfo, latest_message: latest_message})
     } catch (err) {
         return next(err)
     }

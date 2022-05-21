@@ -59,12 +59,12 @@
 	<li>
 		<i class='bx material-icons'>recommend</i>
 		<span class="text">
-		{{#with data}}
-			<h3>{{this.messages.[0].content}}</h3>
-			{{/with}}
-			{{#with clinician}}
-				<p>Your latest message of support from Dr {{this.first_name}} {{this.last_name}}.</p>
-			{{/with}}
+		{{#with latest_message}}
+		<h3>{{this}}</h3>
+		{{/with}}
+		{{#with clinician}}
+		<p>Your latest message of support from Dr {{this.first_name}} {{this.last_name}}.</p>
+		{{/with}}
 		</span>
 	</li>
 </ul>
@@ -79,7 +79,7 @@
 			<a style="color:var(--blue);" href="/userAddRecord"><h3>You are required to complete <i style="vertical-align: -3px; color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></h3></a>
 		</div>
 		<ul class="todo-list">
-		{{#with data}}
+		{{#with patient}}
 			{{#each assigned_records}}
             <li class="not-completed">
 				<p>{{this}}</p>
@@ -117,7 +117,7 @@
                 {{else}}
                 {{/each}} --}}
 
-				{{#with data}}
+				{{#with patient}}
 					{{#each records}}
 						{{#if (isFromToday created_at)}}
 							<tr>
