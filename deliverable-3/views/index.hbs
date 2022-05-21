@@ -80,9 +80,9 @@
 		</div>
 		<ul class="todo-list">
 		{{#with patient}}
-			{{#each assigned_records}}
+			{{#each thresholds}}
             <li class="not-completed">
-				<p>{{this}}</p>
+				<p>{{formatThresholds name}}</p>
 				<a href="/user/addrecord"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a>
 			</li>
         	{{/each}}

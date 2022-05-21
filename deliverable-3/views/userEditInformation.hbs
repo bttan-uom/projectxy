@@ -10,17 +10,16 @@
 			</li>
 			<li><i class='bx material-icons'>chevron_right</i></li>
 		</ul>
+
 		<br>
 		<h1>Editing: My Profile</h1>
-		
 	</div>
-	<a href="/user/myinfo/edit" class="btn-download">
-	<i class='bx material-icons'>done</i>
-	<span style='font-size:13px' class="text">Finish Editing</span>
-</a>
-	
-</div>
 
+	<a href="/user/myinfo/edit" class="btn-download">
+		<i class='bx material-icons'>done</i>
+		<span style='font-size:13px' class="text">Finish Editing</span>
+	</a>
+</div>
 
 <ul class="box-info">
 	<li>
@@ -30,10 +29,11 @@
 			<p>Today's Date</p>
 		</span>
 	</li>
+
 	<li>
 		<i class='bx material-icons'>medication</i>
 		<span class="text">
-				<h3>Dr. {{clinician.first_name}} {{clinician.last_name}}</h3>
+			<h3>Dr. {{clinician.first_name}} {{clinician.last_name}}</h3>
 			<p>Your clinician</p>
 		</span>
 	</li>
@@ -122,11 +122,11 @@
 		</div>
 
 		<ul class="todo-list">
-            {{#each patient.thresholds}}
+			{{#each patient.thresholds}}
             <li class="blueone">
-                <p>{{this.[0]}}: {{this.[1].[0]}} - {{this.[1].[1]}}</p>
-            </li>
-            {{/each}}
+				<p>{{formatThresholds this.name}}</p>
+			</li>
+        	{{/each}}
 		</ul>
 		<br>
 		<p>To change these values, contact your clinician:<br> {{clinician.first_name}} {{clinician.last_name}}</p>

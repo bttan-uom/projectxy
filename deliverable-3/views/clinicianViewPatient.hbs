@@ -126,23 +126,13 @@
     <div class="todo">
         <div class="head">
             <!--					<i class='bx bx-edit-alt'></i>-->
-            <h3>Patient details</h3>
-        </div>
-        <ul class="todo-list">
-            <li class="blueone">
-                <p>Records being recorded: {{this.assigned_records}}</p>
-            </li>
-        </ul>
-        <br>
-        <div class="head">
-            <!--					<i class='bx bx-edit-alt'></i>-->
-            <h3>Patient thresholds</h3>
+            <h3>Patient records & thresholds</h3>
         </div>
         <ul class="todo-list">
             
             {{#each thresholds}}
             <li class="blueone">
-                <p>{{this.[0]}}: {{this.[1].[0]}} - {{this.[1].[1]}}</p>
+                <p>{{this.name}}: {{this.lower}} - {{this.upper}}</p>
             </li>
             {{/each}}
         </ul>

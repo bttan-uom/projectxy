@@ -56,7 +56,7 @@
                     <h2>{{this.record_type}}</h2>
                 </span>
             </li>
-            
+
             <li {{#if_eq this.record_type this.value}} {{/if_eq}}>
                 <span class="text">
                     <h3>Value</h3>
@@ -86,7 +86,7 @@
         <ul class="todo-list">
             {{#each ../oneItem.thresholds}}
             <li class="blueone">
-                <p>{{this.[0]}}: {{this.[1].[0]}} - {{this.[1].[1]}}</p>
+                <p>{{formatThresholds this.name}}: {{this.lower}} - {{this.upper}}</p>
             </li>
             {{/each}}
         </ul>
