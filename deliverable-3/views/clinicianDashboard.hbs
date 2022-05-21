@@ -27,8 +27,11 @@
 	<li>
 		<i class='bx material-icons'>personal_injury</i>
 		<span class="text">
-			<h3>{{data.length}}</h3>
+			{{#each data}}
+			<h3>{{this.first_name}}</h3>
+			{{/each}}
 			<p>Patient(s)</p>
+			
 		</span>
 	</li>
 	<li>

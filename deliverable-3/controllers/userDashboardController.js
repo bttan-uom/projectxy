@@ -138,6 +138,15 @@ const renderEditUserInformation = async (req, res) => {
     }
 }
 
+// const editUserInformation = async (req, res) => {
+//     try {   
+
+
+//     } catch (err) {
+//         return next(err)
+//     }
+// }
+
 
 
 // handle request to get one data instance
