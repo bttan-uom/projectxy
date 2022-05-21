@@ -7,9 +7,10 @@ const Clinicians = require('../models/clinicians')
 const renderClinicianDashboard = async (req, res, next) => {
     try { 
         const clinician = await joins.getClinician(res.userInfo.username)
-        const nmessages = await joins.listAllMessages(clinician)
-        const nnotes = await joins.getAllNotes(clinician)
-        return res.render('clinicianDashboard', {clinician: clinician, data: clinician.patients, layout: 'main2', nmessages: nmessages.length, nnotes: nnotes.length})
+        const patients = await joins.getAllPatientObjects(clinician)
+        const messages = await joins.listAllMessages(clinician)
+        const notes = await joins.getAllNotes(clinician)
+        return res.render('clinicianDashboard', {clinician: clinician, patients: patients, layout: 'main2', nmessages: messages.length, nnotes: notes.length, npatients: patients.length})
     } catch (err) {
         return next(err)
     }

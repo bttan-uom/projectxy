@@ -21,6 +21,19 @@ const getPatient = async (patient_username) => {
     }
 }
 
+/* General joins */
+const getAllPatientObjects = async (clinician) => {
+    try {
+        const patients = []
+        for (const email_obj of clinician.patients) {
+            patients.push(await getPatient(email_obj.email))
+        }
+        return patients
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 /* Joins for messages */
 const getAllMessages = async (clinician) => {
     try {
@@ -123,6 +136,7 @@ const inLeaderboard = async(patient, rankings) => {
 module.exports = {
     getClinician,
     getPatient,
+    getAllPatientObjects,
     getAllMessages,
     listAllMessages,
     getAMessage,
