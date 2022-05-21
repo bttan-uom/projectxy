@@ -54,6 +54,14 @@ userRouter.get('/messages', isAuthenticated, hasRole("patient"),
     userDashboardController.getMessages
 );
 
+userRouter.get('/leaderboard', isAuthenticated, hasRole("patient"),
+    function (req, res, next) {
+        res.userInfo = req.user.toJSON()
+        next()
+    },
+    userDashboardController.getLeaderboard
+);
+
 // add a route for GET request to user messages page
 userRouter.get('/messages/:message_id', isAuthenticated, hasRole("patient"),
     function(req, res, next) {
@@ -126,14 +134,6 @@ userRouter.get('/:record_id', isAuthenticated, hasRole("patient"),
     },
     userDashboardController.getDataById
 )
-
-userRouter.get('/leaderboard', isAuthenticated, hasRole("patient"),
-    function (req, res, next) {
-        res.userInfo = req.user.toJSON()
-        next()
-    },
-    userDashboardController.getLeaderboard
-);
 
 // export the router
 module.exports = userRouter

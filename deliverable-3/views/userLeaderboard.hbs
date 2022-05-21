@@ -73,25 +73,27 @@
 			<h3>Badges</h3>
 		</div>
 
+		{{#if isEngagementHigh engagement=engagement}}
 		<ul class="todo-list">
 			<li class="completed">
 				<p><img style="width:3rem" src="img/badges/badge1.png"></p>
-				<p>ABCDEFG</p>
+				<p>Congratuations! Your engagement rate is above 80%!</p>
 			</li>
-			<li class="completed">
-				<p><img style="width:3rem" src="img/badges/badge2.png"></p>
-				<p>HIJKLMN</p>
-			</li>
-
 		</ul>
+		{{else}}
+		<ul class="todo-list">
+			<li class="completed">
+				<p>Remember to record your information everyday to earn a special badge.</p>
+			</li>
+		</ul>
+		{{/if}}
 
-		<br>
+		{{!-- <br>
+		What is this for?
 		<div class="head">
 			<h3>This Week</h3>
-			
-		</div>
-
 		<img style="width:13rem" src="img/daysofweek.svg">
+		</div> --}}
 	</div>
 </div>
 

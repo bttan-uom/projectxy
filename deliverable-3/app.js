@@ -287,6 +287,10 @@ hbs.handlebars.registerHelper('getOrdinalEnding', function (num) {
     }
 });
 
+hbs.handlebars.registerHelper('isEngagementHigh', function (engagement) {
+    return engagement >= 0.8
+});
+
 // Tells the app to listen on port 3000 and logs that information to the console.
 app.listen(process.env.PORT || 3000, () => {
     console.log('MyGlucose is running!')
