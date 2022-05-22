@@ -1,4 +1,4 @@
-
+<form id="addRecordForm" action="/user/history/edit" method="POST">
 <div class="head-title">
     <div class="left">
         {{#with record}}
@@ -10,14 +10,17 @@
             <li>
                 <a class="active generic-button" href="#">{{record_type}} on {{formatDate created_at}}</a>
             </li>
+            <li><i class='bx material-icons'>chevron_right</i></li>
+            <li>
+                <a class="active generic-button" href="#">Edit</a>
+            </li>
         </ul>
         <br>
-        <h1>{{formatThresholds record_type}} record <br>{{formatDate created_at}}</h1>
+        <h1>Edit Record: {{formatThresholds record_type}}<br>{{formatDate created_at}}</h1>
         {{/with}}
     </div>
-    <a href="/user/history/edit?record={{record._id}}" class="btn-download">
-	<i class='bx material-icons'>edit</i>
-	<span style='font-size:13px' class="text">Edit Record</span>
+    <a href="/user/history/" class="btn-download">
+	<i class='bx material-icons'>done</i>
 </a>
 </div>
 
@@ -105,6 +108,4 @@
     </div>
 </div>
 
-{{!-- {{else}}
-{{/if}}
-{{/each}} --}}
+</form>

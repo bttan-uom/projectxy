@@ -79,6 +79,22 @@ userRouter.get('/history', isAuthenticated, hasRole("patient"),
     userDashboardController.getHistory
 );
 
+userRouter.get('/history/edit', isAuthenticated, hasRole("patient"),
+    function(req, res, next) {
+        res.userInfo = req.user.toJSON()
+        next()
+    },
+    userDashboardController.renderEditUserRecord
+);
+
+userRouter.post('/history/edit', isAuthenticated, hasRole("patient"), 
+    function (req, res, next) {
+        res.userInfo = req.user.toJSON()
+        next()
+    },
+    userDashboardController.editUserRecord
+);
+
 userRouter.get('/myinfo/edit', isAuthenticated, hasRole("patient"),
     function(req, res, next){ 
        res.userInfo = req.user.toJSON()

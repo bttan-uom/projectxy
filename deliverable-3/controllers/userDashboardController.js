@@ -189,6 +189,45 @@ const getLeaderboard = async (req, res, next) => {
     }
 }
 
+const renderEditUserRecord = async (req, res, next) => {
+    try {
+        if (Object.keys(req.query).length === 1){
+            const patient = await joins.getPatient(res.userInfo.username)
+            const clinician = await joins.getClinician(patient.clinician)
+            const record = await joins.getARecord(patient, req.query.record)
+            res.render('editOneData', {patient: patient, clinician: clinician, record: record})
+
+        }
+        else{
+            res.render('404')
+        }
+
+    } catch(err) {
+        return next(err)
+    }
+}
+
+const editUserRecord = async (req, res, next) => {
+    try {
+        Patients.Patient.findOneAndUpdate(
+            {email: req.body.email}, 
+            {$set: {
+                    records: 
+                            [{_id: req.body._id, record_type: req.body.record_type, value: req.body.value, created_at: req.body.created_at, updated_at: new Date(), comments: req.body.comments}]
+                }
+            },
+            (err) => {
+                if (err) {
+                    console.log(err)
+                }
+            }
+        );
+        const redirectString = '/user/history?record=' + req.body._id
+        res.redirect(redirectString)
+    } catch (err) {
+        return next(err)
+    }
+}
 
 
 // exports an object, which contain functions imported by router
@@ -202,5 +241,7 @@ module.exports = {
     editUserInformation,
     getMessages,
     getAMessage,
-    getLeaderboard
+    getLeaderboard,
+    editUserRecord,
+    renderEditUserRecord
 }
