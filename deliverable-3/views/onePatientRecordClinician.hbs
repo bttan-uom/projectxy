@@ -4,9 +4,13 @@
     <div class="left">
         <ul class="breadcrumb">
             <li>
-                <a class="active generic-button" href="/clinician">Dashboard</a>
+                <a class="active generic-button" href="/clinician/patients">Patients</a>
             </li>
             <li><i class='bx material-icons'>chevron_right</i></li>
+            <li>
+                <a class="active generic-button" href="/clinician/patients?user={{patient._id}}">{{patient.email}}</a>
+            </li>
+             <li><i class='bx material-icons'>chevron_right</i></li>
             <li>
                 <a class="active generic-button" href="#">View Patient Record</a>
             </li>
@@ -62,7 +66,7 @@
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Record Type</h3>
-                    <h2>{{this.record_type}}</h2>
+                    <h2>{{formatThresholds this.record_type}}</h2>
                 </span>
             </li>
             
@@ -94,7 +98,7 @@
         <ul class="todo-list">
 			{{#each patient.thresholds}}
             <li class="blueone">
-				<p>{{formatThresholds this.name}}: {{this.lower}} - {{this.upper}}</p>
+				<p>{{formatThresholds this.name}}: {{negativeThreshold this.lower}} - {{negativeThreshold this.upper}}</p>
 			</li>
         	{{/each}}
         </ul>
