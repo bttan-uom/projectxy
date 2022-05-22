@@ -49,6 +49,7 @@
 
 	<script src="/js/clinicianScript.js"></script>
 </body>
+<<<<<<< HEAD
 <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
 <script>
   function addDarkmodeWidget() {
@@ -56,4 +57,32 @@
   }
   window.addEventListener('load', addDarkmodeWidget);
 </script>
+=======
+
+<script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
+<script>
+  function addDarkmodeWidget() {
+	const options = {
+	bottom: '64px', // default: '32px'
+	right: '32px', // default: '32px'
+	left: 'unset', // default: 'unset'
+	time: '0.5s', // default: '0.3s'
+	mixColor: '#fff', // default: '#fff'
+	backgroundColor: '#eee',  // default: '#fff'
+	buttonColorDark: '#100f2c',  // default: '#100f2c'
+	buttonColorLight: '#fff', // default: '#fff'
+	saveInCookies: true, // default: true,
+	label: '🌓', // default: ''
+	autoMatchOsTheme: true // default: true
+	}
+	const darkmode = new Darkmode(options);
+	darkmode.showWidget();
+
+  }
+  window.addEventListener('load', addDarkmodeWidget);
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.0.2/chart.min.js" ></script>
+
+>>>>>>> 0a267d34ffdf4016081f49275444cf94996538c2
 </html>
