@@ -35,7 +35,6 @@ const hasRole = (thisRole) => {
     }    
 }
 
-//clinicianRouter.get('/', isAuthenticated, clinicianDashboardController.renderClinicianDashboard)
 clinicianRouter.get('/', isAuthenticated, hasRole("clinician"),
     function(req, res, next) {
         res.userInfo = req.user.toJSON()
@@ -44,6 +43,25 @@ clinicianRouter.get('/', isAuthenticated, hasRole("clinician"),
     clinicianDashboardController.renderClinicianDashboard
 );
 
+clinicianRouter.post('/patients/edit', isAuthenticated, hasRole("clinician"), 
+    function (req, res, next) {
+        res.userInfo = req.user.toJSON()
+        next()
+    },
+    clinicianDashboardController.editUserInformation
+);
+
+clinicianRouter.get('/patients/edit', isAuthenticated, hasRole("clinician"),
+    function(req, res, next) {
+        res.userInfo = req.user.toJSON()
+        next()
+    },
+    clinicianDashboardController.editPatientRecords
+);
+
+
+
+
 clinicianRouter.get('/patients', isAuthenticated, hasRole("clinician"),
     function(req, res, next) {
         res.userInfo = req.user.toJSON()
@@ -51,7 +69,6 @@ clinicianRouter.get('/patients', isAuthenticated, hasRole("clinician"),
     },
     clinicianDashboardController.getPatientRecords
 );
-
 
 
 clinicianRouter.get('/addNewPatient', isAuthenticated, hasRole("clinician"),
@@ -141,6 +158,16 @@ clinicianRouter.post('/addNewPatient', isAuthenticated, hasRole("clinician"),
     },
     clinicianDashboardController.addNewUser
 );
+
+clinicianRouter.get('/comments', isAuthenticated, hasRole("clinician"),
+    function(req,res,next) {
+        res.userInfo = req.user.toJSON()
+        next()
+    },
+    clinicianDashboardController.getAllComments
+)
+
+
 
 module.exports = clinicianRouter
 

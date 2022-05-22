@@ -5,6 +5,7 @@ const Clinicians = require('../models/clinicians')
 const moment = require('moment')
 const User = require('../models/user')
 var tz = require('moment-timezone')
+const Clinician = require('../models/clinicians')
 
 // handle request to get all people data instances
 const renderClinicianDashboard = async (req, res, next) => {
@@ -99,6 +100,23 @@ const sendPatientMessage = async (req, res, next) => {
             res.render('clinicianSendMessageSuccess', {patient: patient, layout: 'main2'})
         }
     } catch (err) {
+        return next(err)
+    }
+}
+
+const editPatientRecords = async(req, res, next) => {
+    try {
+        // get user ID
+        if (Object.keys(req.query).length === 1) {
+            /* Editing a single record */
+            const patient = await joins.getPatientById(req.query.user)
+            const user = await joins.getUser(patient.email)
+            res.render('clinicianEditPatient', {patient: patient, user: user, layout: 'main2'})
+        } else {
+            /* No user was found */
+            // redirect to 404
+        }
+    } catch(err) {
         return next(err)
     }
 }
@@ -198,16 +216,71 @@ const addNewUser = async (req, res, next) => {
                 }
             }
         );
+
+        if (req.body.blood_glucose_lower == ""){
+            var blood_glucose_lower = -1
+        }
+        else{
+            var blood_glucose_lower = req.body.blood_glucose_lower
+        }
+
+        if (req.body.blood_glucose_upper == ""){
+            var blood_glucose_upper = -1
+        }
+        else {
+            blood_glucose_upper = req.body.blood_glucose_upper
+        }
+
+        if (req.body.insulin_lower == ""){
+            var insulin_lower = -1
+        }
+        else {
+            insulin_lower = req.body.insulin_lower
+        }
+
+        if (req.body.insulin_upper == ""){
+            var insulin_upper = -1
+        }
+        else {
+            insulin_upper = req.body.insulin_upper
+        }
+
+        if (req.body.weight_lower == ""){
+            var weight_lower = -1
+        }
+        else {
+            weight_lower = req.body.weight_lower
+        }
+
+        if (req.body.weight_upper == "") {
+            var weight_upper = -1
+        }
+        else {
+            weight_upper = req.body.weight_upper
+        }
         
+        if (req.body.exercise_lower == ""){
+            var exercise_lower = -1
+        }
+        else{
+            var exercise_lower = req.body.exercise_lower
+        }
+        
+        if (req.body.exercise_upper == ""){
+            var exercise_upper = -1
+        }
+        else{
+            var exercise_upper = req.body.exercise_upper
+        }
         
         Patients.Patient.findOneAndUpdate(
             {"email": newPatient.email}, 
             {$push: {
                     thresholds: {
-                        $each: [{name: "glucose", lower: req.body.blood_glucose_lower, upper: req.body.blood_glucose_upper}, 
-                                {name: "insulin", lower: req.body.insulin_lower, upper: req.body.insulin_upper},
-                                {name: "weight", lower: req.body.weight_lower, upper: req.body.weight_upper},
-                                {name: "exercise", lower: req.body.exercise_lower, upper: req.body.exercise_upper}]
+                        $each: [{name: "glucose", lower: blood_glucose_lower, upper: blood_glucose_upper}, 
+                                {name: "insulin", lower: insulin_lower, upper: insulin_upper},
+                                {name: "weight", lower: weight_lower, upper: weight_upper},
+                                {name: "exercise", lower: exercise_lower, upper:exercise_upper}]
 
                     },
                     assigned_records: {
@@ -227,13 +300,131 @@ const addNewUser = async (req, res, next) => {
         
 
         patientEmail = newPatient.email
-        const redirectString = "patients/" + newPatient.email
+        const redirectString = "patients?user=" + newPatient._id
         res.redirect(redirectString)
 
     } catch (err) {
         return next(err)
     }
 }
+
+const editUserInformation = async (req, res, next) => {
+    try {
+
+        Patients.Patient.updateOne(
+            {email: req.body.email},
+            {$set: {first_name: req.body.first_name, 
+                    last_name: req.body.last_name,
+                    email: req.body.email,
+                    phone: req.body.phone,
+                    address: req.body.address,
+                    gender: req.body.gender,
+                    height: req.body.height,
+                    dob: req.body.dob
+            }}, (err) => {
+                    if (err) {
+                        console.log(err)
+                    }
+                }
+        )
+
+        if (req.body.blood_glucose_lower == ""){
+            var blood_glucose_lower = -1
+        }
+        else{
+            var blood_glucose_lower = req.body.blood_glucose_lower
+        }
+
+        if (req.body.blood_glucose_upper == ""){
+            var blood_glucose_upper = -1
+        }
+        else {
+            blood_glucose_upper = req.body.blood_glucose_upper
+        }
+
+        if (req.body.insulin_lower == ""){
+            var insulin_lower = -1
+        }
+        else {
+            insulin_lower = req.body.insulin_lower
+        }
+
+        if (req.body.insulin_upper == ""){
+            var insulin_upper = -1
+        }
+        else {
+            insulin_upper = req.body.insulin_upper
+        }
+
+        if (req.body.weight_lower == ""){
+            var weight_lower = -1
+        }
+        else {
+            weight_lower = req.body.weight_lower
+        }
+
+        if (req.body.weight_upper == "") {
+            var weight_upper = -1
+        }
+        else {
+            weight_upper = req.body.weight_upper
+        }
+        
+        if (req.body.exercise_lower == ""){
+            var exercise_lower = -1
+        }
+        else{
+            var exercise_lower = req.body.exercise_lower
+        }
+        
+        if (req.body.exercise_upper == ""){
+            var exercise_upper = -1
+        }
+        else{
+            var exercise_upper = req.body.exercise_upper
+        }
+
+        Patients.Patient.findOneAndUpdate(
+            {email: req.body.email}, 
+            {$set: {
+                    thresholds: 
+                                [{name: "glucose", lower: blood_glucose_lower, upper: blood_glucose_upper}, 
+                                {name: "insulin", lower: insulin_lower, upper: insulin_upper},
+                                {name: "weight", lower: weight_lower, upper: weight_upper},
+                                {name: "exercise", lower: exercise_lower, upper: exercise_upper}]
+
+                    
+                }
+            },
+            (err) => {
+                if (err) {
+                    console.log(err)
+                }
+            }
+        );
+
+
+        res.redirect('/clinician/')
+
+    } catch (err) {
+        return next(err)
+    }
+}
+
+
+const getAllComments = async (req, res, next) => {
+    try {
+        const clinician = await joins.getClinician(res.userInfo.username)
+        const patients = await joins.getAllPatientObjects(clinician)
+        const comments = await joins.getAllComments(clinician)
+        const messages = await joins.listAllMessages(clinician)
+        const notes = await joins.getAllNotes(clinician)
+        res.render('clinicianViewAllComments', {data: comments.reverse(), clinician: clinician, patients: patients, messages: messages, notes:notes, layout: 'main2'})
+    } catch (err) {
+        return next(err)
+    }
+}
+
 
 module.exports = {
     renderClinicianDashboard,
@@ -245,6 +436,9 @@ module.exports = {
     newNote,
     createNote,
     addNewUser,
-    getAddNewUserPage
+    editUserInformation,
+    getAddNewUserPage,
+    editPatientRecords,
+    getAllComments
 }
 

@@ -110,6 +110,13 @@
 					<p>Height</p>
 				</span>
 			</li>
+			<li style="background:#eee">
+				<i class='bx material-icons'>today</i>
+				<span class="text">
+					<h3>{{formatDateLongYear patient.dob}}</h3>
+					<p>Date of Birth</p>
+				</span>
+			</li>
 		</ul>
 		
 		
@@ -124,7 +131,7 @@
 		<ul class="todo-list">
             {{#each patient.thresholds}}
             <li class="blueone">
-                <p>{{formatThresholds this.name}}: {{this.lower}} - {{this.upper}}</p>
+                <p>{{formatThresholds this.name}}: {{negativeThreshold this.lower}} - {{negativeThreshold this.upper}}</p>
             </li>
             {{/each}}
 		</ul>
