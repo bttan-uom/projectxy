@@ -129,8 +129,12 @@
             </li>
             <li style="background-color:var(--grey);">
                 <span class="text">
-                    <label>Gender</label>
-                    <input class="input-button-select" type="text" value="{{patient.gender}}" name="gender" />
+                    <h3>Gender</h3>
+                    <select class="input-button-select" name="gender" id="gender">
+                        <option value="Male" {{compareMale patient.gender}}>Male</option>
+                        <option value="Female" {{compareFemale patient.gender}}>Female</option>
+                        <option value="Other" {{compareOther patient.gender}}>Other</option>
+                    </select>
                 </span>
             </li>
         </ul>

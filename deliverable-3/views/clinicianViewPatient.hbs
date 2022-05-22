@@ -34,15 +34,6 @@
         </span>
     </li>
     <li>
-        <i class='bx material-icons'>personal_injury</i>
-        <span class="text">
-            {{#with latest}}
-            <h3>{{formatLongDate this.created_at}}</h3>
-            {{/with}}
-            <p>Last record timestamp</p>
-        </span>
-    </li>
-    <li>
         <i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>assignment_late</i>
         <span class="text">
             {{#with incomplete}}
@@ -82,7 +73,7 @@
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h2>Date of sign-up</h2>
-                    <h3>{{formatLongDate this.signupdate}}</h3>
+                    <h3>{{formatDateLongYear this.signupdate}}</h3>
                 </span>
             </li>
         </ul>

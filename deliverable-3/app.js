@@ -88,8 +88,6 @@ require('./models')
 
 
 
-
-
 // limit an array to a maximum of elements (from the start)
 hbs.handlebars.registerHelper('limit', function (arr, limit) {
     if (!Array.isArray(arr)) { return []; }
@@ -121,6 +119,22 @@ hbs.handlebars.registerHelper('formatDate', function(dateString) {
     return new hbs.handlebars.SafeString(
         moment(dateString).tz('Australia/Melbourne').format("DD/MM/YY")
     );
+});
+
+hbs.handlebars.registerHelper('compareMale', function(givenGender) {
+    if (givenGender == "Male"){
+        return "selected"
+    }
+});
+hbs.handlebars.registerHelper('compareFemale', function(givenGender) {
+    if (givenGender == "Female"){
+        return "selected"
+    }
+});
+hbs.handlebars.registerHelper('compareOther', function(givenGender) {
+    if (givenGender == "Other"){
+        return "selected"
+    }
 });
 
 hbs.handlebars.registerHelper('formatDateLongYear', function(dateString) {

@@ -43,7 +43,6 @@
         <div class="head">
             <!--					<i class='bx bx-check-square' ></i>-->
             <h3>Patient Details</h3>
-            <i class='bx material-icons'>edit</i>
         </div>
         
         <form class="form-group" id="addRecordForm" action="/clinician/addNewPatient" method="POST">
@@ -51,14 +50,14 @@
             <li style="background-color:var(--grey);" class="bluehighlightedbox">
                 <span class="text">
                     <label>Given Name</label>
-                    <input class="input-button-select" type="text" placeholder="" name="first_name"/>
+                    <input class="input-button-select" required="required" type="text" placeholder="" name="first_name"/>
                 </span>
                 
             </li>
              <li style="background-color:var(--grey);" class="bluehighlightedbox">
                 <span class="text">
                     <label>Last Name</label>
-                    <input class="input-button-select" type="text" placeholder="" name="last_name"/>
+                    <input class="input-button-select" required="required" type="text" placeholder="" name="last_name"/>
                 </span>
             </li>
             <li style="background-color:var(--grey);">
@@ -73,13 +72,13 @@
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Phone number</h3>
-                    <input class="input-button-select" type="text" placeholder="e.g. 9999-999-999" name="phone"/>
+                    <input class="input-button-select" required="required" type="text" placeholder="e.g. 9999-999-999" name="phone"/>
                 </span>
             </li>
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Email/username</h3>
-                    <input class="input-button-select" type="text" placeholder="Email" name="email"/>
+                    <input class="input-button-select" required="required" type="text" placeholder="Email" name="email"/>
                 </span>
             </li>
         </ul>
@@ -87,7 +86,7 @@
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Address</h3>
-                    <input class="input-button-select" type="text" placeholder="Residential Address" name="address"/>
+                    <input class="input-button-select" required="required" type="text" placeholder="Residential Address" name="address"/>
                 </span>
                 
             </li>
@@ -97,14 +96,14 @@
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Height</h3>
-                    <input class="input-button-select" type="number" placeholder="Height in Centimeters" name="height"/>
+                    <input class="input-button-select" required="required" type="number" placeholder="Height in Centimeters" name="height"/>
                 </span>
             </li>
             
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Date of Birth</h3>
-                    <input class="input-button-select" type="date" placeholder="Date of Birth" name="dob"/>
+                    <input class="input-button-select" required="required" type="date" placeholder="Date of Birth" name="dob"/>
                 </span>
             </li>
             <li style="background-color:var(--grey);">

@@ -144,6 +144,7 @@ clinicianRouter.get('/addNewPatient', isAuthenticated, hasRole("clinician"),
 clinicianRouter.post('/addNewPatient', isAuthenticated, hasRole("clinician"),
     body('first_name', 'cannot be empty').not().isEmpty().escape(),
     body('last_name', 'cannot be empty').not().isEmpty().escape(),
+    body('dob', 'cannot be empty').not().isEmpty().escape(),
     body('phone', 'must be a number').isNumeric().escape(),
     body('email', 'must be an email address').isEmail().escape(),
     body('address', 'cannot be empty').not().isEmpty().escape(),
@@ -151,7 +152,7 @@ clinicianRouter.post('/addNewPatient', isAuthenticated, hasRole("clinician"),
     function(req, res, next) {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
-            return res.send(errors) // if validation errors, do not process data
+            res.render('clinicianAddPatientFail', {layout: 'main2'})
         }
         res.userInfo = req.user.toJSON();
         next()
