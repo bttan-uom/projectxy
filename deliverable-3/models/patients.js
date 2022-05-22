@@ -2,11 +2,6 @@ const mongoose = require('mongoose')
 
 //messages schema
 
-const assigned_record = new mongoose.Schema({  // each user has an array of these
-    record_type: {type: String, required: true},
-    is_recording: {type: String, required: true}
-})
-
 const note = new mongoose.Schema({
     date: {type: Date, required: true},
     content: {type: String, required: true}
@@ -47,7 +42,6 @@ const patientSchema = new mongoose.Schema({
     engagement_rate: mongoose.Schema.Types.Decimal128,
     records: [record],
     messages: [message],
-    assigned_records: [assigned_record],
     notes: [note]
 })
 
