@@ -1,4 +1,4 @@
-<form id="addRecordForm" action="/user/userAddRecord" method="POST">
+<form id="addRecordForm" action="/user/myinfo/edit" method="POST">
 <div class="head-title">
 	<div class="left">
 		<ul class="breadcrumb">
@@ -14,11 +14,11 @@
 		<br>
 		<h1>Editing: My Profile</h1>
 	</div>
-
-	<a href="/user/myinfo/edit" class="btn-download">
+	<input style="font-size: 110%;" class="btn-download" type="submit" />
+	{{!-- <a href="/user/myinfo/edit" class="btn-download">
 		<i class='bx material-icons'>done</i>
 		<span style='font-size:13px' class="text">Finish Editing</span>
-	</a>
+	</a> --}}
 </div>
 
 <ul class="box-info">
@@ -42,7 +42,7 @@
 <div class="table-data">
 	<div class="order">
 		<div class="head">
-			<h3>Personal details</h3><i class='bx material-icons'>edit</i>
+			<h3>Personal details</h3>
 		</div>
 
 		
@@ -50,35 +50,35 @@
 			<li style="background:#eee">
 				<i class='bx material-icons'>today</i>
 				<span class="text">
-					<input class="input-button-select" type="text" id="timestamp" name="timestamp" value="{{patient.first_name}}">
+					<input class="input-button-select" type="text" id="first_name" name="first_name" value="{{patient.first_name}}">
 					<p>First Name</p>
 				</span>
 			</li>
 			<li style="background:#eee">
 				<i class='bx material-icons'>medication</i>
 				<span class="text">
-					<input class="input-button-select" type="text" id="timestamp" name="timestamp" value="{{patient.last_name}}">
+					<input class="input-button-select" type="text" id="last_name" name="last_name" value="{{patient.last_name}}">
 					<p>Last Name</p>
 				</span>
 			</li>
 			<li style="background:#eee">
 				<i class='bx material-icons'>medication</i>
 				<span class="text">
-					<input class="input-button-select" type="text" id="timestamp" name="timestamp" value="{{patient.email}}">
+					<input class="input-button-select" type="text" id="email" name="email" value="{{patient.email}}">
 					<p>Username/E-Mail</p>
 				</span>
 			</li>
 			<li style="background:#eee">
 				<i class='bx material-icons'>today</i>
 				<span class="text">
-					<input class="input-button-select" type="text" id="timestamp" name="timestamp" value="{{patient.phone}}">
+					<input class="input-button-select" type="text" id="phone" name="phone" value="{{patient.phone}}">
 					<p>Phone</p>
 				</span>
 			</li>
 			<li style="background:#eee">
 				<i class='bx material-icons'>today</i>
 				<span class="text">
-					<input class="input-button-select" type="text" id="timestamp" name="timestamp" placeholder="********">
+					<input class="input-button-select" type="text" required="required" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" id="password" name="password" placeholder="********">
 					<p>Password</p>
 				</span>
 			</li>
@@ -90,7 +90,7 @@
 			<li style="background:#eee">
 				<i class='bx material-icons'>today</i>
 				<span class="text">
-					<input class="input-button-select" type="text" id="timestamp" name="timestamp" value="{{patient.address}}">
+					<input class="input-button-select" type="text" id="address" name="address" value="{{patient.address}}">
 					<p>Address</p>
 				</span>
 			</li>
@@ -99,14 +99,14 @@
 			<li style="background:#eee">
 				<i class='bx material-icons'>today</i>
 				<span class="text">
-					<input class="input-button-select" type="text" id="timestamp" name="timestamp" value="{{patient.gender}}">
+					<input class="input-button-select" type="text" id="gender" name="gender" value="{{patient.gender}}">
 					<p>Gender</p>
 				</span>
 			</li>
 			<li style="background:#eee">
 				<i class='bx material-icons'>today</i>
 				<span class="text">
-					<input class="input-button-select" type="text" id="timestamp" name="timestamp" value="{{patient.height}}">
+					<input class="input-button-select" type="text" id="height" name="height" value="{{patient.height}}">
 					<p>Height (cm)</p>
 				</span>
 			</li>

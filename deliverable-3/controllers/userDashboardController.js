@@ -1,11 +1,19 @@
 const joins = require('./joins')
+const Patients = require("../models/patients")
+const User = require("../models/user")
 
 // handle request to get all data instances
 const getAllRecords = async (req, res, next) => {
     try {
         const patient = await joins.getPatient(res.userInfo.username)
         const clinician = await joins.getClinician(patient.clinician)
-        const latest_message = patient.messages[patient.messages.length - 1].content
+        const latest_message = "No message available"
+        console.log(patient.messages.length)
+        if (patient.messages.length > 0) {
+            const latest_message = patient.messages[patient.messages.length - 1].content
+        }
+        
+        //const latest_message = patient.messages[patient.messages.length - 1].content
         return res.render('index', {patient: patient, clinician: clinician, currentUser: res.userInfo, latest_message: latest_message})
     } catch (err) {
         return next(err)
@@ -62,6 +70,50 @@ const renderEditUserInformation = async (req, res, next) => {
     }
 }
 
+const editUserInformation = async (req, res, next) => {
+    try { 
+        const patient = await joins.getPatient(res.userInfo.username)
+        const oldPatientUsername = res.userInfo.username
+        if (!patient) {
+            // Patient does not have a clinician
+            return res.sendStatus(404)
+        }
+
+        Patients.Patient.updateOne(
+            {email: patient.email},
+            {$set: {first_name: req.body.first_name, 
+                    last_name: req.body.last_name,
+                    email: req.body.email,
+                    phone: req.body.phone,
+                    address: req.body.address,
+                    gender: req.body.gender,
+                    height: req.body.height
+            }}, (err) => {
+                    if (err) {
+                        console.log(err)
+                    }
+                }
+        )
+        
+        User.updateOne(
+            {username: oldPatientUsername},
+            {$set:{username: req.body.email,
+                   password: req.body.password,
+                   role: "patient"
+            }}, (err) => {
+                    if (err) {
+                        console.log(err)
+                    }
+                }
+        )
+
+        res.redirect('/auth')
+
+    } catch (err) {
+        return next(err)
+    }
+}
+
 // handle request to get one data instance
 const addNewUserRecord = async (req, res, next) => {
     try {
@@ -70,8 +122,22 @@ const addNewUserRecord = async (req, res, next) => {
         } else if (req.body.value === '') {
             res.render('userAddRecordFail', {error: 'Cannot input empty value.', clinician: clinician})
         } else {
-            newPatientRecord = new Records(req.body)
-            await newPatientRecord.save()
+            // newPatientRecord = new Records(req.body)
+            // await newPatientRecord.save()
+
+            Patients.Patient.findOneAndUpdate(
+                {"email": res.userInfo.username},
+                {$push: {
+                        records: {
+                            $each: [{record_type: req.body.record_type, value: req.body.value, comments: req.body.comments, created_at: new Date(), updatedAt: new Date()}]
+                        }
+                }},
+                (err) => {
+                    if (err) {
+                        console.log(err)
+                    }
+                }
+            );
             
             const patient = joins.getPatient(res.userInfo.username)
             const clinician = joins.getClinician(patient.clinician)
@@ -116,6 +182,8 @@ const getLeaderboard = async (req, res, next) => {
     }
 }
 
+
+
 // exports an object, which contain functions imported by router
 module.exports = {
     getAllRecords,
@@ -124,6 +192,7 @@ module.exports = {
     addNewUserRecord,
     getUserInformation,
     renderEditUserInformation,
+    editUserInformation,
     getMessages,
     getAMessage,
     getLeaderboard

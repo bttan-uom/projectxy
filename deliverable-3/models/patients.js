@@ -15,6 +15,7 @@ const note = new mongoose.Schema({
 const record = new mongoose.Schema({
     record_type: {type: String, required: true},
     value: {type: String, required: true},
+    comments: {type: String, required: false},
     created_at: {type: Date, required: true},
     updatedAt: {type: Date, required: true}
 })

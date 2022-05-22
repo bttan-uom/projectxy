@@ -52,6 +52,8 @@ clinicianRouter.get('/patients', isAuthenticated, hasRole("clinician"),
     clinicianDashboardController.getPatientRecords
 );
 
+
+
 clinicianRouter.get('/addNewPatient', isAuthenticated, hasRole("clinician"),
     function(req, res, next) { 
        res.userInfo = req.user.toJSON()

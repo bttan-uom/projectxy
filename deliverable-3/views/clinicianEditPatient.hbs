@@ -1,3 +1,4 @@
+{{#with oneItem}}
 <div class="head-title">
     <div class="left">
         <ul class="breadcrumb">
@@ -5,20 +6,20 @@
                 <pre><a class="active generic-button" href="/clinician/patients">Patients</a></pre>
             </li>
             <li><i class='bx material-icons'>chevron_right</i></li>
-            {{#with patient}}
             <li>
-                <pre><a class="active generic-button" href="#">View Patient: {{this.first_name}} {{this.last_name}}</a></pre>
+                <pre><a class="active generic-button" href="#">Patient: {{this.first_name}} {{this.last_name}}</a></pre>
             </li>
-            {{/with}}
+            <li><i class='bx material-icons'>chevron_right</i></li>
+            <li>
+                <pre><a class="active generic-button" href="#">Edit</a></pre>
+            </li>
         </ul>
         <br>
-        {{#with patient}}
-        <h1>View Patient: {{this.first_name}} {{this.last_name}}</h1>
-        {{/with}}
+        <h1>Edit Patient: {{this.first_name}} {{this.last_name}}</h1>
     </div>
-    	<a href="/clinician/patients/{{this.email}}/edit" class="btn-download">
-	<i class='bx material-icons'>edit_calendar</i>
-	<span style='font-size:13px' class="text">Edit Information</span>
+    	<a href="/clinician/patients/{{this.email}}" class="btn-download">
+	<i class='bx material-icons'>done</i>
+	<span style='font-size:13px' class="text">Done</span>
 </a>
 </div>
 
@@ -54,27 +55,35 @@
     </li>
 </ul>
 
+
+
+
 <div class="table-data">
-    {{#with patient}}
     <div class="order">
         <div class="head">
             <!--					<i class='bx bx-check-square' ></i>-->
             <h3>Patient Details</h3>
         </div>
         
-        
+        <form id="addRecordForm" action="/clinician/patients/{{this.email}}/edit" method="POST">
         <ul class="box-info">
             <li style="background-color:var(--grey);">
                 <span class="text">
-                    <h2>Full Name</h2>
-                    <h3>{{this.first_name}} {{this.last_name}}</h3>
+                    <label>First Name</label>
+                    <input class="input-button-select" type="text" value="{{this.first_name}}" placeholder="" name="first_name" />
                 </span>
                 
             </li>
             <li style="background-color:var(--grey);">
                 <span class="text">
-                    <h2>Date of sign-up</h2>
-                    <h3>{{formatLongDate this.signupdate}}</h3>
+                    <label>Last Name</label>
+                    <input class="input-button-select" type="text" value="{{this.last_name}}" name="last_name" />
+                </span>
+            </li>
+            <li style="background-color:var(--grey);">
+                <span class="text">
+                    <label>Sign Up Date</label>
+                    <input class="input-button-select" type="Date" value="{{formatLongDate this.signupdate}}" name="signupdate" />
                 </span>
             </li>
         </ul>
@@ -83,22 +92,22 @@
             
             <li style="background-color:var(--grey);">
                 <span class="text">
-                    <h2>Phone number</h2>
-                    <h3>{{this.phone}}</h3>
+                    <label>Sign Up Date</label>
+                    <input class="input-button-select" type="text" value="{{this.phone}}" name="phone" />
                 </span>
             </li>
             <li style="background-color:var(--grey);">
                 <span class="text">
-                    <h2>Email/username</h2>
-                    <h3>{{this.email}}</h3>
+                    <label>Email/username</label>
+                    <input class="input-button-select" type="text" value="{{this.email}}" name="email" /></h3>
                 </span>
             </li>
         </ul>
         <ul class="box-info">
             <li style="background-color:var(--grey);">
                 <span class="text">
-                    <h2>Address</h2>
-                    <h3>{{this.address}}</h3>
+                    <label>Address</label>
+                    <input class="input-button-select" type="text" value="{{this.address}}" name="address" />
                 </span>
                 
             </li>
@@ -107,21 +116,21 @@
         <ul class="box-info">
             <li style="background-color:var(--grey);">
                 <span class="text">
-                    <h2>Height</h2>
-                    <h3>{{this.height}}</h3>
+                    <label>Height</label>
+                    <input class="input-button-select" type="text" value="{{this.height}}" name="height" />
                 </span>
             </li>
             
             <li style="background-color:var(--grey);">
                 <span class="text">
-                    <h2>Date of Birth</h2>
-                    <h3>{{formatDateLongYear this.dob}}</h3>
+                    <label>Date of Birth</label>
+                    <input class="input-button-select" type="text" value="{{formatDateLongYear this.dob}}" name="dob" />
                 </span>
             </li>
             <li style="background-color:var(--grey);">
                 <span class="text">
-                    <h2>Gender</h2>
-                    <h3>{{this.gender}}</h3>
+                    <label>Gender</label>
+                    <input class="input-button-select" type="text" value="{{this.gender}}" name="gender" />
                 </span>
             </li>
         </ul>
@@ -133,16 +142,18 @@
             <h3>Patient records & thresholds</h3>
         </div>
         <ul class="todo-list">
-            
             {{#each thresholds}}
             <li class="blueone">
-                <p>{{this.name}}: {{this.lower}} - {{this.upper}}</p>
+                <p>{{formatThresholds this.name}}</p>
+                <input class="small-input-button-select" type="number" value="{{this.lower}}" name="{{this.name}}_lower" step=".01"/>
+                <i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i>
+                <input class="small-input-button-select" type="number" value="{{this.upper}}" name="{{this.name}}_upper" step=".01"/>
             </li>
             {{/each}}
         </ul>
     </div>
-    {{/with}}
 </div>
+
 
 <div class="table-data">
     <div class="order">
@@ -170,7 +181,7 @@
                     <td data-label="Record Type"><p>{{record_type}}</p></td>
                     <td data-label="Value"><p>{{this.value}}</p></td>
                     <td data-label="Warning"><p>{{#if_threshold_text this.record_type this.value}} {{/if_threshold_text}}</p></td>
-                    <td data-label="View"><a href="/clinician/patients?user={{this.user_id}}&record={{this.record_id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
+                    <td data-label="View"><a href="/clinician/patients/{{../email}}/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
                 </tr>
                 {{else}}
                 {{/each}}
@@ -181,3 +192,4 @@
         <img src="/img/bounce-arrow.gif" alt="scroll-down-animation" width="50vw">
     </div>
 </div>
+{{/with}}

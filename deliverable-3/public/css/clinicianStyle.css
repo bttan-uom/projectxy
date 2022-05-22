@@ -595,7 +595,6 @@ tbody {
 
 form {
 	width: 100%;
-	max-width: 28rem;
 }
 
 .input-button-select {
@@ -615,7 +614,7 @@ form {
 	font-size: 1rem;
 	background: inherit;
 	border-radius: .25rem;
-	width: 10rem;
+	width: 40%;
 }
 
 .input-button-submit {
