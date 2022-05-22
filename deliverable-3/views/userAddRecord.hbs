@@ -3,7 +3,7 @@
 		<div class="left">
 			<ul class="breadcrumb">
 				<li>
-					<a class="active generic-button" href="#">+Record</a>
+					<pre><a class="active generic-button" href="#">Add Record</a></pre>
 				</li>
 				<li><i class='bx material-icons'>chevron_right</i></li>
 			</ul>
@@ -80,18 +80,11 @@
 				<h3>Your thresholds</h3>
 			</div>
 			<ul class="todo-list">
+				{{#each oneItem.thresholds}}
 				<li class="blueone">
-					<p>Blood Glucose: 3.9 - 5.6 nMol/L</p>
+					<p>{{formatThresholds name}}</p>
 				</li>
-				<li class="blueone">
-					<p>Insulin Doses: 2 Doses</p>
-				</li>
-				<li class="blueone">
-					<p>Weight: 65 - 75 kg</p>
-				</li>
-				<li class="blueone">
-					<p>Exercise: At least 5000 steps</p>
-				</li>
+				{{/each}}
 			</ul>
 		</div>
 	</div>
