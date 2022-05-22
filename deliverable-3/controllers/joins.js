@@ -196,6 +196,26 @@ const getAMessage = async (patient, message_id) => {
     return null
 }
 
+const getMessagesNotCompleted = async (patient) => {
+    try {
+        const now = new Date()
+        now.setUTCHours(0, 0, 0, 0)
+        const end = new Date()
+        end.setUTCHours(23, 59, 59, 999)
+        
+        let todo = patient.thresholds
+        for (const record of patient.records) {
+            const date = new Date(record.created_at)
+            if (date >= now && date <= end) {
+                todo = todo.filter(item => item.name !== record.record_type)
+            }
+        }
+        return todo
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 /* Joins for clinical notes */
 const getAllNotes = async (clinician) => {
     try {
@@ -325,6 +345,7 @@ module.exports = {
     getAllMessages,
     listAllMessages,
     getAMessage,
+    getMessagesNotCompleted,
     getAllNotes,
     getANote,
     getAllComments,

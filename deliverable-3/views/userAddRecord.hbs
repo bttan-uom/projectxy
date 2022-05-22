@@ -35,7 +35,7 @@
 		<li>
 			<i class='bx material-icons'>playlist_add</i>
 			<span class="text">
-				<h3>NUM</h3>
+				{{#get_num_records_left tocomplete}} {{/get_num_records_left}}
 				<p>Records to complete</p>
 			</span>
 		</li>
@@ -52,11 +52,8 @@
 				<label>Record Type</label>
 				<select class="input-button-select" name="record_type">
 					<option selected="true" disabled="disabled">Select from the list</option>
-					{{#each oneItem.thresholds}}
-					{{#if (shouldUserRecord lower)}}
-					<option value="{{name}}">{{formatThresholds name}}</option>
-					{{else}}
-					{{/if}}
+					{{#each tocomplete}}
+					<option value="{{this.name}}">{{formatThresholds name}}</option>
 					{{/each}}
 				</select>
 				<br><br>
