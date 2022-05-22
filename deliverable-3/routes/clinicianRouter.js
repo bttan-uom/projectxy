@@ -170,11 +170,3 @@ clinicianRouter.get('/comments', isAuthenticated, hasRole("clinician"),
 
 
 module.exports = clinicianRouter
-
-
-/*
-ROUTERS THAT NEED TO BE COMPLETE:
-- clinician viewing all patients
-- messages
-- clinicial note
-*/
