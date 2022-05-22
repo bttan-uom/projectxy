@@ -15,7 +15,7 @@ Deliverable-2
     -  patient can add a record, clinician can view that record. Record is highlighted in clinicians UI if it is over the threshold.
 
 Deliverable-3
-  - In progress
+  - Fully complete web application
 
 
 # Contributors
