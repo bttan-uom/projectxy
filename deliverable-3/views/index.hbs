@@ -49,8 +49,10 @@
 	<li>
 		<i class='bx material-icons'>leaderboard</i>
 		<span class="text">
-			<h3>1</h3>
-			<p>Leaderboard position</p>
+			{{#with patient}}
+			<h3>{{formatEngagement this.engagement_rate}}%</h3>
+			{{/with}}
+			<p>Engagement Rate</p>
 		</span>
 	</li>
 </ul>
