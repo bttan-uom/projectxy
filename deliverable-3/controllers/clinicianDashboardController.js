@@ -10,10 +10,10 @@ var tz = require('moment-timezone')
 const renderClinicianDashboard = async (req, res, next) => {
     try { 
         const clinician = await joins.getClinician(res.userInfo.username)
-        const patients = await joins.getAllPatientObjects(clinician)
+        const records = await joins.getTodaysRecords(clinician)
         const messages = await joins.listAllMessages(clinician)
         const notes = await joins.getAllNotes(clinician)
-        return res.render('clinicianDashboard', {clinician: clinician, patients: patients, layout: 'main2', nmessages: messages.length, nnotes: notes.length, npatients: patients.length})
+        return res.render('clinicianDashboard', {clinician: clinician, messages: messages.length, notes: notes.length, records: records, layout: 'main2'})
     } catch (err) {
         return next(err)
     }
@@ -242,7 +242,6 @@ module.exports = {
     newNote,
     createNote,
     addNewUser,
-    getAddNewUserPage,
-    editSinglePatientPage
+    getAddNewUserPage
 }
 

@@ -69,13 +69,79 @@ const getARecord = async (patient, record_id) => {
     }
 }
 
-const getTodaysRecords = async (patients) => {
+const getTodaysRecords = async (clinician) => {
     try {
-        const today = moment().toISOString()
-        console.log(today)
+        const start = new Date()
+        start.setUTCHours(0, 0, 0, 0)
+        const end = new Date()
+        end.setUTCHours(23, 59, 59, 999)
+
+        const patients = await getAllPatientObjects(clinician)
+
+        const records = []
+        for (const patient of patients) {
+            if (patient == null) {
+                continue
+            }
+            
+            const patientrecords = {'username': patient.email, 'id': patient._id, 'error': ''}
+
+            const thresholds = []
+            for (const threshold of patient.thresholds) {
+                thresholds.push(threshold.name)
+            }
+
+            for (const type of ['glucose', 'insulin', 'exercise', 'weight']) {
+                if (!thresholds.includes(type)) {
+                    patientrecords[type] = 'N/A'
+                } else {
+                    patientrecords[type] = 'Not recorded'
+                }
+            }
+
+            for (const record of patient.records) {
+                if (record.created_at >= start && record.created_at <= end) {
+                    patientrecords[record.record_type] = Number(record.value)
+                    if (thresholdCheck(patient, record.record_type, record)) {
+                        const uppercase = record.record_type.replace(/^\w/, (c) => c.toUpperCase())
+                        patientrecords['error'] += uppercase + ' is outside of the threshold. '
+                    }
+                }
+            }
+
+            // for (const type of ['glucose', 'insulin', 'exercise', 'weight']) {
+            //     if (patientrecords[type] == 'Not recorded') {
+            //         const uppercase = type.replace(/^\w/, (c) => c.toUpperCase())
+            //         patientrecords['error'] += uppercase + ' is not recorded.'
+            //     }
+            // }
+
+            records.push(patientrecords)
+        }
+
+        return records
     } catch (err) {
         console.log(err)
     }
+}
+
+const thresholdCheck = async (patient, record_type, record) => {
+    const thresholds = getThresholds(patient, record_type)
+    if (record.value < thresholds[0] || record.value > thresholds[1]) {
+        return true
+    }
+    return false
+}
+
+const getThresholds = async (patient, record_type) => {
+    const thresholds = []
+    for (const threshold of patient.thresholds) {
+        if (threshold.name == record_type) {
+            thresholds.push(threshold.lower)
+            thresholds.push(threshold.upper)
+        }
+    }
+    return thresholds
 }
 
 /* Joins for messages */
@@ -127,8 +193,13 @@ const getAllNotes = async (clinician) => {
         const notes = []
         for (const email_object of clinician.patients) {
             const patient = await getPatient(email_object.email)
-            for (const note of patient.notes) {
-                notes.push({'username': patient.email, 'content': note.content, 'date': note.date, 'note_id': note._id, 'user_id': patient._id})
+            if (patient == null) {
+                continue
+            }
+            if (patient.notes != null) {
+                for (const note of patient.notes) {
+                    notes.push({'username': patient.email, 'content': note.content, 'date': note.date, 'note_id': note._id, 'user_id': patient._id})
+                }
             }
         }
         return notes
@@ -175,7 +246,7 @@ const getTopFive = async () => {
     }
 }
 
-const inLeaderboard = async(patient, rankings) => {
+const inLeaderboard = async (patient, rankings) => {
     // Returns either 1-5 if the patient is in the leaderboard
     // 0 otherwise
     for (let i in rankings) {
@@ -194,6 +265,8 @@ module.exports = {
     getAllRecords,
     getARecord,
     getTodaysRecords,
+    thresholdCheck,
+    getThresholds,
     getAllMessages,
     listAllMessages,
     getAMessage,

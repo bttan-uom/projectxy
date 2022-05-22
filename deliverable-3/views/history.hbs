@@ -8,10 +8,7 @@
 		</ul>
 		<br>
 		<h1>Historical Records</h1>
-		
 	</div>
-	
-	
 </div>
 
 <ul class="box-info">
@@ -22,6 +19,7 @@
 			<p>Today's Date</p>
 		</span>
 	</li>
+
 	<li>
 		<i class='bx material-icons'>medication</i>
 		<span class="text">
@@ -33,18 +31,17 @@
 	</li>
 </ul>
 
-
-
-
-
 <div class="table-data">
 	<div class="order">
 		<div class="head">
-			<h3>There are {{data.length}} records</h3>
+			{{#with records}}
+			<h3>There are {{this.length}} records</h3>
+			{{/with}}
 			<input style="width:40%" type="text" class="input-button-select" id="allPatientsInput" onkeyup="allPatientsSearch()" placeholder="Search..." title="Type in a name">
 
 			<a style="color:var(--blue);" href="#"><i class='bx material-icons'>filter_list</i></a>
 		</div>
+
 		<table class="scrollTable" id="allPatientsTable">
 			<thead>
 				<tr>
@@ -54,30 +51,26 @@
 					<th scope="col">View</th>
 				</tr>
 			</thead>
+
 			<tbody>
 				{{!-- loops over the data set --}}
-
-				{{#with data}}
 					{{#each records}}
 						<tr>
-						<td data-label="Record Type"> 
-							<p>{{record_type}}</p>
-						</td>
+						<td data-label="Record Type"><p>{{record_type}}</p></td>
 						<td data-label="Value"><p>{{value}}</p></td>
 						<td data-label="Date Added"><p>{{formatDate created_at}}</p></td>
 						<td data-label="View"><a href="/user/history?record={{_id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
 						</tr>
 					{{/each}}
-				{{/with}}
-				
 			</tbody>
 		</table>
+
 		<br>
 		<p>Records may be hidden, scroll if required</p>
 		<img src="/img/bounce-arrow.gif" alt="scroll-down-animation" width="50vw">
 	</div>
-	
 </div>
+
 <script>
 	const allPatientsSearch = () => {
 		const trs = document.querySelectorAll('#allPatientsTable tr:not(.header)')

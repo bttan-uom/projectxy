@@ -326,6 +326,12 @@ hbs.handlebars.registerHelper('formatThresholds', function(threshold) {
     }
 });
 
+hbs.handlebars.registerHelper('formatRecord', function(record) {
+    if (record == "Not recorded") {
+        return 'style=\"background-color: #f6f8ff\"'
+    }
+});
+
 app.get('/', (req, res) => {
     res.render('welcome.hbs', {layout: "loggedout"})
 })
