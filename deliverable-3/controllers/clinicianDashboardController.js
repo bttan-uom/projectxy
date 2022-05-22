@@ -20,8 +20,9 @@ const renderClinicianDashboard = async (req, res, next) => {
 const renderClinicianPatientList = async (req, res, next) => {
     try {
         const clinician = await joins.getClinician(res.userInfo.username)
-        const nmessages = await joins.listAllMessages(clinician)
-        res.render('clinicianViewAllPatients', {data: clinician.patients.reverse(), layout: 'main2', nmessages: nmessages.length})
+        const messages = await joins.listAllMessages(clinician)
+        const notes = await joins.getAllNotes(clinician)
+        res.render('clinicianViewAllPatients', {patients: clinician.patients, layout: 'main2', messages: messages.length, notes: notes.length})
     } catch (err) {
         return next(err)
     }  
@@ -79,14 +80,15 @@ const getMessages = async (req, res, next) => {
     try {
         if (Object.keys(req.query).length !== 0) {
             /* Viewing an individual message */
-            const patient = await joins.getPatient(req.query.user)
+            const patient = await joins.getPatientById(req.query.user)
             const message = await joins.getAMessage(patient, req.query.message)
             res.render('oneMessageClinician', {patient: patient, message: message})
         } else {
             /* Viewing all messages */
             const clinician = await joins.getClinician(res.userInfo.username)
             const allmessages = await joins.listAllMessages(clinician)
-            res.render('clinicianMessages', {npatients: clinician.patients.length, data: allmessages.reverse(), layout: 'main2'})
+            const notes = await joins.getAllNotes(clinician)
+            res.render('clinicianMessages', {messages: allmessages.reverse(), layout: 'main2', patients: clinician.patients.length, notes: notes.length})
         }
     } catch (err) {
         return next(err)
@@ -124,15 +126,15 @@ const renderAllNotes = async (req, res, next) => {
     try {
         if (Object.keys(req.query).length !== 0) {
             /* Viewing an individual note */
-            const patient = await joins.getPatient(req.query.user)
+            const patient = await joins.getPatientById(req.query.user)
             const note = await joins.getANote(patient, req.query.note)
             res.render('oneClinicalNote', {patient: patient, note: note})
         } else {
             /* Viewing all note */
             const clinician = await joins.getClinician(res.userInfo.username)
             const allnotes = await joins.getAllNotes(clinician)
-            const allmessages = await joins.getAllMessages(clinician)
-            res.render('clinicianNotes', {notes: allnotes.reverse(), npatients: clinician.patients.length, nmessages: allmessages.length, layout: 'main2'})    
+            const allmessages = await joins.listAllMessages(clinician)
+            res.render('clinicianNotes', {notes: allnotes.reverse(), patients: clinician.patients.length, messages: allmessages.length, layout: 'main2'})    
         }
     } catch (err) {
         return next(err)
@@ -143,7 +145,7 @@ const newNote = async (req, res, next) => {
     try {
         const clinician = await joins.getClinician(res.userInfo.username)
         const allnotes = await joins.getAllNotes(clinician)
-        const allmessages = await joins.getAllMessages(clinician)
+        const allmessages = await joins.listAllMessages(clinician)
         res.render('clinicianNewNote', {patients: clinician.patients, nnotes: allnotes.length, nmessages: allmessages.length, layout: 'main2'})
     } catch (err) {
         return next(err)

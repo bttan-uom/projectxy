@@ -21,6 +21,15 @@ const getPatient = async (patient_username) => {
     }
 }
 
+const getPatientById = async (id) => {
+    try {
+        const patient = await Patients.Patient.findById(id).lean()
+        return patient
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 /* General joins */
 const getAllPatientObjects = async (clinician) => {
     try {
@@ -92,7 +101,7 @@ const getANote = async (patient, note_id) => {
             }
         }
         return null
-    } catch {
+    } catch (err) {
         console.log(err)
     }
 }
@@ -136,6 +145,7 @@ const inLeaderboard = async(patient, rankings) => {
 module.exports = {
     getClinician,
     getPatient,
+    getPatientById,
     getAllPatientObjects,
     getAllMessages,
     listAllMessages,
