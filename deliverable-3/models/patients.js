@@ -42,7 +42,7 @@ const patientSchema = new mongoose.Schema({
     gender: String,
     dob: Date,
     signupdate: {type: Date, required: true},
-    clinician_username: {type: String, required: true},
+    clinician: {type: String, required: true},
     thresholds: [threshold],
     engagement_rate: mongoose.Schema.Types.Decimal128,
     records: [record],

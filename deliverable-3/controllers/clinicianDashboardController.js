@@ -12,6 +12,7 @@ const renderClinicianDashboard = async (req, res, next) => {
     try { 
         const clinician = await joins.getClinician(res.userInfo.username)
         const records = await joins.getTodaysRecords(clinician)
+        // console.log(records)
         const messages = await joins.listAllMessages(clinician)
         const notes = await joins.getAllNotes(clinician)
         return res.render('clinicianDashboard', {clinician: clinician, messages: messages.length, notes: notes.length, records: records, layout: 'main2'})
@@ -36,12 +37,18 @@ const getPatientRecords = async (req, res, next) => {
             const records = await joins.getAllRecords(patient)
             records.reverse()
             for (const record of records) {
-                record['error'] = await joins.getWarning(patient, record.record_type, record)
+                const err = await joins.getWarning(patient, record.record_type, record)
+                if (err == '') {
+                    record['error'] = 'None'
+                } else {
+                    record['error'] = err
+                }
             }
             const today = await joins.getTodaysRecordsPatient(patient)
             let warnings = 0
             for (const record of today) {
-                if (await joins.getWarning(patient, record.record_type, record) != '') {
+                const err = await joins.getWarning(patient, record.record_type, record)
+                if (err != '' && err != 'None') {
                     warnings += 1
                 }
             }

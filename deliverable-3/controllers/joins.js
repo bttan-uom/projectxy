@@ -151,30 +151,42 @@ const getTodaysRecordsPatient = async (patient) => {
 }
 
 const getWarning = async (patient, record_type, record) => {
-    if (thresholdCheck(patient, record_type, record)) {
-        const uppercase = record.record_type.replace(/^\w/, (c) => c.toUpperCase())
-        return uppercase + ' is outside of the threshold. '
+    try {
+        if (await thresholdCheck(patient, record_type, record)) {
+            const uppercase = record.record_type.replace(/^\w/, (c) => c.toUpperCase())
+            return uppercase + ' is outside of the threshold. '
+        }
+        return ''
+    } catch (err) {
+        console.log(err)
     }
-    return 'None'
 }
 
 const thresholdCheck = async (patient, record_type, record) => {
-    const thresholds = getThresholds(patient, record_type)
-    if (record.value < thresholds[0] || record.value > thresholds[1]) {
-        return true
+    try {
+        const thresholds = await getThresholds(patient, record_type)
+        if (record.value < thresholds[0] || record.value > thresholds[1]) {
+            return true
+        }
+        return false
+    } catch (err) {
+        console.log(err)
     }
-    return false
 }
 
 const getThresholds = async (patient, record_type) => {
-    const thresholds = []
-    for (const threshold of patient.thresholds) {
-        if (threshold.name == record_type) {
-            thresholds.push(threshold.lower)
-            thresholds.push(threshold.upper)
+    try {
+        const thresholds = []
+        for (const threshold of patient.thresholds) {
+            if (threshold.name == record_type) {
+                thresholds.push(threshold.lower)
+                thresholds.push(threshold.upper)
+            }
         }
+        return thresholds
+    } catch (err) {
+        console.log(err)
     }
-    return thresholds
 }
 
 /* Joins for messages */
@@ -199,25 +211,33 @@ const getAllMessages = async (clinician) => {
 }
 
 const listAllMessages = async (clinician) => {
-    const data = []
-    const allmessages = await getAllMessages(clinician)
-    for (const patient of allmessages) {
-        if (patient.messages != null) {
-            for (const message of patient.messages) {
-                data.push({'first_name': patient.first_name, 'last_name': patient.last_name, 'message': message.content, 'message_id': message._id, 'user_id': patient.user_id})
+    try {
+        const data = []
+        const allmessages = await getAllMessages(clinician)
+        for (const patient of allmessages) {
+            if (patient.messages != null) {
+                for (const message of patient.messages) {
+                    data.push({'first_name': patient.first_name, 'last_name': patient.last_name, 'message': message.content, 'message_id': message._id, 'user_id': patient.user_id})
+                }
             }
         }
+        return data
+    } catch (err) {
+        console.log(err)
     }
-    return data
 }
 
 const getAMessage = async (patient, message_id) => {
-    for (const message of patient.messages) {
-        if (message._id == message_id) {
-            return message
+    try {
+        for (const message of patient.messages) {
+            if (message._id == message_id) {
+                return message
+            }
         }
+        return null
+    } catch (err) {
+        console.log(err)
     }
-    return null
 }
 
 const getMessagesNotCompleted = async (patient) => {
@@ -320,38 +340,50 @@ const getTopFive = async () => {
 const inLeaderboard = async (patient, rankings) => {
     // Returns either 1-5 if the patient is in the leaderboard
     // 0 otherwise
-    for (let i in rankings) {
-        if (rankings[i]['username'] == patient.email) {
-            return Number(i) + 1
+    try {
+        for (let i in rankings) {
+            if (rankings[i]['username'] == patient.email) {
+                return Number(i) + 1
+            }
         }
+        return 0
+    } catch (err) {
+        console.log(err)
     }
-    return 0
 }
 
 const getEngagementRate = async (patient) => {
-    const now = new Date()
-    const then = patient.signupdate
-    const total_days = Math.round((now - then) / (1000 * 60 * 60 * 24))
-    const days = new Set()
-    for (const record of patient.records) {
-        const date = new Date(record.created_at)
-        const date_string = '' + date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
-        days.add(date_string)
+    try {
+        const now = new Date()
+        const then = patient.signupdate
+        const total_days = Math.round((now - then) / (1000 * 60 * 60 * 24))
+        const days = new Set()
+        for (const record of patient.records) {
+            const date = new Date(record.created_at)
+            const date_string = '' + date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
+            days.add(date_string)
+        }
+        return days.size / total_days
+    } catch (err) {
+        console.log(err)
     }
-    return days.size / total_days
 }
 
 const updateEngagement = async (patient) => {
-    const new_engagement = await getEngagementRate(patient)
-    Patients.Patient.updateOne(
-        {'email': patient.email},
-        {$set: {engagement_rate: new_engagement}},
-        (err) => {
-            if (err) {
-                console.log(err)
+    try {
+        const new_engagement = await getEngagementRate(patient)
+        Patients.Patient.updateOne(
+            {'email': patient.email},
+            {$set: {engagement_rate: new_engagement}},
+            (err) => {
+                if (err) {
+                    console.log(err)
+                }
             }
-        }
-    )
+        )
+    } catch (err) {
+        console.log(err)
+    }
 }
 
 module.exports = {
