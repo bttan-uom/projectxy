@@ -27,7 +27,9 @@
     <li>
         <i class='bx material-icons'>personal_injury</i>
         <span class="text">
-            <h3>{{data.length}}</h3>
+            {{#with patients}}
+            <h3>{{this}}</h3>
+            {{/with}}
             <p>Total patients</p>
         </span>
     </li>
@@ -49,14 +51,14 @@
             <li style="background-color:var(--grey);" class="bluehighlightedbox">
                 <span class="text">
                     <label>Given Name</label>
-                    <input class="input-button-select" type="text" placeholder="" name="first_name" />
+                    <input class="input-button-select" type="text" placeholder="" name="first_name"/>
                 </span>
                 
             </li>
              <li style="background-color:var(--grey);" class="bluehighlightedbox">
                 <span class="text">
                     <label>Last Name</label>
-                    <input class="input-button-select" type="text" placeholder="" name="last_name" />
+                    <input class="input-button-select" type="text" placeholder="" name="last_name"/>
                 </span>
             </li>
             <li style="background-color:var(--grey);">
@@ -71,13 +73,13 @@
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Phone number</h3>
-                    <input class="input-button-select" type="text" placeholder="e.g. 9999-999-999" name="phone" />
+                    <input class="input-button-select" type="text" placeholder="e.g. 9999-999-999" name="phone"/>
                 </span>
             </li>
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <h3>Email/username</h3>
-                    <input class="input-button-select" type="text" placeholder="Email" name="email" />
+                    <input class="input-button-select" type="text" placeholder="Email" name="email"/>
                 </span>
             </li>
         </ul>
@@ -117,10 +119,7 @@
             </li>
             
         </ul><br>
-            <input style="font-size: 110%;" class="generic-button" type="submit" />
-        
-
-
+            <input style="font-size: 110%;" class="generic-button" type="submit" value="Create patient"/>
 
     </div>
     <div class="todo">
@@ -159,8 +158,8 @@
             </li>
             <li class="blueone">
                 <p>Insulin Doses (doses)</p>
-                <input class="input-button-select" type="number" placeholder="Minimum number of doses" name="insulin_lower" />
-                <input class="input-button-select" type="number" placeholder="Maximum number of doses" name="insulin_upper" />
+                <input class="input-button-select" type="number" placeholder="Minimum number of doses" name="insulin_lower"/>
+                <input class="input-button-select" type="number" placeholder="Maximum number of doses" name="insulin_upper"/>
             </li>
             <li class="blueone">
                 <p>Weight (kg)</p>

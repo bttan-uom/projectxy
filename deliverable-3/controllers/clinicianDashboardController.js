@@ -181,10 +181,8 @@ const createNote = async (req, res, next) => {
 
 const getAddNewUserPage = async (req, res, next) => {
     try {
-        const PatientsList = await Patients.Patient.find().lean()
-        const clinicianUsername = res.userInfo.username
-
-        res.render("clinicianAddPatient", {data: PatientsList.reverse(), clinician: clinicianUsername, layout: 'main2'})
+        const clinician = await joins.getClinician(res.userInfo.username)
+        res.render("clinicianAddPatient", {patients: clinician.patients.length, clinician: clinician.email, layout: 'main2'})
     } catch (err) {
         return next(err)
     }
