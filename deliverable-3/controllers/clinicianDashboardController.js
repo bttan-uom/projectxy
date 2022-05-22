@@ -149,8 +149,9 @@ const renderAllNotes = async (req, res, next) => {
             /* Viewing all note */
             const clinician = await joins.getClinician(res.userInfo.username)
             const allnotes = await joins.getAllNotes(clinician)
+            const noteslength = allnotes.length
             const allmessages = await joins.listAllMessages(clinician)
-            res.render('clinicianNotes', {notes: allnotes.reverse(), patients: clinician.patients.length, messages: allmessages.length, layout: 'main2'})    
+            res.render('clinicianNotes', {notes: allnotes.reverse(), noteslength: noteslength, patients: clinician.patients.length, messages: allmessages.length, layout: 'main2'})    
         }
     } catch (err) {
         return next(err)
