@@ -132,6 +132,12 @@ hbs.handlebars.registerHelper('formatLongDate', function(dateString) {
     );
 });
 
+hbs.handlebars.registerHelper('formatCurrentDateForPost', function(dateString) {
+    return new hbs.handlebars.SafeString(
+        moment(dateString).tz('Australia/Melbourne').format("YYYY-MM-DD")
+    );
+});
+
 hbs.handlebars.registerHelper ('truncate', function (str, len) {
     if (str.length > len && str.length > 0) {
         var new_str = str + " ";

@@ -2,6 +2,9 @@
 const Patients = require('../models/patients')
 const joins = require('./joins')
 const Clinicians = require('../models/clinicians')
+const moment = require('moment')
+const User = require('../models/user')
+var tz = require('moment-timezone')
 
 // handle request to get all people data instances
 const renderClinicianDashboard = async (req, res, next) => {
@@ -192,6 +195,17 @@ const addNewUser = async (req, res, next) => {
     try {
         newPatient = new Patients.Patient(req.body)
         await newPatient.save()
+
+
+        const formatTemporaryPassword = moment(req.body.dob).tz('Australia/Melbourne').format("DD-MM-YYYY")
+
+        newUser = new User({
+            username: req.body.email,
+            password: formatTemporaryPassword,
+            role: "patient"
+
+        })
+        await newUser.save()
         
         Clinicians.findOneAndUpdate(
             {"email": res.userInfo.username},
@@ -206,7 +220,8 @@ const addNewUser = async (req, res, next) => {
                 }
             }
         );
-      
+        
+        
         Patients.Patient.findOneAndUpdate(
             {"email": newPatient.email}, 
             {$push: {
