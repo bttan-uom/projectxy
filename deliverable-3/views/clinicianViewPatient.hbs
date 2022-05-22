@@ -34,21 +34,27 @@
     <li>
         <i class='bx material-icons'>personal_injury</i>
         <span class="text">
-            <h3>{{time}}</h3>
+            {{#with latest}}
+            <h3>{{formatLongDate this.created_at}}</h3>
+            {{/with}}
             <p>Last record timestamp</p>
         </span>
     </li>
     <li>
         <i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>assignment_late</i>
         <span class="text">
-            <h3>{{Num}}</h3>
+            {{#with incomplete}}
+            <h3>{{this}}</h3>
+            {{/with}}
             <p>Incomplete entries today</p>
         </span>
     </li>
     <li>
         <i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
         <span class="text">
-            <h3>{{Num}}</h3>
+            {{#with warnings}}
+            <h3>{{this}}</h3>
+            {{/with}}
             <p>Threshold warnings today</p>
         </span>
     </li>

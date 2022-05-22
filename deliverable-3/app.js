@@ -265,7 +265,9 @@ hbs.handlebars.registerHelper('formatLongDateNoBreak', function(dateString) {
 });
 
 hbs.handlebars.registerHelper('formatUpper', function (str) {
-    return str.replace(/^\w/, (c) => c.toUpperCase());
+    if (typeof str === String) {
+        return str.replace(/^\w/, (c) => c.toUpperCase());
+    }
 })
 
 hbs.handlebars.registerHelper('previewString', function (str) {

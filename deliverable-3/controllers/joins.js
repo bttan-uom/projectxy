@@ -126,6 +126,27 @@ const getTodaysRecords = async (clinician) => {
     }
 }
 
+const getTodaysRecordsPatient = async (patient) => {
+    try {
+        const records = await getAllRecords(patient)
+        
+        const start = new Date()
+        start.setUTCHours(0, 0, 0, 0)
+        const end = new Date()
+        end.setUTCHours(23, 59, 59, 999)
+
+        const today = []
+        for (const record of records) {
+            if (record.created_at >= start && record.created_at <= end) {
+                today.push(record)
+            }
+        }
+        return today
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 const getWarning = async (patient, record_type, record) => {
     if (thresholdCheck(patient, record_type, record)) {
         const uppercase = record.record_type.replace(/^\w/, (c) => c.toUpperCase())
@@ -339,6 +360,7 @@ module.exports = {
     getAllRecords,
     getARecord,
     getTodaysRecords,
+    getTodaysRecordsPatient,
     getWarning,
     thresholdCheck,
     getThresholds,

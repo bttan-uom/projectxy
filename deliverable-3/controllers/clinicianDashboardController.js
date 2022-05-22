@@ -34,10 +34,20 @@ const getPatientRecords = async (req, res, next) => {
             /* Viewing a single patient */
             const patient = await joins.getPatientById(req.query.user)
             const records = await joins.getAllRecords(patient)
+            records.reverse()
             for (const record of records) {
                 record['error'] = await joins.getWarning(patient, record.record_type, record)
             }
-            return res.render('clinicianViewPatient', {patient: patient, records: records, layout: 'main2'})
+            const today = await joins.getTodaysRecordsPatient(patient)
+            let warnings = 0
+            for (const record of today) {
+                if (await joins.getWarning(patient, record.record_type, record) != '') {
+                    warnings += 1
+                }
+            }
+            const latest = records[0]
+            const tocomplete = await joins.getMessagesNotCompleted(patient)
+            return res.render('clinicianViewPatient', {patient: patient, records: records, latest: latest, incomplete: tocomplete.length, warnings: warnings, layout: 'main2'})
         } else if (Object.keys(req.query).length === 2) {
             /* Viewing an individual patient record */
             const patient = await joins.getPatientById(req.query.user)
