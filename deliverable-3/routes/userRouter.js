@@ -123,6 +123,8 @@ userRouter.post('/addRecord', isAuthenticated, hasRole("patient"),
     userDashboardController.addNewUserRecord
 );
 
+
+
 // export the router
 module.exports = userRouter
 

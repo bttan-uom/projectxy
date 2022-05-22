@@ -159,6 +159,14 @@ clinicianRouter.post('/addNewPatient', isAuthenticated, hasRole("clinician"),
     clinicianDashboardController.addNewUser
 );
 
+clinicianRouter.get('/comments', isAuthenticated, hasRole("clinician"),
+    function(req,res,next) {
+        res.userInfo = req.user.toJSON()
+        next()
+    },
+    clinicianDashboardController.getAllComments
+)
+
 
 
 module.exports = clinicianRouter

@@ -166,6 +166,24 @@ const getANote = async (patient, note_id) => {
     }
 }
 
+/* Joins for comments */
+const getAllComments = async (clinician) => {
+    try {
+        const patients = await getAllPatientObjects(clinician)
+        const comments = []
+        for (const patient of patients) {
+            for (const record of patient.records) {
+                if (record.comments != "" && record.comments != null) {
+                    comments.push({'username': patient.email, 'id': patient._id, 'comment': record.comments, 'time': record.created_at})
+                }
+            }
+        }
+        return comments
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 /* Joins for leaderboard */
 const getTopFive = async () => {
     try {
@@ -216,6 +234,7 @@ module.exports = {
     getAMessage,
     getAllNotes,
     getANote,
+    getAllComments,
     getTopFive,
     inLeaderboard
 }

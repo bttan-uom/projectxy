@@ -5,6 +5,7 @@ const Clinicians = require('../models/clinicians')
 const moment = require('moment')
 const User = require('../models/user')
 var tz = require('moment-timezone')
+const Clinician = require('../models/clinicians')
 
 // handle request to get all people data instances
 const renderClinicianDashboard = async (req, res, next) => {
@@ -407,6 +408,21 @@ const editUserInformation = async (req, res, next) => {
     }
 }
 
+
+const getAllComments = async (req, res, next) => {
+    try {
+        const clinician = await joins.getClinician(res.userInfo.username)
+        const patients = await joins.getAllPatientObjects(clinician)
+        const comments = await joins.getAllComments(clinician)
+        const messages = await joins.listAllMessages(clinician)
+        const notes = await joins.getAllNotes(clinician)
+        res.render('clinicianViewAllComments', {data: comments.reverse(), clinician: clinician, patients: patients, messages: messages, notes:notes, layout: 'main2'})
+    } catch (err) {
+        return next(err)
+    }
+}
+
+
 module.exports = {
     renderClinicianDashboard,
     getPatientRecords,
@@ -419,6 +435,7 @@ module.exports = {
     addNewUser,
     editUserInformation,
     getAddNewUserPage,
-    editPatientRecords
+    editPatientRecords,
+    getAllComments
 }
 

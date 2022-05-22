@@ -85,10 +85,8 @@ app.use('/clinician',clinicanRouter);
 
 require('./models')
 
-// if user attempts to access any other route, send a 404 error with a customized page
-// app.get('*', (req, res) => {
-//     res.render('clinicianAddPatient.hbs')
-// })
+
+
 
 
 
@@ -271,6 +269,9 @@ hbs.handlebars.registerHelper('formatUpper', function (str) {
 })
 
 hbs.handlebars.registerHelper('previewString', function (str) {
+    if (str == "" || str == null) {
+        return str
+    }
     if (str.length < 50) {
         return str
     }
@@ -331,6 +332,11 @@ app.get('/aboutus', (req, res) => {
 })
 app.get('/aboutdiabetes', (req, res) => {
     res.render('aboutdiabetes.hbs', {layout: "loggedout"})
+})
+
+// if user attempts to access any other route, send a 404 error with a customized page
+app.get('*', (req, res) => {
+    res.render('404.hbs', {layout: "loggedout"})
 })
 
 // Tells the app to listen on port 3000 and logs that information to the console.
