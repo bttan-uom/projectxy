@@ -112,6 +112,7 @@ const getLeaderboard = async (req, res, next) => {
     try {
         const patient = await joins.getPatient(res.userInfo.username)
         const clinician = await joins.getClinician(patient.email)
+        console.log(clinician);
         const rankings = await joins.getTopFive()
         const position = await joins.inLeaderboard(patient.email, rankings)
         res.render('userLeaderboard', {clinician: clinician, leaderboard: rankings, position: position, engagement: patient.engagement_rate})
