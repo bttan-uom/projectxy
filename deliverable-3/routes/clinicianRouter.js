@@ -44,42 +44,12 @@ clinicianRouter.get('/', isAuthenticated, hasRole("clinician"),
     clinicianDashboardController.renderClinicianDashboard
 );
 
-//clinicianRouter.get('/patients', isAuthenticated, clinicianDashboardController.renderClinicianPatientList)
 clinicianRouter.get('/patients', isAuthenticated, hasRole("clinician"),
     function(req, res, next) {
         res.userInfo = req.user.toJSON()
         next()
     },
-    clinicianDashboardController.renderClinicianPatientList
-);
-
-//clinicianRouter.get('/patients/:patient_id', isAuthenticated, clinicianDashboardController.getSinglePatient)
-clinicianRouter.get('/patients/:patient_id/edit', isAuthenticated, hasRole("clinician"),
-    function(req, res, next) {
-        res.userInfo = req.user.toJSON()
-        next()
-    },
-    clinicianDashboardController.editSinglePatientPage
-);
-
-//clinicianRouter.get('/:patient_id', isAuthenticated, clinicianDashboardController.getDataById)
-clinicianRouter.get('/patients/:patient_id/:record_id', isAuthenticated, hasRole("clinician"),
-    function(req, res, next) {
-        res.userInfo = req.user.toJSON()
-        next()
-    },
-    clinicianDashboardController.getDataById
-);
-
-
-
-//clinicianRouter.get('/patients/:patient_id', isAuthenticated, clinicianDashboardController.getSinglePatient)
-clinicianRouter.get('/patients/:patient_id', isAuthenticated, hasRole("clinician"),
-    function(req, res, next) {
-        res.userInfo = req.user.toJSON()
-        next()
-    },
-    clinicianDashboardController.getSinglePatient
+    clinicianDashboardController.getPatientRecords
 );
 
 

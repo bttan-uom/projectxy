@@ -1,110 +1,112 @@
-			
-			<div class="head-title">
-				<div class="left">
-					<ul class="breadcrumb">
-						<li>
-							<a class="active generic-button" href="#">Messages</a>
-						</li>
-						<li><i class='bx material-icons'>chevron_right</i></li>
-					</ul>
-					<br>
-					<h1>Messages</h1>
-					
-				</div>
-			</div>
 
-			<ul class="box-info">
-				<li>
-					<i class='bx material-icons'>today</i>
-					<span class="text">
-						<h3>{{getCurrentDate}}</h3>
-						<p>Current Date</p>
-					</span>
-				</li>
-				<li>
-					<i class='bx material-icons'>personal_injury</i>
-					<span class="text">
-						{{#with npatients}}
-						<h3>{{this}}</h3>
-						{{/with}}
-						<p>patient(s)</p>
-					</span>
-				</li>
-				<li>
-					<i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
-					<span class="text">
-						{{#with data}}
-						<h3>{{this.length}}</h3>
-						{{/with}}
-						<p>Messages(s) Sent</p>
-					</span>
-				</li>
-					<li>
-					<i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
-					<span class="text">
-						{{#with nnotes}}
-						<h3>{{this}}</h3>
-						{{/with}}
-						<p>Clinician Note(s) created</p>
-					</span>
-				</li>
-			</ul>
+<div class="head-title">
+	<div class="left">
+		<ul class="breadcrumb">
+			<li>
+				<a class="active generic-button" href="#">Messages</a>
+			</li>
+			<li><i class='bx material-icons'>chevron_right</i></li>
+		</ul>
+		<br>
+		<h1>Messages</h1>
+		
+	</div>
+</div>
+
+<ul class="box-info">
+	<li>
+		<i class='bx material-icons'>today</i>
+		<span class="text">
+			<h3>{{getCurrentDate}}</h3>
+			<p>Current Date</p>
+		</span>
+	</li>
+	<li>
+		<i class='bx material-icons'>personal_injury</i>
+		<span class="text">
+			{{#with patients}}
+			<h3>{{this}}</h3>
+			{{/with}}
+			<p>patient(s)</p>
+		</span>
+	</li>
+	<li>
+		<i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
+		<span class="text">
+			{{#with messages}}
+			<h3>{{this.length}}</h3>
+			{{/with}}
+			<p>Messages(s) Sent</p>
+		</span>
+	</li>
+		<li>
+		<i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
+		<span class="text">
+			{{#with notes}}
+			<h3>{{this}}</h3>
+			{{/with}}
+			<p>Clinician Note(s) created</p>
+		</span>
+	</li>
+</ul>
 
 
-			<div class="table-data">
-				<div class="order">
-					<div class="head">
-						<!--<i class='bx bx-check-square' ></i>-->
-						{{#with data}}
-						<h3>There are a total of {{this.length}} messages</h3>
-						{{/with}}
-						<input style="width:40%" type="text" class="input-button-select" id="attentionRequiredInput" onkeyup="attentionRequiredSearch()" placeholder="Search..." title="Type in a name">
-						<a style="color:var(--blue);" href="#"><i class='bx material-icons'>filter_list</i></a>
-					</div>
+<div class="table-data">
+	{{#with messages}}
+	<div class="order">
+		<div class="head">
+			<!--<i class='bx bx-check-square' ></i>-->
+			<h3>There are a total of {{this.length}} messages</h3>
+			<input style="width:40%" type="text" class="input-button-select" id="attentionRequiredInput" onkeyup="attentionRequiredSearch()" placeholder="Search..." title="Type in a name">
+			<a style="color:var(--blue);" href="#"><i class='bx material-icons'>filter_list</i></a>
+		</div>
 
-					<table id="attentionRequiredTable">
-						<thead>
-							<tr class="header">
-								<th>Username</th>
-								<th>Message Preview</th>
-								<th>View</th>
-							</tr>
-						</thead>
-						<tbody>
-							{{!-- loops over the data set --}}
-						{{#each data}}
-						<tr>
-							<td data-label="Name">
-								<p>{{this.first_name}} {{this.last_name}}</p>
-							</td>
-							<td data-label="Message Preview"><p>{{this.message}}</p></td>
-							<td data-label="View"><a href="/clinician/messages?user={{this.user_id}}&message={{this.message_id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
-						</tr>
-						{{/each}}
-						</tbody>
-					</table>
+		<table id="attentionRequiredTable">
+			<thead>
+				<tr class="header">
+					<th>Username</th>
+					<th>Message Preview</th>
+					<th>View</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{!-- loops over the data set --}}
+			{{#each this}}
+			<tr>
+				<td data-label="Name"><p>{{this.first_name}} {{this.last_name}}</p></td>
+				<td data-label="Message Preview"><p>{{previewString this.message}}</p></td>
+				<td data-label="View"><a href="/clinician/messages?user={{this.user_id}}&message={{this.message_id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
+			</tr>
+			{{/each}}
+			</tbody>
+		</table>
 
-					<br>
-					<p>Records may be hidden, scroll if required</p>
-					<img src="/img/bounce-arrow.gif" alt="scroll-down-animation" width="50vw">
-				</div>
+		<br>
+		<p>Records may be hidden, scroll if required</p>
+		<img src="/img/bounce-arrow.gif" alt="scroll-down-animation" width="50vw">
+	</div>
+	{{/with}}
 
-				<div class="todo">
-					<div class="head">
-						<!--					<i class='bx bx-edit-alt'></i>-->
-						<h3>Quick Links</h3>
-					</div>
-					
-					<ul class="todo-list">
-						<li class="blueone">
-							<p>Change something:</p>
-							<p>></p>
-						</li>
-						<li class="blueone">
-							<p>Message someone:</p>
-							<a href="/clinician/newmessage">></a>
-						</li>
-					</ul>
-					<br>
-				</div>
-			</div>
+	<div class="todo">
+		<div class="head">
+			<!--					<i class='bx bx-edit-alt'></i>-->
+			<h3>Quick Links</h3>
+		</div>
+		
+		<ul class="todo-list">
+			<li class="blueone">
+				<p>View notes</p>
+				<a href="/clinician/notes"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a>
+			</li>
+			<li class="blueone">
+				<p>View all patients</p>
+				<p data-label="View"><a href="/clinician/patients"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></p>
+			</li>
+			<li class="blueone">
+				<p>Add a New Patient</p>
+				<p data-label="View"><a href="/clinician/addNewPatient"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></p>
+			</li>
+		</ul>
+		<br>
+	</div>
+</div>

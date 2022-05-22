@@ -1,7 +1,8 @@
-{{#each oneItem.records}}
-{{#if (one_record_compare ../recordToView _id)}}
+{{!-- {{#each oneItem.records}} --}}
+{{!-- {{#if (one_record_compare ../recordToView _id)}} --}}
 <div class="head-title">
     <div class="left">
+        {{#with record}}
         <ul class="breadcrumb">
             <li>
                 <a class="active generic-button" href="/user/history">History</a>
@@ -13,7 +14,8 @@
         </ul>
         <br>
         <h1>{{record_type}} record <br>{{formatDate created_at}}</h1>
-    </div>    
+        {{/with}}
+    </div>
 </div>
 
 
@@ -28,7 +30,9 @@
     <li>
         <i class='bx material-icons'>medication</i>
         <span class="text">
-            <h3>Dr. {{../clinician.first_name}} {{../clinician.last_name}}</h3>
+            {{#with clinician}}
+            <h3>Dr. {{this.first_name}} {{this.last_name}}</h3>
+            {{/with}}
             <p>Your clinician</p>
         </span>
     </li>
@@ -41,6 +45,7 @@
             <!--					<i class='bx bx-check-square' ></i>-->
             <h3>Record Details</h3>
         </div>
+        {{#with record}}
         <ul class="box-info">
             <li style="background-color:var(--grey);">
                 <span class="text">
@@ -49,6 +54,7 @@
                 </span>
             </li>
         </ul>
+
         <ul class="box-info">
             <li style="background-color:var(--grey);">
                 <span class="text">
@@ -65,7 +71,6 @@
             </li>
         </ul>
         
-        
         <ul class="box-info">
             <li style="background-color:var(--grey);">
                 <span class="text">
@@ -74,9 +79,7 @@
                 </span>
             </li>
         </ul>
-        
-        
-        
+        {{/with}}
     </div>
     <div class="todo">
         <div class="head">
@@ -84,7 +87,7 @@
             <h3>Your thresholds</h3>
         </div>
         <ul class="todo-list">
-            {{#each ../oneItem.thresholds}}
+            {{#each patient.thresholds}}
             <li class="blueone">
                 <p>{{formatThresholds this.name}}: {{this.lower}} - {{this.upper}}</p>
             </li>
@@ -93,8 +96,6 @@
     </div>
 </div>
 
-{{else}}
+{{!-- {{else}}
 {{/if}}
-
-
-{{/each}}
+{{/each}} --}}

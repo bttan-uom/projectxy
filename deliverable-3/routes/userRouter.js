@@ -71,23 +71,12 @@ userRouter.get('/messages/:message_id', isAuthenticated, hasRole("patient"),
     userDashboardController.getAMessage
 );
 
-
-userRouter.get('/history/:record_id', isAuthenticated, hasRole("patient"), 
-    function(req, res, next) {
-
-        res.userInfo = req.user.toJSON()
-        next()
-    },
-    userDashboardController.getDataById
-)
-
-
 userRouter.get('/history', isAuthenticated, hasRole("patient"),
     function(req, res, next){ 
        res.userInfo = req.user.toJSON()
        next()
     },
-    userDashboardController.getAllHistory
+    userDashboardController.getHistory
 );
 
 userRouter.get('/myinfo/edit', isAuthenticated, hasRole("patient"),
@@ -133,16 +122,6 @@ userRouter.post('/addRecord', isAuthenticated, hasRole("patient"),
     },
     userDashboardController.addNewUserRecord
 );
-
-
-userRouter.get('/:record_id', isAuthenticated, hasRole("patient"), 
-    function(req, res, next) {
-
-        res.userInfo = req.user.toJSON()
-        next()
-    },
-    userDashboardController.getDataById
-)
 
 // export the router
 module.exports = userRouter

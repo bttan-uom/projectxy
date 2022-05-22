@@ -1,5 +1,5 @@
-{{#each patient.records}}
-{{#if (one_record_compare ../recordToShow _id)}}
+{{!-- {{#each patient.records}} --}}
+{{!-- {{#if (one_record_compare ../recordToShow _id)}} --}}
 <div class="head-title">
     <div class="left">
         <ul class="breadcrumb">
@@ -16,7 +16,6 @@
     </div>
 </div>
 
-
 <ul class="box-info">
     <li>
         <i class='bx material-icons'>today</i>
@@ -25,24 +24,27 @@
             <p>Today's Date</p>
         </span>
     </li>
+    {{#with patient}}
     <li>
         <i class='bx material-icons'>medication</i>
         <span class="text">
-                <h3>{{../patient.first_name}} {{../patient.last_name}}</h3>
+            <h3>{{this.first_name}} {{this.last_name}}</h3>
             <p>Patient</p>
         </span>
     </li>
     <li>
         <i class='bx material-icons'>medication</i>
         <span class="text usernametext">
-            <h3>{{../patient.email}}</h3>
+            <h3>{{this.email}}</h3>
             <p>Patient Username</p>
         </span>
     </li>
+    {{/with}}
 </ul>
 
 
 <div class="table-data">
+    {{#with record}}
     <div class="order">
         <div class="head">
             <!--					<i class='bx bx-check-square' ></i>-->
@@ -81,26 +83,20 @@
                 </span>
             </li>
         </ul>
-        
-
-        
     </div>
+    {{/with}}
+
     <div class="todo">
         <div class="head">
             <!--					<i class='bx bx-edit-alt'></i>-->
             <h3>Patient thresholds</h3>
         </div>
         <ul class="todo-list">
-            {{#each ../patient.thresholds}}
+			{{#each patient.thresholds}}
             <li class="blueone">
-                <p>{{this.[0]}}: {{this.[1].[0]}} - {{this.[1].[1]}}</p>
-            </li>
-            {{/each}}
+				<p>{{formatThresholds this.name}}</p>
+			</li>
+        	{{/each}}
         </ul>
     </div>
 </div>
-{{else}}
-{{/if}}
-
-
-{{/each}}

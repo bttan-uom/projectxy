@@ -1,6 +1,7 @@
 // import Patient and Clinician schemas
 const Clinician = require('../models/clinicians')
 const Patients = require('../models/patients')
+const moment = require('moment');
 
 /* Get clinician and patient from username */
 const getClinician = async (clinician_username) => {
@@ -21,7 +22,15 @@ const getPatient = async (patient_username) => {
     }
 }
 
-/* General joins */
+const getPatientById = async (id) => {
+    try {
+        const patient = await Patients.Patient.findById(id).lean()
+        return patient
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 const getAllPatientObjects = async (clinician) => {
     try {
         const patients = []
@@ -34,13 +43,55 @@ const getAllPatientObjects = async (clinician) => {
     }
 }
 
+/* Joins for records */
+const getAllRecords = async (patient) => {
+    try {
+        const records = []
+        for (const record of patient.records) {
+            records.push({'user_id': patient._id, 'record_id': record._id, 'record_type': record.record_type, 'value': record.value, 'created_at': record.created_at, 'comment': record.comments})
+        }
+        return records
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+const getARecord = async (patient, record_id) => {
+    try {
+        for (const record of patient.records) {
+            if (record._id == record_id) {
+                return record
+            }
+        }
+        return null
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+const getTodaysRecords = async (patients) => {
+    try {
+        const today = moment().toISOString()
+        console.log(today)
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 /* Joins for messages */
 const getAllMessages = async (clinician) => {
     try {
         const messages = []
         for (const email_object of clinician.patients) {
             const patient = await getPatient(email_object.email)
-            messages.push({'first_name': patient.first_name, 'last_name': patient.last_name, 'messages': patient.messages, 'user_id': patient._id})
+            if (patient == null) {
+                continue
+            }
+            if (patient.messages != null) {
+                messages.push({'first_name': patient.first_name, 'last_name': patient.last_name, 'messages': patient.messages, 'user_id': patient._id})
+            } else {
+                messages.push({'first_name': patient.first_name, 'last_name': patient.last_name, 'messages': [], 'user_id': patient._id})
+            }
         }
         return messages
     } catch (err) {
@@ -52,8 +103,10 @@ const listAllMessages = async (clinician) => {
     const data = []
     const allmessages = await getAllMessages(clinician)
     for (const patient of allmessages) {
-        for (const message of patient.messages) {
-            data.push({'first_name': patient.first_name, 'last_name': patient.last_name, 'message': message.content, 'message_id': message._id, 'user_id': patient.user_id})
+        if (patient.messages != null) {
+            for (const message of patient.messages) {
+                data.push({'first_name': patient.first_name, 'last_name': patient.last_name, 'message': message.content, 'message_id': message._id, 'user_id': patient.user_id})
+            }
         }
     }
     return data
@@ -92,7 +145,7 @@ const getANote = async (patient, note_id) => {
             }
         }
         return null
-    } catch {
+    } catch (err) {
         console.log(err)
     }
 }
@@ -136,7 +189,11 @@ const inLeaderboard = async(patient, rankings) => {
 module.exports = {
     getClinician,
     getPatient,
+    getPatientById,
     getAllPatientObjects,
+    getAllRecords,
+    getARecord,
+    getTodaysRecords,
     getAllMessages,
     listAllMessages,
     getAMessage,

@@ -1,110 +1,110 @@
-			
-			<div class="head-title">
-				<div class="left">
-					<ul class="breadcrumb">
-						<li>
-							<a class="active generic-button" href="#">Patients</a>
-						</li>
-						<li><i class='bx material-icons'>chevron_right</i></li>
-					</ul>
-					<br>
-					<h1>Patients</h1>
-					
-				</div>
-				
-			</div>
+<div class="head-title">
+	<div class="left">
+		<ul class="breadcrumb">
+			<li>
+				<a class="active generic-button" href="#">Patients</a>
+			</li>
+			<li><i class='bx material-icons'>chevron_right</i></li>
+		</ul>
+		<br>
+		<h1>Patients</h1>
+	</div>
+</div>
 
-			<ul class="box-info">
-				<li>
-					<i class='bx material-icons'>today</i>
-					<span class="text">
-						<h3>{{getCurrentDate}}</h3>
-						<p>Current Date</p>
-					</span>
-				</li>
-				<li>
-					<i class='bx material-icons'>personal_injury</i>
-					<span class="text">
-						<h3>{{data.length}}</h3>
-						<p>patient(s)</p>
-					</span>
-				</li>
-				<li>
-					<i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
-					<span class="text">
-						<h3>{{clinician.length}}</h3>
-						<p>Messages(s) Sent</p>
-					</span>
-				</li>
-					<li>
-					<i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
-					<span class="text">
-						<h3>{{clinician.length}}</h3>
-						<p>Clinician Note(s) created</p>
-					</span>
-				</li>
-			</ul>
+<ul class="box-info">
+	<li>
+		<i class='bx material-icons'>today</i>
+		<span class="text">
+			<h3>{{getCurrentDate}}</h3>
+			<p>Current Date</p>
+		</span>
+	</li>
+	<li>
+		<i class='bx material-icons'>personal_injury</i>
+		<span class="text">
+			{{#with patients}}
+			<h3>{{this.length}}</h3>
+			{{/with}}
+			<p>patient(s)</p>
+		</span>
+	</li>
+	<li>
+		<i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
+		<span class="text">
+			{{#with messages}}
+			<h3>{{this}}</h3>
+			{{/with}}
+			<p>Messages(s) Sent</p>
+		</span>
+	</li>
+		<li>
+		<i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
+		<span class="text">
+			{{#with notes}}
+			<h3>{{this}}</h3>
+			{{/with}}
+			<p>Clinician Note(s) created</p>
+		</span>
+	</li>
+</ul>
 
+<div class="table-data">
+	
+	<div class="order">
+		<div class="head">
+			<!--					<i class='bx bx-check-square' ></i>-->
+			{{#with patients}}
+			<h3>You have {{this.length}} patients</h3>
+			{{/with}}
+			<input style="width:40%" type="text" class="input-button-select" id="attentionRequiredInput" onkeyup="attentionRequiredSearch()" placeholder="Search..." title="Type in a name">
+			<a style="color:var(--blue);" href="#"><i class='bx material-icons'>filter_list</i></a>
+		</div>
+		<table id="attentionRequiredTable">
+			<thead>
+				<tr class="header">
+					<th>Username</th>
+					<th>Full Name</th>
+					<th>Last Login</th>
+					<th>View</th>
+				</tr>
+			</thead>
+			<tbody>
+				{{!-- loops over the data set --}}
+				{{#each patients}}
+					<tr>
+						<td data-label="Username"><p>{{this.email}}</p></td>
+						<td data-label="Full Name"><p>{{this.first_name}} {{this.last_name}}</p></td>
+						<td data-label="Last Login"><p>{{this.last_login}}</p></td>
+						<td data-label="View"><a href="/clinician/patients?user={{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
+					</tr>
+				{{/each}}
+			</tbody>
+		</table>
+		<br>
+		<p>Records may be hidden, scroll if required</p>
+		<img src="/img/bounce-arrow.gif" alt="scroll-down-animation" width="50vw">
+	</div>
 
-
-			<div class="table-data">
-				<div class="order">
-					<div class="head">
-						<!--					<i class='bx bx-check-square' ></i>-->
-						<h3>You have {{data.length}} patients</h3>
-						<input style="width:40%" type="text" class="input-button-select" id="attentionRequiredInput" onkeyup="attentionRequiredSearch()" placeholder="Search..." title="Type in a name">
-						<a style="color:var(--blue);" href="#"><i class='bx material-icons'>filter_list</i></a>
-					</div>
-					<table id="attentionRequiredTable">
-						<thead>
-							<tr class="header">
-								<th>Username</th>
-								<th>Full Name</th>
-								<th>Last Login</th>
-								<th>View</th>
-							</tr>
-						</thead>
-						<tbody>
-							{{!-- loops over the data set --}}
-							{{#each data}}
-								<tr>
-									<td data-label="Username"><p>{{this.email}}</p></td>
-									<td data-label="Full Name"><p>{{this.first_name}} {{this.last_name}}</p></td>
-									<td data-label="Last Login"><p>{{this.last_login}}</p></td>
-									<td data-label="View"><a href="/clinician/patients/{{this.email}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
-								</tr>
-							{{/each}}
-						</tbody>
-					</table>
-					<br>
-					<p>Records may be hidden, scroll if required</p>
-					<img src="/img/bounce-arrow.gif" alt="scroll-down-animation" width="50vw">
-				</div>
-				<div class="todo">
-					<div class="head">
-						<!--					<i class='bx bx-edit-alt'></i>-->
-						<h3>Quick Links</h3>
-					</div>
-					
-					<ul class="todo-list">
-						<li class="blueone">
-							<p>Clinical Notes</p>
-							<p data-label="View"><a href="/clinician/notes"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></p>
-						</li>
-						<li class="blueone">
-							<p>Message Someone:</p>
-							<p data-label="View"><a href="/clinician/messages"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></p>
-						</li>
-							<li class="blueone">
-							<p>Add a New Patient</p>
-							<p data-label="View"><a href="/clinician/addNewPatient"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></p>
-						</li>
-					</ul>
-					<br>
-					
-				</div>
-
-
-
-
-			</div>
+	<div class="todo">
+		<div class="head">
+			<!--					<i class='bx bx-edit-alt'></i>-->
+			<h3>Quick Links</h3>
+		</div>
+		
+		<ul class="todo-list">
+			<li class="blueone">
+				<p>Clinical Notes</p>
+				<p data-label="View"><a href="/clinician/notes"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></p>
+			</li>
+			<li class="blueone">
+				<p>Message Someone</p>
+				<p data-label="View"><a href="/clinician/messages"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></p>
+			</li>
+			<li class="blueone">
+				<p>Add a New Patient</p>
+				<p data-label="View"><a href="/clinician/addNewPatient"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></p>
+			</li>
+		</ul>
+		<br>		
+	</div>
+</div>
