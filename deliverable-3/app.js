@@ -332,6 +332,12 @@ hbs.handlebars.registerHelper('formatRecord', function(record) {
     }
 });
 
+hbs.handlebars.registerHelper('highlightErrorRow', function(error) {
+    if (error != '') {
+        return 'style=\"background-color: #FFA630;\"'
+    }
+});
+
 app.get('/', (req, res) => {
     res.render('welcome.hbs', {layout: "loggedout"})
 })

@@ -33,6 +33,9 @@ const getPatientRecords = async (req, res, next) => {
             /* Viewing a single patient */
             const patient = await joins.getPatientById(req.query.user)
             const records = await joins.getAllRecords(patient)
+            for (const record of records) {
+                record['error'] = await joins.getWarning(patient, record.record_type, record)
+            }
             return res.render('clinicianViewPatient', {patient: patient, records: records, layout: 'main2'})
         } else if (Object.keys(req.query).length === 2) {
             /* Viewing an individual patient record */

@@ -102,19 +102,9 @@ const getTodaysRecords = async (clinician) => {
             for (const record of patient.records) {
                 if (record.created_at >= start && record.created_at <= end) {
                     patientrecords[record.record_type] = Number(record.value)
-                    if (thresholdCheck(patient, record.record_type, record)) {
-                        const uppercase = record.record_type.replace(/^\w/, (c) => c.toUpperCase())
-                        patientrecords['error'] += uppercase + ' is outside of the threshold. '
-                    }
+                    patientrecords['error'] += await getWarning(patient, record.record_type, record)
                 }
             }
-
-            // for (const type of ['glucose', 'insulin', 'exercise', 'weight']) {
-            //     if (patientrecords[type] == 'Not recorded') {
-            //         const uppercase = type.replace(/^\w/, (c) => c.toUpperCase())
-            //         patientrecords['error'] += uppercase + ' is not recorded.'
-            //     }
-            // }
 
             records.push(patientrecords)
         }
@@ -123,6 +113,14 @@ const getTodaysRecords = async (clinician) => {
     } catch (err) {
         console.log(err)
     }
+}
+
+const getWarning = async (patient, record_type, record) => {
+    if (thresholdCheck(patient, record_type, record)) {
+        const uppercase = record.record_type.replace(/^\w/, (c) => c.toUpperCase())
+        return uppercase + ' is outside of the threshold. '
+    }
+    return ''
 }
 
 const thresholdCheck = async (patient, record_type, record) => {
@@ -265,6 +263,7 @@ module.exports = {
     getAllRecords,
     getARecord,
     getTodaysRecords,
+    getWarning,
     thresholdCheck,
     getThresholds,
     getAllMessages,
