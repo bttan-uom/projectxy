@@ -88,7 +88,8 @@ const editUserInformation = async (req, res, next) => {
                     phone: req.body.phone,
                     address: req.body.address,
                     gender: req.body.gender,
-                    height: req.body.height
+                    height: req.body.height,
+                    dob: req.body.dob
             }}, (err) => {
                     if (err) {
                         console.log(err)

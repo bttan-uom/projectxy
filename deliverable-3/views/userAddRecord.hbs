@@ -53,7 +53,10 @@
 				<select class="input-button-select" name="record_type">
 					<option selected="true" disabled="disabled">Select from the list</option>
 					{{#each oneItem.thresholds}}
+					{{#if (shouldUserRecord lower)}}
 					<option value="{{name}}">{{formatThresholds name}}</option>
+					{{else}}
+					{{/if}}
 					{{/each}}
 				</select>
 				<br><br>
@@ -74,7 +77,7 @@
 			<ul class="todo-list">
 				{{#each oneItem.thresholds}}
 				<li class="blueone">
-					<p>{{formatThresholds name}}</p>
+					<p>{{formatThresholds name}}: {{negativeThreshold this.lower}} - {{negativeThreshold this.upper}}</p>
 				</li>
 				{{/each}}
 			</ul>

@@ -1,6 +1,7 @@
 // import Patient and Clinician schemas
 const Clinician = require('../models/clinicians')
 const Patients = require('../models/patients')
+const Users = require('../models/user')
 const moment = require('moment');
 
 /* Get clinician and patient from username */
@@ -38,6 +39,16 @@ const getAllPatientObjects = async (clinician) => {
             patients.push(await getPatient(email_obj.email))
         }
         return patients
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+/* Joins with Users collection */
+const getUser = async (username) => {
+    try {
+        const user = await Users.findOne({'username': username}).lean()
+        return user
     } catch (err) {
         console.log(err)
     }
@@ -196,6 +207,7 @@ module.exports = {
     getPatient,
     getPatientById,
     getAllPatientObjects,
+    getUser,
     getAllRecords,
     getARecord,
     getTodaysRecords,

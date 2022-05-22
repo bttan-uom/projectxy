@@ -138,6 +138,30 @@ hbs.handlebars.registerHelper('formatCurrentDateForPost', function(dateString) {
     );
 });
 
+hbs.handlebars.registerHelper('formatCurrentDateForPost', function(dateString) {
+    return new hbs.handlebars.SafeString(
+        moment(dateString).tz('Australia/Melbourne').format("YYYY-MM-DD")
+    );
+});
+
+hbs.handlebars.registerHelper('negativeThreshold', function(threshold) {
+    if (threshold == -1){
+        return "Not Recorded"
+    }
+    else{
+        return threshold
+    }
+});
+
+hbs.handlebars.registerHelper('shouldUserRecord', function(threshold) {
+    if (threshold == -1){
+        return false
+    }
+    else{
+        return true
+    }
+});
+
 hbs.handlebars.registerHelper ('truncate', function (str, len) {
     if (str.length > len && str.length > 0) {
         var new_str = str + " ";
@@ -178,40 +202,7 @@ hbs.handlebars.registerHelper('if_eq_clinician_dashboard', function(record_type,
     return 'style="background-color:var(#FFFFFF);"';//outOfRange;
 });
 
-// hbs.handlebars.registerHelper('count_threshold_warnings', function(patientData) {
-//     numWarnings = 0
-//     for (i=0;i<patientData.length;i++){
-//         if (patientData[i].records){
-//             for (j=0;j<patientData[i].records.length;j++){
-//                 console.log(patientData[i].records[j].value)
-//                 console.log(patientData[i].thresholds)
-//                 console.log(patientData[i].thresholds[0].indexOf('weight'))
-//                 if (patientData[i].records[j].record_type == "weight"){
-//                     if (patientData[i].records[j].value < patientData[i].thresholds[patientData[i].thresholds.indexOf('weight')][0] || patientData[i].records[j].value > patientData[i].thresholds[patientData[i].thresholds.indexOf('weight')][1]){
-//                         numWarnings+=1
-//                     }
-//                 }
-//                 if (patientData[i].records[j].record_type == "insulin"){
-//                     if (patientData[i].records[j].value < patientData[i].thresholds[patientData[i].thresholds.indexOf('insulin')][0] || patientData[i].records[j].value > patientData[i].thresholds[patientData[i].thresholds.indexOf('insulin')][1]){
-//                         numWarnings+=1
-//                     }
-//                 }
-//                 if (patientData[i].records[j].record_type == "glucose"){
-//                     if (patientData[i].records[j].value < patientData[i].thresholds[patientData[i].thresholds.indexOf('glucose')][0] || patientData[i].records[j].value > patientData[i].thresholds[patientData[i].thresholds.indexOf('glucose')][1]){
-//                         numWarnings+=1
-//                     }
-//                 }
-//                 if (patientData[i].records[j].record_type == "exercise"){
-//                     if (patientData[i].records[j].value < patientData[i].thresholds[patientData[i].thresholds.indexOf('exercise')][0] || patientData[i].records[j].value > patientData[i].thresholds[patientData[i].thresholds.indexOf('exercise')][1]){
-//                         numWarnings+=1
-//                     }
-//                 }
 
-//             }
-//         }
-//     }
-//     return numWarnings
-// });
 
 
 hbs.handlebars.registerHelper('if_threshold_text', function(record_type, patientData) {
@@ -310,6 +301,7 @@ hbs.handlebars.registerHelper('isEngagementHigh', function(engagement) {
 hbs.handlebars.registerHelper('formatEngagement', function(engagement) {
     return (engagement * 100).toFixed(0)
 });
+
 
 hbs.handlebars.registerHelper('formatThresholds', function(threshold) {
     if (threshold == "glucose"){

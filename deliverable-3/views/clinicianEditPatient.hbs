@@ -1,4 +1,5 @@
-{{#with oneItem}}
+<form id="addRecordForm" action="/clinician/patients/edit?user={{patient._id}}" method="POST">
+
 <div class="head-title">
     <div class="left">
         <ul class="breadcrumb">
@@ -7,7 +8,7 @@
             </li>
             <li><i class='bx material-icons'>chevron_right</i></li>
             <li>
-                <pre><a class="active generic-button" href="#">Patient: {{this.first_name}} {{this.last_name}}</a></pre>
+                <pre><a class="active generic-button" href="#">Patient: {{patient.first_name}} {{patient.last_name}}</a></pre>
             </li>
             <li><i class='bx material-icons'>chevron_right</i></li>
             <li>
@@ -15,12 +16,11 @@
             </li>
         </ul>
         <br>
-        <h1>Edit Patient: {{this.first_name}} {{this.last_name}}</h1>
+        <h1>Edit Patient: {{patient.first_name}} {{patient.last_name}}</h1>
     </div>
-    	<a href="/clinician/patients/{{this.email}}" class="btn-download">
-	<i class='bx material-icons'>done</i>
-	<span style='font-size:13px' class="text">Done</span>
-</a>
+    	<input type="submit" class="btn-download">
+	{{!-- <i class='bx material-icons'>done</i>
+	<span style='font-size:13px' class="text">Done</span> --}}
 </div>
 
 
@@ -65,25 +65,25 @@
             <h3>Patient Details</h3>
         </div>
         
-        <form id="addRecordForm" action="/clinician/patients/{{this.email}}/edit" method="POST">
+
         <ul class="box-info">
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <label>First Name</label>
-                    <input class="input-button-select" type="text" value="{{this.first_name}}" placeholder="" name="first_name" />
+                    <input class="input-button-select" type="text" value="{{patient.first_name}}" placeholder="" name="first_name" />
                 </span>
                 
             </li>
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <label>Last Name</label>
-                    <input class="input-button-select" type="text" value="{{this.last_name}}" name="last_name" />
+                    <input class="input-button-select" type="text" value="{{patient.last_name}}" name="last_name" />
                 </span>
             </li>
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <label>Sign Up Date</label>
-                    <input class="input-button-select" type="Date" value="{{formatLongDate this.signupdate}}" name="signupdate" />
+                    <input class="input-button-select" type="Date" value="{{formatCurrentDateForPost patient.signupdate}}" name="signupdate" />
                 </span>
             </li>
         </ul>
@@ -92,14 +92,14 @@
             
             <li style="background-color:var(--grey);">
                 <span class="text">
-                    <label>Sign Up Date</label>
-                    <input class="input-button-select" type="text" value="{{this.phone}}" name="phone" />
+                    <label>Phone</label>
+                    <input class="input-button-select" type="text" value="{{patient.phone}}" name="phone" />
                 </span>
             </li>
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <label>Email/username</label>
-                    <input class="input-button-select" type="text" value="{{this.email}}" name="email" /></h3>
+                    <input class="input-button-select" type="text" value="{{patient.email}}" name="email" readonly/></h3>
                 </span>
             </li>
         </ul>
@@ -107,7 +107,7 @@
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <label>Address</label>
-                    <input class="input-button-select" type="text" value="{{this.address}}" name="address" />
+                    <input class="input-button-select" type="text" value="{{patient.address}}" name="address" />
                 </span>
                 
             </li>
@@ -117,20 +117,20 @@
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <label>Height</label>
-                    <input class="input-button-select" type="text" value="{{this.height}}" name="height" />
+                    <input class="input-button-select" type="text" value="{{patient.height}}" name="height" />
                 </span>
             </li>
             
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <label>Date of Birth</label>
-                    <input class="input-button-select" type="text" value="{{formatDateLongYear this.dob}}" name="dob" />
+                    <input class="input-button-select" type="Date" value="{{formatCurrentDateForPost patient.dob}}" name="dob" />
                 </span>
             </li>
             <li style="background-color:var(--grey);">
                 <span class="text">
                     <label>Gender</label>
-                    <input class="input-button-select" type="text" value="{{this.gender}}" name="gender" />
+                    <input class="input-button-select" type="text" value="{{patient.gender}}" name="gender" />
                 </span>
             </li>
         </ul>
@@ -140,16 +140,29 @@
         <div class="head">
             <!--					<i class='bx bx-edit-alt'></i>-->
             <h3>Patient records & thresholds</h3>
+            <p>Leave field blank if patient does not need to enter a time-series</p>
         </div>
         <ul class="todo-list">
-            {{#each thresholds}}
             <li class="blueone">
-                <p>{{formatThresholds this.name}}</p>
-                <input class="small-input-button-select" type="number" value="{{this.lower}}" name="{{this.name}}_lower" step=".01"/>
-                <i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i>
-                <input class="small-input-button-select" type="number" value="{{this.upper}}" name="{{this.name}}_upper" step=".01"/>
+                <p>Blood Glucose (nMol/L)</p>
+                <input class="input-button-select" type="number" placeholder="From" name="blood_glucose_lower" step=".01"/>
+                <input class="input-button-select" type="number" placeholder="To" name="blood_glucose_upper" step=".01"/>
             </li>
-            {{/each}}
+            <li class="blueone">
+                <p>Insulin Doses (doses)</p>
+                <input class="input-button-select" type="number" placeholder="Minimum number of doses" name="insulin_lower"/>
+                <input class="input-button-select" type="number" placeholder="Maximum number of doses" name="insulin_upper"/>
+            </li>
+            <li class="blueone">
+                <p>Weight (kg)</p>
+                <input class="input-button-select" type="number" placeholder="From" name="weight_lower" step=".01"/>
+                <input class="input-button-select" type="number" placeholder="To" name="weight_upper" step=".01"/>
+            </li>
+            <li class="blueone">
+                <p>Exercise (steps)</p>
+                <input class="input-button-select" type="number" placeholder="Minimum exercise level" name="exercise_lower" step=".01"/>
+                <input class="input-button-select" type="number" placeholder="Maximum exercise level" name="exercise_upper" step=".01"/>
+            </li>
         </ul>
     </div>
 </div>
@@ -175,7 +188,7 @@
             </thead>
             <tbody>
                 {{!-- loops over the data set --}}
-                {{#each records}}
+                {{#each patient.records}}
                 <tr {{#if_eq_clinician_dashboard this.record_type this.value}} {{/if_eq_clinician_dashboard}}>
                     <td data-label="Date Added"><p>{{formatDate created_at}}</p></td>
                     <td data-label="Record Type"><p>{{record_type}}</p></td>
@@ -192,4 +205,3 @@
         <img src="/img/bounce-arrow.gif" alt="scroll-down-animation" width="50vw">
     </div>
 </div>
-{{/with}}

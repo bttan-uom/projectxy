@@ -3,7 +3,7 @@
 	<div class="left">
 		<ul class="breadcrumb">
 			<li>
-				<a class="active generic-button" href="#">My Profile</a>
+				<a class="active generic-button" href="/user/myinfo">My Profile</a>
 			</li>
 			<li><i class='bx material-icons'>chevron_right</i></li>
 			<a class="active generic-button" href="#">Edit My Profile</a>
@@ -108,6 +108,13 @@
 				<span class="text">
 					<input class="input-button-select" type="text" id="height" name="height" value="{{patient.height}}">
 					<p>Height (cm)</p>
+				</span>
+			</li>
+						<li style="background:#eee">
+				<i class='bx material-icons'>today</i>
+				<span class="text">
+					<input class="input-button-select" type="date" id="dob" name="dob" value="{{formatCurrentDateForPost patient.dob}}">
+					<p>Date of Birth</p>
 				</span>
 			</li>
 		</ul>
