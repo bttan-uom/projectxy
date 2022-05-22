@@ -78,18 +78,17 @@
 
 			<tbody>
 				{{!-- loops over the data set --}}
-					<tr>
-					{{#each records}}
-					<td data-label="username"><p>{{this.username}}</p></td>
-					<td data-label="glucose" {{#formatRecord this.glucose}} {{/formatRecord}}><p>{{this.glucose}}</p></td>
-					<td data-label="weight" {{#formatRecord this.weight}} {{/formatRecord}}><p>{{this.weight}}</p></td>
-					<td data-label="insulin" {{#formatRecord this.insulin}} {{/formatRecord}}><p>{{this.insulin}}</p></td>
-					<td data-label="exercise" {{#formatRecord this.exercise}} {{/formatRecord}}><p>{{this.exercise}}</p></td>
-					{{!-- <td data-label="warning(s)"><p>{{#if_threshold_text this.record_type this.value}} {{/if_threshold_text}}</p></td> --}}
-					<td data-label="warning(s)"><p>{{this.error}}</p></td>
-					<td data-label="view"><a href="/clinician/patients?user={{this.id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
-					</tr>
-					{{/each}}
+				{{#each records}}
+				<tr>
+				<td data-label="username"><p>{{this.username}}</p></td>
+				<td data-label="glucose" {{#formatRecord this.glucose}} {{/formatRecord}}><p>{{this.glucose}}</p></td>
+				<td data-label="weight" {{#formatRecord this.weight}} {{/formatRecord}}><p>{{this.weight}}</p></td>
+				<td data-label="insulin" {{#formatRecord this.insulin}} {{/formatRecord}}><p>{{this.insulin}}</p></td>
+				<td data-label="exercise" {{#formatRecord this.exercise}} {{/formatRecord}}><p>{{this.exercise}}</p></td>
+				<td data-label="warning(s)"><p>{{this.error}}</p></td>
+				<td data-label="view"><a href="/clinician/patients?user={{this.id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
+				</tr>
+				{{/each}}
 			</tbody>
 		</table>
 		<br>
