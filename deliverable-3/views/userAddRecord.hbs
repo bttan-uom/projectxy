@@ -76,7 +76,7 @@
 			<ul class="todo-list">
 				{{#each oneItem.thresholds}}
 				<li class="blueone">
-					<p>{{formatThresholds name}}</p>
+					<p>{{formatThresholds name}}: {{negativeThreshold this.lower}} - {{negativeThreshold this.upper}}</p>
 				</li>
 				{{/each}}
 			</ul>

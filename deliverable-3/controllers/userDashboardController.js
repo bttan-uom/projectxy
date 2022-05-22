@@ -1,5 +1,7 @@
 const joins = require('./joins')
-const Patients = require('../models/patients')
+const Patients = require("../models/patients")
+const User = require("../models/user")
+const bcrypt = require("bcrypt");
 
 // handle request to get all data instances
 const getAllRecords = async (req, res, next) => {
@@ -87,7 +89,8 @@ const editUserInformation = async (req, res, next) => {
                     phone: req.body.phone,
                     address: req.body.address,
                     gender: req.body.gender,
-                    height: req.body.height
+                    height: req.body.height,
+                    dob: req.body.dob
             }}, (err) => {
                     if (err) {
                         console.log(err)
@@ -95,10 +98,12 @@ const editUserInformation = async (req, res, next) => {
                 }
         )
         
+        const salt = await bcrypt.genSalt(10);
+
         User.updateOne(
             {username: oldPatientUsername},
             {$set:{username: req.body.email,
-                   password: req.body.password,
+                   password: await bcrypt.hash(req.body.password, salt),
                    role: "patient"
             }}, (err) => {
                     if (err) {
@@ -126,8 +131,7 @@ const addNewUserRecord = async (req, res, next) => {
         } else if (req.body.value === '') {
             res.render('userAddRecordFail', {error: 'Cannot input empty value.', clinician: clinician})
         } else {
-            // newPatientRecord = new Records(req.body)
-            // await newPatientRecord.save()
+
 
             Patients.Patient.findOneAndUpdate(
                 {"email": res.userInfo.username},

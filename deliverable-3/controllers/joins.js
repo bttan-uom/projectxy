@@ -1,6 +1,7 @@
 // import Patient and Clinician schemas
 const Clinician = require('../models/clinicians')
 const Patients = require('../models/patients')
+const Users = require('../models/user')
 const moment = require('moment');
 
 /* Get clinician and patient from username */
@@ -38,6 +39,16 @@ const getAllPatientObjects = async (clinician) => {
             patients.push(await getPatient(email_obj.email))
         }
         return patients
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+/* Joins with Users collection */
+const getUser = async (username) => {
+    try {
+        const user = await Users.findOne({'username': username}).lean()
+        return user
     } catch (err) {
         console.log(err)
     }
@@ -239,6 +250,24 @@ const getANote = async (patient, note_id) => {
     }
 }
 
+/* Joins for comments */
+const getAllComments = async (clinician) => {
+    try {
+        const patients = await getAllPatientObjects(clinician)
+        const comments = []
+        for (const patient of patients) {
+            for (const record of patient.records) {
+                if (record.comments != "" && record.comments != null) {
+                    comments.push({'username': patient.email, 'id': patient._id, 'comment': record.comments, 'time': record.created_at})
+                }
+            }
+        }
+        return comments
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 /* Joins for leaderboard */
 const getTopFive = async () => {
     try {
@@ -306,6 +335,7 @@ module.exports = {
     getPatient,
     getPatientById,
     getAllPatientObjects,
+    getUser,
     getAllRecords,
     getARecord,
     getTodaysRecords,
@@ -318,6 +348,7 @@ module.exports = {
     getMessagesNotCompleted,
     getAllNotes,
     getANote,
+    getAllComments,
     getTopFive,
     inLeaderboard,
     getEngagementRate,
