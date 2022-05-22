@@ -326,6 +326,9 @@ hbs.handlebars.registerHelper('formatThresholds', function(threshold) {
     }
 });
 
+hbs.handlebars.registerHelper('formatRecord', function(record) {
+});
+
 app.get('/', (req, res) => {
     res.render('welcome.hbs', {layout: "loggedout"})
 })

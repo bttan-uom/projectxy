@@ -9,7 +9,9 @@
 
 		<br>
 		<h1>Dashboard</h1>
-		<h2>Welcome, {{clinician.first_name}}.</h2>
+		{{#with clinician}}
+		<h2>Welcome, {{this.first_name}}.</h2>
+		{{/with}}
 	</div>
 </div>
 
@@ -25,18 +27,17 @@
 	<li>
 		<i class='bx material-icons'>personal_injury</i>
 		<span class="text">
-			{{#with patients}}
+			{{#with records}}
 			<h3>{{this.length}}</h3>
 			{{/with}}
 			<p>Patient(s)</p>
-			
 		</span>
 	</li>
 
 	<li>
 		<i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
 		<span class="text">
-			{{#with nmessages}}
+			{{#with messages}}
 			<h3>{{this}}</h3>
 			{{/with}}
 			<p>Messages(s) Sent</p>
@@ -46,7 +47,7 @@
 	<li>
 		<i style="background: var(--light-orange); color: var(--orange);" class='bx material-icons'>data_thresholding</i>
 		<span class="text">
-			{{#with nnotes}}
+			{{#with notes}}
 			<h3>{{this}}</h3>
 			{{/with}}
 			<p>Clinician Note(s) created</p>
@@ -58,78 +59,40 @@
 	<div class="order">
 		<div class="head">
 			<!--					<i class='bx bx-check-square' ></i>-->
-			<h3>All Patient Records</h3>
+			<h3>Patient records for today</h3>
 			<input style="width:40%" type="text" class="input-button-select" id="attentionRequiredInput" onkeyup="attentionRequiredSearch()" placeholder="Search..." title="Type in a name">
 			<a style="color:var(--blue);" href="#"><i class='bx material-icons'>filter_list</i></a>
 		</div>
 		<table id="attentionRequiredTable">
 			<thead>
 				<tr class="header">
-					<th>Record Type</th>
-					<th>Value</th>
-					<th>User</th>
-					<th>Warning</th>
+					<th>Username</th>
+					<th>Blood Glucose</th>
+					<th>Weight</th>
+					<th>Insulin</th>
+					<th>Exercise</th>
+					<th>Warning(s)</th>
 					<th>View</th>
 				</tr>
 			</thead>
+
 			<tbody>
 				{{!-- loops over the data set --}}
-				{{#each patients}}
+					<tr>
 					{{#each records}}
-						<tr {{#if_eq_clinician_dashboard this.record_type this.value}} {{/if_eq_clinician_dashboard}}>
-							<td data-label="Record Type"><p>{{this.record_type}}</p></td>
-							<td data-label="Value"><p>{{this.value}}</p></td>
-							<td data-label="Username"><p>{{this.username}}</p></td>
-							<td data-label="Warning"><p>{{#if_threshold_text this.record_type this.value}} {{/if_threshold_text}}</p></td>
-							<td data-label="View"><a href="/clinician/patients/{{../email}}/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
-						</tr>
+					<td data-label="username"><p>{{this.username}}</p></td>
+					<td data-label="glucose"><p>{{this.glucose}}</p></td>
+					<td data-label="weight"><p>{{this.weight}}</p></td>
+					<td data-label="insulin"><p>{{this.insulin}}</p></td>
+					<td data-label="exercise"><p>{{this.exercise}}</p></td>
+					<td data-label="warning(s)"><p>{{#if_threshold_text this.record_type this.value}} {{/if_threshold_text}}</p></td>
+					<td data-label="view"><a href="/clinician/patients?user={{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
+					</tr>
 					{{/each}}
-				{{/each}}
 			</tbody>
 		</table>
 		<br>
 		<p>Records may be hidden, scroll if required</p>
 		<img src="/img/bounce-arrow.gif" alt="scroll-down-animation" width="50vw">
 	</div>
-
-	<div class="order">
-		<div class="head">
-			<!--					<i class='bx bx-check-square' ></i>-->
-			<h3>Today's patient records </h3>
-			<input style="width:40%" type="text" class="input-button-select" id="allPatientsInput" onkeyup="allPatientsSearch()" placeholder="Search..." title="Type in a name">
-			<a style="color:var(--blue);" href="#"><i class='bx material-icons'>filter_list</i></a>
-		</div>
-		<table id="allPatientsTable">
-			<thead>
-				<tr class="header">
-					<th scope="col">Record Type</th>
-					<th scope="col">Value</th>
-					<th scope="col">User</th>
-					<th scope="col">Warning</th>
-					<th scope="col">View</th>
-				</tr>
-			</thead>
-			<tbody>
-				{{!-- loops over the data set --}}
-				{{#each patients}}
-					{{#each records}}
-						{{#if (isFromToday this.created_at)}}
-							<tr {{#if_eq_clinician_dashboard this.record_type this.value}} {{/if_eq_clinician_dashboard}}>
-								<td data-label="Record Type"><p>{{this.record_type}}</p></td>
-								<td data-label="Value"><p>{{this.value}}</p></td>
-								<td data-label="Username"><p>{{this.username}}</p></td>
-								<td data-label="Warning"><p>{{#if_threshold_text this.record_type this.value}} {{/if_threshold_text}}</p></td>
-								<td data-label="View"><a href="/clinicianDashboard/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
-							</tr>
-						{{else}}
-						{{/if}}
-					{{/each}}
-				{{/each}}
-			</tbody>
-		</table>
-		<br>
-		<p>Records may be hidden, scroll if required</p>
-		<img src="/img/bounce-arrow.gif" alt="scroll-down-animation" width="50vw">
-	</div>
-
 </div>

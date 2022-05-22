@@ -69,10 +69,45 @@ const getARecord = async (patient, record_id) => {
     }
 }
 
-const getTodaysRecords = async (patients) => {
+const getTodaysRecords = async (clinician) => {
     try {
-        const today = moment().toISOString()
-        console.log(today)
+        const start = new Date()
+        start.setUTCHours(0, 0, 0, 0)
+        const end = new Date()
+        end.setUTCHours(23, 59, 59, 999)
+
+        const patients = await getAllPatientObjects(clinician)
+
+        const records = []
+        const record_types = ['glucose', 'insulin', 'exercise', 'weight']
+        for (const patient of patients) {
+            if (patient == null) {
+                continue
+            }
+            
+            const patientrecords = {'username': patient.email}
+
+            const thresholds = []
+            for (const threshold of patient.thresholds) {
+                thresholds.push(threshold.name)
+            }
+
+            for (const type of record_types) {
+                if (!thresholds.includes(type)) {
+                    patientrecords[type] = 'Not required'
+                } else {
+                    patientrecords[type] = 'Not recorded'
+                }
+            }
+
+            for (const record of patient.records) {
+                if (record.created_at >= start && record.created_at <= end) {
+                    patientrecords[record.record_type] = record.value
+                }
+            }
+            records.push(patientrecords)
+        }
+        return records
     } catch (err) {
         console.log(err)
     }
@@ -180,7 +215,7 @@ const getTopFive = async () => {
     }
 }
 
-const inLeaderboard = async(patient, rankings) => {
+const inLeaderboard = async (patient, rankings) => {
     // Returns either 1-5 if the patient is in the leaderboard
     // 0 otherwise
     for (let i in rankings) {
