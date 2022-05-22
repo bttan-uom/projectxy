@@ -34,7 +34,7 @@ const getAllHistory = async (req, res, next) => {
 }
 
 // handle request to get all data instances
-const getAddUserRecordsPage = async (req, res) => {
+const getAddUserRecordsPage = async (req, res, next) => {
     try {
         const patient = await joins.getPatient(res.userInfo.username)
         const clinician = await joins.getClinician(patient.clinician)
@@ -45,7 +45,7 @@ const getAddUserRecordsPage = async (req, res) => {
 }
 
 // handle request to get all data instances
-const getUserInformation = async (req, res) => {
+const getUserInformation = async (req, res, next) => {
     try {
         const patient = await joins.getPatient(res.userInfo.username)
         const clinician = await joins.getClinician(patient.clinician)
@@ -56,7 +56,7 @@ const getUserInformation = async (req, res) => {
 }
 
 
-const renderEditUserInformation = async (req, res) => {
+const renderEditUserInformation = async (req, res, next) => {
     try {
         const patient = await joins.getPatient(res.userInfo.username)
         const clinician = await joins.getClinician(patient.clinician)
@@ -111,7 +111,7 @@ const getAMessage = async (req, res, next) => {
 const getLeaderboard = async (req, res, next) => {
     try {
         const patient = await joins.getPatient(res.userInfo.username)
-        const clinician = await joins.getClinician(patient.email)
+        const clinician = await joins.getClinician(patient.clinician)
         const rankings = await joins.getTopFive()
         const position = await joins.inLeaderboard(patient.email, rankings)
         res.render('userLeaderboard', {clinician: clinician, leaderboard: rankings, position: position, engagement: patient.engagement_rate})

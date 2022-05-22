@@ -26,7 +26,9 @@
 		<li>
 			<i class='bx material-icons'>medication</i>
 			<span class="text">
-					<h3>Dr. {{this.first_name}} {{this.last_name}}</h3>
+				{{#with clinician}}
+				<h3>Dr. {{this.first_name}} {{this.last_name}}</h3>
+				{{/with}}
 				<p>Your clinician</p>
 			</span>
 		</li>
@@ -45,10 +47,7 @@
 			</span>
 		</li>
 	</ul>
-	
-	
-	
-		
+
 	<div class="table-data">
 		<div class="order">
 			<div class="head">
