@@ -1,6 +1,7 @@
 const joins = require('./joins')
 const Patients = require("../models/patients")
 const User = require("../models/user")
+const bcrypt = require("bcrypt");
 
 // handle request to get all data instances
 const getAllRecords = async (req, res, next) => {
@@ -95,10 +96,21 @@ const editUserInformation = async (req, res, next) => {
                 }
         )
         
+        const salt = await bcrypt.genSalt(10);
+        // bcrypt.hash(req.body.password, 10, (err, hash) => {
+        //     if (err) {
+        //         return next(err)
+        //     }
+        //     //replace password with hash
+        //     hashedpass = hash
+        //     console.log(hashedpass)
+        //     next()
+        // })
+
         User.updateOne(
             {username: oldPatientUsername},
             {$set:{username: req.body.email,
-                   password: req.body.password,
+                   password: await bcrypt.hash(req.body.password, salt),
                    role: "patient"
             }}, (err) => {
                     if (err) {

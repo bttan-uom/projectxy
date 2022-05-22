@@ -242,7 +242,6 @@ module.exports = {
     newNote,
     createNote,
     addNewUser,
-    getAddNewUserPage,
-    editSinglePatientPage
+    getAddNewUserPage
 }
 
