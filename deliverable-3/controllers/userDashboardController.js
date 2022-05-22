@@ -97,15 +97,6 @@ const editUserInformation = async (req, res, next) => {
         )
         
         const salt = await bcrypt.genSalt(10);
-        // bcrypt.hash(req.body.password, 10, (err, hash) => {
-        //     if (err) {
-        //         return next(err)
-        //     }
-        //     //replace password with hash
-        //     hashedpass = hash
-        //     console.log(hashedpass)
-        //     next()
-        // })
 
         User.updateOne(
             {username: oldPatientUsername},
