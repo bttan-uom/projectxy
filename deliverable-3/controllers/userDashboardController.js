@@ -12,22 +12,18 @@ const getAllRecords = async (req, res, next) => {
     }
 }
 
-// handle request to get one data instance
-const getDataById = async (req, res, next) => {
+const getHistory = async (req, res, next) => {
     try {
-        const patient = await joins.getPatient(res.userInfo.username)
-        const clinician = await joins.getClinician(patient.clinician)
-        return res.render('oneData', {oneItem: patient, clinician: clinician, recordToView: req.params.record_id})
-    } catch (err) {
-        return next(err)
-    }
-}
-
-const getAllHistory = async (req, res, next) => {
-    try {
-        const patient = await joins.getPatient(res.userInfo.username)
-        const clinician = await joins.getClinician(patient.clinician)
-        return res.render('history', {data: patient, clinician: clinician, currentUser: res.userInfo})
+        if (Object.keys(req.query).length === 0) {
+            const patient = await joins.getPatient(res.userInfo.username)
+            const clinician = await joins.getClinician(patient.clinician)
+            return res.render('history', {data: patient, clinician: clinician, currentUser: res.userInfo})
+        } else if (Object.keys(req.query).length === 1) {
+            const patient = await joins.getPatient(res.userInfo.username)
+            const clinician = await joins.getClinician(patient.clinician)
+            const record = await joins.getARecord(patient, req.query.record)
+            return res.render('oneData', {patient: patient, clinician: clinician, record: record})
+        }
     } catch (err) {
         return next(err)
     }
@@ -123,8 +119,7 @@ const getLeaderboard = async (req, res, next) => {
 // exports an object, which contain functions imported by router
 module.exports = {
     getAllRecords,
-    getDataById,
-    getAllHistory,
+    getHistory,
     getAddUserRecordsPage,
     addNewUserRecord,
     getUserInformation,
