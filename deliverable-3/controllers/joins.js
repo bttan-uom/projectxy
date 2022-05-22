@@ -30,7 +30,6 @@ const getPatientById = async (id) => {
     }
 }
 
-/* General joins */
 const getAllPatientObjects = async (clinician) => {
     try {
         const patients = []
@@ -38,6 +37,32 @@ const getAllPatientObjects = async (clinician) => {
             patients.push(await getPatient(email_obj.email))
         }
         return patients
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+/* Joins for records */
+const getAllRecords = async (patient) => {
+    try {
+        const records = []
+        for (const record of patient.records) {
+            records.push({'user_id': patient._id, 'record_id': record._id, 'record_type': record.record_type, 'value': record.value, 'created_at': record.created_at, 'comment': record.comments})
+        }
+        return records
+    } catch (err) {
+        console.log(err)
+    }
+}
+
+const getARecord = async (patient, record_id) => {
+    try {
+        for (const record of patient.records) {
+            if (record._id == record_id) {
+                return record
+            }
+        }
+        return null
     } catch (err) {
         console.log(err)
     }
@@ -147,6 +172,8 @@ module.exports = {
     getPatient,
     getPatientById,
     getAllPatientObjects,
+    getAllRecords,
+    getARecord,
     getAllMessages,
     listAllMessages,
     getAMessage,

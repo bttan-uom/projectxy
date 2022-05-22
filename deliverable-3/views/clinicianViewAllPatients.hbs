@@ -49,11 +49,13 @@
 </ul>
 
 <div class="table-data">
-	{{#with patients}}
+	
 	<div class="order">
 		<div class="head">
 			<!--					<i class='bx bx-check-square' ></i>-->
+			{{#with patients}}
 			<h3>You have {{this.length}} patients</h3>
+			{{/with}}
 			<input style="width:40%" type="text" class="input-button-select" id="attentionRequiredInput" onkeyup="attentionRequiredSearch()" placeholder="Search..." title="Type in a name">
 			<a style="color:var(--blue);" href="#"><i class='bx material-icons'>filter_list</i></a>
 		</div>
@@ -68,12 +70,12 @@
 			</thead>
 			<tbody>
 				{{!-- loops over the data set --}}
-				{{#each this}}
+				{{#each patients}}
 					<tr>
 						<td data-label="Username"><p>{{this.email}}</p></td>
 						<td data-label="Full Name"><p>{{this.first_name}} {{this.last_name}}</p></td>
 						<td data-label="Last Login"><p>{{this.last_login}}</p></td>
-						<td data-label="View"><a href="/clinician/patients/{{this.email}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
+						<td data-label="View"><a href="/clinician/patients?user={{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
 					</tr>
 				{{/each}}
 			</tbody>
@@ -82,7 +84,6 @@
 		<p>Records may be hidden, scroll if required</p>
 		<img src="/img/bounce-arrow.gif" alt="scroll-down-animation" width="50vw">
 	</div>
-	{{/with}}
 
 	<div class="todo">
 		<div class="head">
