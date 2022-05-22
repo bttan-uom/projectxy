@@ -255,6 +255,32 @@ const inLeaderboard = async (patient, rankings) => {
     return 0
 }
 
+const getEngagementRate = async (patient) => {
+    const now = new Date()
+    const then = patient.signupdate
+    const total_days = Math.round((now - then) / (1000 * 60 * 60 * 24))
+    const days = new Set()
+    for (const record of patient.records) {
+        const date = new Date(record.created_at)
+        const date_string = '' + date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
+        days.add(date_string)
+    }
+    return days.size / total_days
+}
+
+const updateEngagement = async (patient) => {
+    const new_engagement = await getEngagementRate(patient)
+    Patients.Patient.updateOne(
+        {'email': patient.email},
+        {$set: {engagement_rate: new_engagement}},
+        (err) => {
+            if (err) {
+                console.log(err)
+            }
+        }
+    )
+}
+
 module.exports = {
     getClinician,
     getPatient,
@@ -272,5 +298,7 @@ module.exports = {
     getAllNotes,
     getANote,
     getTopFive,
-    inLeaderboard
+    inLeaderboard,
+    getEngagementRate,
+    updateEngagement
 }
