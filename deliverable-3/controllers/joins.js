@@ -116,7 +116,10 @@ const getTodaysRecords = async (clinician) => {
                     patientrecords['error'] += await getWarning(patient, record.record_type, record)
                 }
             }
-
+    
+            if (patientrecords['error'] == '') {
+                patientrecords['error'] = 'None'
+            }
             records.push(patientrecords)
         }
 
@@ -152,7 +155,7 @@ const getWarning = async (patient, record_type, record) => {
         const uppercase = record.record_type.replace(/^\w/, (c) => c.toUpperCase())
         return uppercase + ' is outside of the threshold. '
     }
-    return ''
+    return 'None'
 }
 
 const thresholdCheck = async (patient, record_type, record) => {

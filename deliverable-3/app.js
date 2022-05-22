@@ -333,7 +333,7 @@ hbs.handlebars.registerHelper('formatRecord', function(record) {
 });
 
 hbs.handlebars.registerHelper('highlightErrorRow', function(error) {
-    if (error != '') {
+    if (error != 'None') {
         return 'style=\"background-color: #FFA630;\"'
     }
 });
