@@ -1,12 +1,19 @@
 const joins = require('./joins')
 const Patients = require("../models/patients")
+const User = require("../models/user")
 
 // handle request to get all data instances
 const getAllRecords = async (req, res, next) => {
     try {
         const patient = await joins.getPatient(res.userInfo.username)
         const clinician = await joins.getClinician(patient.clinician)
-        const latest_message = patient.messages[patient.messages.length - 1].content
+        const latest_message = "No message available"
+        console.log(patient.messages.length)
+        if (patient.messages.length > 0) {
+            const latest_message = patient.messages[patient.messages.length - 1].content
+        }
+        
+        //const latest_message = patient.messages[patient.messages.length - 1].content
         return res.render('index', {patient: patient, clinician: clinician, currentUser: res.userInfo, latest_message: latest_message})
     } catch (err) {
         return next(err)
@@ -35,7 +42,7 @@ const getAllHistory = async (req, res, next) => {
 }
 
 // handle request to get all data instances
-const getAddUserRecordsPage = async (req, res) => {
+const getAddUserRecordsPage = async (req, res, next) => {
     try {
         const patient = await joins.getPatient(res.userInfo.username)
         const clinician = await joins.getClinician(patient.clinician)
@@ -46,7 +53,7 @@ const getAddUserRecordsPage = async (req, res) => {
 }
 
 // handle request to get all data instances
-const getUserInformation = async (req, res) => {
+const getUserInformation = async (req, res, next) => {
     try {
         const patient = await joins.getPatient(res.userInfo.username)
         const clinician = await joins.getClinician(patient.clinician)
@@ -57,12 +64,56 @@ const getUserInformation = async (req, res) => {
 }
 
 
-const renderEditUserInformation = async (req, res) => {
+const renderEditUserInformation = async (req, res, next) => {
     try {
         const patient = await joins.getPatient(res.userInfo.username)
         const clinician = await joins.getClinician(patient.clinician)
         res.render('userEditInformation', {patient: patient, clinician: clinician})
     } catch(err) {
+        return next(err)
+    }
+}
+
+const editUserInformation = async (req, res, next) => {
+    try { 
+        const patient = await joins.getPatient(res.userInfo.username)
+        const oldPatientUsername = res.userInfo.username
+        if (!patient) {
+            // Patient does not have a clinician
+            return res.sendStatus(404)
+        }
+
+        Patients.Patient.updateOne(
+            {email: patient.email},
+            {$set: {first_name: req.body.first_name, 
+                    last_name: req.body.last_name,
+                    email: req.body.email,
+                    phone: req.body.phone,
+                    address: req.body.address,
+                    gender: req.body.gender,
+                    height: req.body.height
+            }}, (err) => {
+                    if (err) {
+                        console.log(err)
+                    }
+                }
+        )
+        
+        User.updateOne(
+            {username: oldPatientUsername},
+            {$set:{username: req.body.email,
+                   password: req.body.password,
+                   role: "patient"
+            }}, (err) => {
+                    if (err) {
+                        console.log(err)
+                    }
+                }
+        )
+
+        res.redirect('/auth')
+
+    } catch (err) {
         return next(err)
     }
 }
@@ -136,6 +187,8 @@ const getLeaderboard = async (req, res, next) => {
     }
 }
 
+
+
 // exports an object, which contain functions imported by router
 module.exports = {
     getAllRecords,
@@ -145,6 +198,7 @@ module.exports = {
     addNewUserRecord,
     getUserInformation,
     renderEditUserInformation,
+    editUserInformation,
     getMessages,
     getAMessage,
     getLeaderboard

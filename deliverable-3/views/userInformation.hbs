@@ -42,7 +42,7 @@
 <div class="table-data">
 	<div class="order">
 		<div class="head">
-			<h3>Personal details</h3><i class='bx material-icons'>edit</i>
+			<h3>Personal details</h3>
 		</div>
 
 		
@@ -124,7 +124,7 @@
 		<ul class="todo-list">
             {{#each patient.thresholds}}
             <li class="blueone">
-                <p>{{this.[0]}}: {{this.[1].[0]}} - {{this.[1].[1]}}</p>
+                <p>{{formatThresholds this.name}}: {{this.lower}} - {{this.upper}}</p>
             </li>
             {{/each}}
 		</ul>

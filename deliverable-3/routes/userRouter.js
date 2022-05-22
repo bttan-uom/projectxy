@@ -98,6 +98,15 @@ userRouter.get('/myinfo/edit', isAuthenticated, hasRole("patient"),
     userDashboardController.renderEditUserInformation
 );
 
+userRouter.post('/myinfo/edit', isAuthenticated, hasRole("patient"),
+    function(req, res, next){ 
+       res.userInfo = req.user.toJSON()
+       next()
+    },
+    userDashboardController.editUserInformation
+);
+
+
 userRouter.get('/myinfo', isAuthenticated, hasRole("patient"),
     function(req, res, next){ 
        res.userInfo = req.user.toJSON()

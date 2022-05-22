@@ -49,6 +49,23 @@ const getSinglePatient = async (req, res, next) => {
     }
 }
 
+const editSinglePatientPage = async (req, res, next) => {
+    // search the database by ID
+    try {
+        const patient = await joins.getPatient(req.params.patient_id)
+        if (!patient) {
+            /* Record not associated with a patient. Should be impossible, but
+            just in case */
+            return res.sendStatus(404)
+        }
+        // found the record
+
+        return res.render('clinicianEditPatient', {oneItem: patient, layout: 'main2'})
+    } catch (err) {
+        return next(err)
+    }
+}
+
 
 
 // handle request to get one data instance
@@ -269,6 +286,7 @@ module.exports = {
     newNote,
     createNote,
     addNewUser,
-    getAddNewUserPage
+    getAddNewUserPage,
+    editSinglePatientPage
 }
 
