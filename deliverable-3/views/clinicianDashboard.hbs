@@ -71,7 +71,7 @@
 					<th>Weight</th>
 					<th>Insulin</th>
 					<th>Exercise</th>
-					<th>Warning(s)</th>
+					<th>Threshold Warning(s)</th>
 					<th>View</th>
 				</tr>
 			</thead>
@@ -85,8 +85,9 @@
 					<td data-label="weight" {{#formatRecord this.weight}} {{/formatRecord}}><p>{{this.weight}}</p></td>
 					<td data-label="insulin" {{#formatRecord this.insulin}} {{/formatRecord}}><p>{{this.insulin}}</p></td>
 					<td data-label="exercise" {{#formatRecord this.exercise}} {{/formatRecord}}><p>{{this.exercise}}</p></td>
-					<td data-label="warning(s)"><p>{{#if_threshold_text this.record_type this.value}} {{/if_threshold_text}}</p></td>
-					<td data-label="view"><a href="/clinician/patients?user={{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
+					{{!-- <td data-label="warning(s)"><p>{{#if_threshold_text this.record_type this.value}} {{/if_threshold_text}}</p></td> --}}
+					<td data-label="warning(s)"><p>{{this.error}}</p></td>
+					<td data-label="view"><a href="/clinician/patients?user={{this.id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
 					</tr>
 					{{/each}}
 			</tbody>

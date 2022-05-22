@@ -79,22 +79,21 @@ const getTodaysRecords = async (clinician) => {
         const patients = await getAllPatientObjects(clinician)
 
         const records = []
-        const record_types = ['glucose', 'insulin', 'exercise', 'weight']
         for (const patient of patients) {
             if (patient == null) {
                 continue
             }
             
-            const patientrecords = {'username': patient.email}
+            const patientrecords = {'username': patient.email, 'id': patient._id, 'error': ''}
 
             const thresholds = []
             for (const threshold of patient.thresholds) {
                 thresholds.push(threshold.name)
             }
 
-            for (const type of record_types) {
+            for (const type of ['glucose', 'insulin', 'exercise', 'weight']) {
                 if (!thresholds.includes(type)) {
-                    patientrecords[type] = 'Not required'
+                    patientrecords[type] = 'N/A'
                 } else {
                     patientrecords[type] = 'Not recorded'
                 }
@@ -102,15 +101,47 @@ const getTodaysRecords = async (clinician) => {
 
             for (const record of patient.records) {
                 if (record.created_at >= start && record.created_at <= end) {
-                    patientrecords[record.record_type] = record.value
+                    patientrecords[record.record_type] = Number(record.value)
+                    if (thresholdCheck(patient, record.record_type, record)) {
+                        const uppercase = record.record_type.replace(/^\w/, (c) => c.toUpperCase())
+                        patientrecords['error'] += uppercase + ' is outside of the threshold. '
+                    }
                 }
             }
+
+            // for (const type of ['glucose', 'insulin', 'exercise', 'weight']) {
+            //     if (patientrecords[type] == 'Not recorded') {
+            //         const uppercase = type.replace(/^\w/, (c) => c.toUpperCase())
+            //         patientrecords['error'] += uppercase + ' is not recorded.'
+            //     }
+            // }
+
             records.push(patientrecords)
         }
+
         return records
     } catch (err) {
         console.log(err)
     }
+}
+
+const thresholdCheck = async (patient, record_type, record) => {
+    const thresholds = getThresholds(patient, record_type)
+    if (record.value < thresholds[0] || record.value > thresholds[1]) {
+        return true
+    }
+    return false
+}
+
+const getThresholds = async (patient, record_type) => {
+    const thresholds = []
+    for (const threshold of patient.thresholds) {
+        if (threshold.name == record_type) {
+            thresholds.push(threshold.lower)
+            thresholds.push(threshold.upper)
+        }
+    }
+    return thresholds
 }
 
 /* Joins for messages */
@@ -234,6 +265,8 @@ module.exports = {
     getAllRecords,
     getARecord,
     getTodaysRecords,
+    thresholdCheck,
+    getThresholds,
     getAllMessages,
     listAllMessages,
     getAMessage,
