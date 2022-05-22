@@ -94,7 +94,7 @@
         <ul class="todo-list">
 			{{#each patient.thresholds}}
             <li class="blueone">
-				<p>{{formatThresholds this.name}}</p>
+				<p>{{formatThresholds this.name}}: {{this.lower}} - {{this.upper}}</p>
 			</li>
         	{{/each}}
         </ul>

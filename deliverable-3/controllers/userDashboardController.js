@@ -9,7 +9,6 @@ const getAllRecords = async (req, res, next) => {
         const patient = await joins.getPatient(res.userInfo.username)
         const clinician = await joins.getClinician(patient.clinician)
         const latest_message = "No message available"
-        console.log(patient.messages.length)
         if (patient.messages.length > 0) {
             const latest_message = patient.messages[patient.messages.length - 1].content
         }
@@ -24,10 +23,12 @@ const getAllRecords = async (req, res, next) => {
 const getHistory = async (req, res, next) => {
     try {
         if (Object.keys(req.query).length === 0) {
+            // Viewing all historical records
             const patient = await joins.getPatient(res.userInfo.username)
             const clinician = await joins.getClinician(patient.clinician)
-            return res.render('history', {data: patient, clinician: clinician, currentUser: res.userInfo})
+            return res.render('history', {records: patient.records.reverse(), clinician: clinician, currentUser: res.userInfo})
         } else if (Object.keys(req.query).length === 1) {
+            // Viewing a single record
             const patient = await joins.getPatient(res.userInfo.username)
             const clinician = await joins.getClinician(patient.clinician)
             const record = await joins.getARecord(patient, req.query.record)
@@ -121,6 +122,10 @@ const editUserInformation = async (req, res, next) => {
 // handle request to get one data instance
 const addNewUserRecord = async (req, res, next) => {
     try {
+        const patient = joins.getPatient(res.userInfo.username)
+        const clinician = joins.getClinician(patient.clinician)
+        console.log(req.body)
+
         if (req.body.record_type === undefined) {
             res.render('userAddRecordFail', {error: 'No record type selected.', clinician: clinician})
         } else if (req.body.value === '') {
@@ -142,8 +147,6 @@ const addNewUserRecord = async (req, res, next) => {
                 }
             );
             
-            const patient = joins.getPatient(res.userInfo.username)
-            const clinician = joins.getClinician(patient.clinician)
             res.render('userAddRecordSuccess', {oneItem: patient, clinician: clinician})
         }
     } catch (err) {
@@ -177,6 +180,7 @@ const getLeaderboard = async (req, res, next) => {
     try {
         const patient = await joins.getPatient(res.userInfo.username)
         const clinician = await joins.getClinician(patient.clinician)
+        await joins.updateEngagement(patient)
         const rankings = await joins.getTopFive()
         const position = await joins.inLeaderboard(patient, rankings)
         res.render('userLeaderboard', {clinician: clinician, leaderboard: rankings, position: position, engagement: patient.engagement_rate})

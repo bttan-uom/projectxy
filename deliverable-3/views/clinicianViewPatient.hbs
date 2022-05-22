@@ -158,6 +158,7 @@
                     <th>Date Added</th>
                     <th>Record Type</th>
                     <th>Value</th>
+                    <th>Comment</th>
                     <th>Warning</th>
                     <th>View</th>
                 </tr>
@@ -165,11 +166,12 @@
             <tbody>
                 {{!-- loops over the data set --}}
                 {{#each records}}
-                <tr {{#if_eq_clinician_dashboard this.record_type this.value}} {{/if_eq_clinician_dashboard}}>
+                <tr {{#highlightErrorRow this.error}} {{/highlightErrorRow}}>
                     <td data-label="Date Added"><p>{{formatDate created_at}}</p></td>
                     <td data-label="Record Type"><p>{{record_type}}</p></td>
                     <td data-label="Value"><p>{{this.value}}</p></td>
-                    <td data-label="Warning"><p>{{#if_threshold_text this.record_type this.value}} {{/if_threshold_text}}</p></td>
+                    <td data-label="Comment"><p>{{previewString this.comment}}</p></td>
+                    <td data-label="Warning"><p>{{this.error}}</p></td>
                     <td data-label="View"><a href="/clinician/patients?user={{this.user_id}}&record={{this.record_id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
                 </tr>
                 {{else}}

@@ -80,13 +80,77 @@ const getARecord = async (patient, record_id) => {
     }
 }
 
-const getTodaysRecords = async (patients) => {
+const getTodaysRecords = async (clinician) => {
     try {
-        const today = moment().toISOString()
-        console.log(today)
+        const start = new Date()
+        start.setUTCHours(0, 0, 0, 0)
+        const end = new Date()
+        end.setUTCHours(23, 59, 59, 999)
+
+        const patients = await getAllPatientObjects(clinician)
+
+        const records = []
+        for (const patient of patients) {
+            if (patient == null) {
+                continue
+            }
+            
+            const patientrecords = {'username': patient.email, 'id': patient._id, 'error': ''}
+
+            const thresholds = []
+            for (const threshold of patient.thresholds) {
+                thresholds.push(threshold.name)
+            }
+
+            for (const type of ['glucose', 'insulin', 'exercise', 'weight']) {
+                if (!thresholds.includes(type)) {
+                    patientrecords[type] = 'N/A'
+                } else {
+                    patientrecords[type] = 'Not recorded'
+                }
+            }
+
+            for (const record of patient.records) {
+                if (record.created_at >= start && record.created_at <= end) {
+                    patientrecords[record.record_type] = Number(record.value)
+                    patientrecords['error'] += await getWarning(patient, record.record_type, record)
+                }
+            }
+
+            records.push(patientrecords)
+        }
+
+        return records
     } catch (err) {
         console.log(err)
     }
+}
+
+const getWarning = async (patient, record_type, record) => {
+    if (thresholdCheck(patient, record_type, record)) {
+        const uppercase = record.record_type.replace(/^\w/, (c) => c.toUpperCase())
+        return uppercase + ' is outside of the threshold. '
+    }
+    return ''
+}
+
+const thresholdCheck = async (patient, record_type, record) => {
+    const thresholds = getThresholds(patient, record_type)
+    if (record.value < thresholds[0] || record.value > thresholds[1]) {
+        return true
+    }
+    return false
+}
+
+const getThresholds = async (patient, record_type) => {
+    const thresholds = []
+    for (const threshold of patient.thresholds) {
+        if (threshold.name == record_type) {
+            thresholds.push(threshold.lower)
+            thresholds.push(threshold.upper)
+        }
+    }
+    return thresholds
 }
 
 /* Joins for messages */
@@ -209,7 +273,7 @@ const getTopFive = async () => {
     }
 }
 
-const inLeaderboard = async(patient, rankings) => {
+const inLeaderboard = async (patient, rankings) => {
     // Returns either 1-5 if the patient is in the leaderboard
     // 0 otherwise
     for (let i in rankings) {
@@ -218,6 +282,32 @@ const inLeaderboard = async(patient, rankings) => {
         }
     }
     return 0
+}
+
+const getEngagementRate = async (patient) => {
+    const now = new Date()
+    const then = patient.signupdate
+    const total_days = Math.round((now - then) / (1000 * 60 * 60 * 24))
+    const days = new Set()
+    for (const record of patient.records) {
+        const date = new Date(record.created_at)
+        const date_string = '' + date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
+        days.add(date_string)
+    }
+    return days.size / total_days
+}
+
+const updateEngagement = async (patient) => {
+    const new_engagement = await getEngagementRate(patient)
+    Patients.Patient.updateOne(
+        {'email': patient.email},
+        {$set: {engagement_rate: new_engagement}},
+        (err) => {
+            if (err) {
+                console.log(err)
+            }
+        }
+    )
 }
 
 module.exports = {
@@ -229,6 +319,9 @@ module.exports = {
     getAllRecords,
     getARecord,
     getTodaysRecords,
+    getWarning,
+    thresholdCheck,
+    getThresholds,
     getAllMessages,
     listAllMessages,
     getAMessage,
@@ -236,5 +329,7 @@ module.exports = {
     getANote,
     getAllComments,
     getTopFive,
-    inLeaderboard
+    inLeaderboard,
+    getEngagementRate,
+    updateEngagement
 }

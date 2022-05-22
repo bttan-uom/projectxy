@@ -11,10 +11,10 @@ const Clinician = require('../models/clinicians')
 const renderClinicianDashboard = async (req, res, next) => {
     try { 
         const clinician = await joins.getClinician(res.userInfo.username)
-        const patients = await joins.getAllPatientObjects(clinician)
+        const records = await joins.getTodaysRecords(clinician)
         const messages = await joins.listAllMessages(clinician)
         const notes = await joins.getAllNotes(clinician)
-        return res.render('clinicianDashboard', {clinician: clinician, patients: patients, layout: 'main2', nmessages: messages.length, nnotes: notes.length, npatients: patients.length})
+        return res.render('clinicianDashboard', {clinician: clinician, messages: messages.length, notes: notes.length, records: records, layout: 'main2'})
     } catch (err) {
         return next(err)
     }
@@ -34,6 +34,9 @@ const getPatientRecords = async (req, res, next) => {
             /* Viewing a single patient */
             const patient = await joins.getPatientById(req.query.user)
             const records = await joins.getAllRecords(patient)
+            for (const record of records) {
+                record['error'] = await joins.getWarning(patient, record.record_type, record)
+            }
             return res.render('clinicianViewPatient', {patient: patient, records: records, layout: 'main2'})
         } else if (Object.keys(req.query).length === 2) {
             /* Viewing an individual patient record */
