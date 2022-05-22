@@ -37,13 +37,6 @@
 				<p>Records to complete</p>
 			</span>
 		</li>
-		<li>
-			<i class='bx material-icons'>leaderboard</i>
-			<span class="text">
-				<h3>NUM</h3>
-				<p>On the leaderboard</p>
-			</span>
-		</li>
 	</ul>
 	
 	
@@ -56,20 +49,19 @@
 				<h3>Enter record details</h3>
 			</div>
 			
-			<form class="form-group" id="addRecordForm" action="/user/userAddRecord" method="POST">
+			<form class="form-group" id="addRecordForm" action="/user/addRecord" method="POST">
 				<label>Record Type</label>
 				<select class="input-button-select" name="record_type">
 					<option selected="true" disabled="disabled">Select from the list</option>
-					<option value="Blood Glucose">Blood Glucose (nmol/L)</option>
-					<option value="Insulin Dose(s)">Insulin Dose(s) (doses)</option>
-					<option value="Weight">Weight (kg)</option>
-					<option value="Exercise">Exercise (steps)</option>
+					{{#each oneItem.thresholds}}
+					<option value="{{name}}">{{formatThresholds name}}</option>
+					{{/each}}
 				</select>
 				<br><br>
 				<label>Value</label>
 				<input class="input-button-select" type="text" placeholder="Number" name="value" />
 				<br><br>
-				<textarea class="input-button-select" id="addRecordForm" placeholder="Add comment here" name="comment" rows="5" cols="33"></textarea>
+				<textarea style="max-width:100%" class="input-button-select" id="addRecordForm" placeholder="Add comment here" name="comments"></textarea>
 				<br><br>
 				<input style="font-size: 110%;" class="generic-button" type="submit" />
 			</form>

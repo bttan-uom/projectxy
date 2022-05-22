@@ -1,4 +1,5 @@
 const joins = require('./joins')
+const Patients = require("../models/patients")
 
 // handle request to get all data instances
 const getAllRecords = async (req, res, next) => {
@@ -74,8 +75,22 @@ const addNewUserRecord = async (req, res, next) => {
         } else if (req.body.value === '') {
             res.render('userAddRecordFail', {error: 'Cannot input empty value.', clinician: clinician})
         } else {
-            newPatientRecord = new Records(req.body)
-            await newPatientRecord.save()
+            // newPatientRecord = new Records(req.body)
+            // await newPatientRecord.save()
+
+            Patients.Patient.findOneAndUpdate(
+                {"email": res.userInfo.username},
+                {$push: {
+                        records: {
+                            $each: [{record_type: req.body.record_type, value: req.body.value, comments: req.body.comments, created_at: new Date(), updatedAt: new Date()}]
+                        }
+                }},
+                (err) => {
+                    if (err) {
+                        console.log(err)
+                    }
+                }
+            );
             
             const patient = joins.getPatient(res.userInfo.username)
             const clinician = joins.getClinician(patient.clinician)
