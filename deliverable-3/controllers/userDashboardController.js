@@ -113,7 +113,7 @@ const getLeaderboard = async (req, res, next) => {
         const patient = await joins.getPatient(res.userInfo.username)
         const clinician = await joins.getClinician(patient.clinician)
         const rankings = await joins.getTopFive()
-        const position = await joins.inLeaderboard(patient.email, rankings)
+        const position = await joins.inLeaderboard(patient, rankings)
         res.render('userLeaderboard', {clinician: clinician, leaderboard: rankings, position: position, engagement: patient.engagement_rate})
     } catch(err) {
         return next(err)
