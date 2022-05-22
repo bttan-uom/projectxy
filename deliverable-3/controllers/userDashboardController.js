@@ -196,7 +196,6 @@ const renderEditUserRecord = async (req, res, next) => {
             const clinician = await joins.getClinician(patient.clinician)
             const record = await joins.getARecord(patient, req.query.record)
             res.render('editOneData', {patient: patient, clinician: clinician, record: record})
-
         }
         else{
             res.render('404')
@@ -212,9 +211,8 @@ const editUserRecord = async (req, res, next) => {
         Patients.Patient.findOneAndUpdate(
             {email: req.body.email}, 
             {$set: {
-                    records: 
-                            [{_id: req.body._id, record_type: req.body.record_type, value: req.body.value, created_at: req.body.created_at, updated_at: new Date(), comments: req.body.comments}]
-                }
+                records: [{_id: req.body._id, record_type: req.body.record_type, value: req.body.value, created_at: req.body.created_at, updated_at: new Date(), comments: req.body.comments}]
+            }
             },
             (err) => {
                 if (err) {

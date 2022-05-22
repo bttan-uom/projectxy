@@ -1,7 +1,7 @@
 <form id="addRecordForm" action="/user/history/edit" method="POST">
 <div class="head-title">
+    {{#with record}}
     <div class="left">
-        {{#with record}}
         <ul class="breadcrumb">
             <li>
                 <a class="active generic-button" href="/user/history">History</a>
@@ -17,9 +17,9 @@
         </ul>
         <br>
         <h1>Edit Record: {{formatThresholds record_type}}<br>{{formatDate created_at}}</h1>
-        {{/with}}
     </div>
-    <a href="/user/history/" class="btn-download">
+    <a href="/user/history?record={{this._id}}" class="btn-download">
+    {{/with}}
 	<i class='bx material-icons'>done</i>
 </a>
 </div>
