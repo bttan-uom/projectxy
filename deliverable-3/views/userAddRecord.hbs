@@ -35,9 +35,7 @@
 		<li>
 			<i class='bx material-icons'>playlist_add</i>
 			<span class="text">
-				{{#with tocomplete}}
-				<h3>{{this}}</h3>
-				{{/with}}
+				{{#get_num_records_left tocomplete}} {{/get_num_records_left}}
 				<p>Records to complete</p>
 			</span>
 		</li>

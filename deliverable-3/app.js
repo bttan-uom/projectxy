@@ -336,6 +336,19 @@ hbs.handlebars.registerHelper('highlightErrorRow', function(error) {
     }
 });
 
+hbs.handlebars.registerHelper('if_no_records_left', function(tocomplete) {
+    if (tocomplete.length == 0) {
+        return '<p>Well done on entering all your records for today!</p>'
+    }
+});
+
+hbs.handlebars.registerHelper('get_num_records_left', function(tocomplete) {
+    if (tocomplete.length == 0) {
+        return '<h3>0</h3>'
+    }
+    return '<h3>' + tocomplete.length + '</h3>'
+});
+
 app.get('/', (req, res) => {
     res.render('welcome.hbs', {layout: "loggedout"})
 })

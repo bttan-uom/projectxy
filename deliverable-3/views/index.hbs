@@ -32,9 +32,7 @@
 	<li>
 		<i class='bx material-icons'>playlist_add</i>
 		<span class="text">
-			{{#with tocomplete}}
-			<h3>{{this.length}}</h3>
-			{{/with}}
+			{{#get_num_records_left tocomplete}} {{/get_num_records_left}}
 			<p>Outstanding records</p>
 		</span>
 	</li>
@@ -70,6 +68,7 @@
 			<a style="color:var(--blue);" href="/user/addrecord"><h3>You are required to complete <i style="vertical-align: -3px; color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></h3></a>
 		</div>
 		<ul class="todo-list">
+		{{#if_no_records_left tocomplete}} {{/if_no_records_left}}
 		{{#each tocomplete}}
 		<li class="not-completed">
 			<p>{{formatThresholds this.name}}</p>
