@@ -6,13 +6,12 @@ const getAllRecords = async (req, res, next) => {
     try {
         const patient = await joins.getPatient(res.userInfo.username)
         const clinician = await joins.getClinician(patient.clinician)
-        const latest_message = "No message available"
+        let latest_message = "No message available"
         if (patient.messages.length > 0) {
-            const latest_message = patient.messages[patient.messages.length - 1].content
+            latest_message = patient.messages[patient.messages.length - 1].content
         }
-        
-        //const latest_message = patient.messages[patient.messages.length - 1].content
-        return res.render('index', {patient: patient, clinician: clinician, currentUser: res.userInfo, latest_message: latest_message})
+        const tocomplete = await joins.getMessagesNotCompleted(patient)
+        return res.render('index', {patient: patient, clinician: clinician, currentUser: res.userInfo, latest_message: latest_message, tocomplete: tocomplete})
     } catch (err) {
         return next(err)
     }
@@ -42,7 +41,8 @@ const getAddUserRecordsPage = async (req, res, next) => {
     try {
         const patient = await joins.getPatient(res.userInfo.username)
         const clinician = await joins.getClinician(patient.clinician)
-        res.render('userAddRecord', {oneItem: patient, clinician: clinician})
+        const tocomplete = await joins.getMessagesNotCompleted(patient)
+        res.render('userAddRecord', {oneItem: patient, clinician: clinician, tocomplete: tocomplete})
     } catch(err) {
         return next(err)
     }

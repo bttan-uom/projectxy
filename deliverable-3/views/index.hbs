@@ -9,17 +9,7 @@
 		<br>
 		<h1>Dashboard</h1>
 		<h2>Welcome, {{currentUser.username}}.</h2>
-		<p>User ID is {{currentUser._id}}. User role is {{currentUser.role}}.</p>
-		
-		
-	</div>
-
-<!--Used in D3-->
-<!--<a href="#" class="btn-download">-->
-<!--	<i class='bx material-icons'>edit_calendar</i>-->
-<!--	<span style='font-size:13px' class="text">Viewing data for <span id="CurrentDateTop"></span><br>Click to change</span>-->
-<!--</a>-->
-	
+	</div>	
 </div>
 
 <ul class="box-info">
@@ -42,7 +32,9 @@
 	<li>
 		<i class='bx material-icons'>playlist_add</i>
 		<span class="text">
-			<h3>NUM</h3>
+			{{#with tocomplete}}
+			<h3>{{this.length}}</h3>
+			{{/with}}
 			<p>Outstanding records</p>
 		</span>
 	</li>
@@ -56,7 +48,7 @@
 		</span>
 	</li>
 </ul>
-{{!-- {{data.records.[0].record_type}} --}}
+
 <ul class="box-info">
 	<li>
 		<i class='bx material-icons'>recommend</i>
@@ -71,9 +63,6 @@
 	</li>
 </ul>
 
-
-
-		
 <div class="table-data">
 	<div class="todo">
 		<div class="head">
@@ -81,14 +70,12 @@
 			<a style="color:var(--blue);" href="/user/addrecord"><h3>You are required to complete <i style="vertical-align: -3px; color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></h3></a>
 		</div>
 		<ul class="todo-list">
-		{{#with patient}}
-			{{#each thresholds}}
-            <li class="not-completed">
-				<p>{{formatThresholds name}}</p>
-				<a href="/user/addrecord"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a>
-			</li>
-        	{{/each}}
-		{{/with}}
+		{{#each tocomplete}}
+		<li class="not-completed">
+			<p>{{formatThresholds this.name}}</p>
+			<a href="/user/addrecord"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a>
+		</li>
+		{{/each}}
 		</ul>
 	</div>
 	
@@ -107,17 +94,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{{!-- loops over the data set
-				{{#with data}}
-			
-                {{#each records}}
-                <tr {{#if_eq_clinician_dashboard this.record_type this.value}} {{/if_eq_clinician_dashboard}}>
-                    <td data-label="Record Type"><p>{{record_type}}</p></td>
-                    <td data-label="Value"><p>{{this.value}}</p></td>
-                    <td data-label="View"><a href="/clinician/patient/{{this._id}}"><i style="color:var(--blue);" class='bx material-icons'>arrow_forward_ios</i></a></td>
-                </tr>
-                {{else}}
-                {{/each}} --}}
+				{{!-- loops over the data set --}}
 
 				{{#with patient}}
 					{{#each records}}
